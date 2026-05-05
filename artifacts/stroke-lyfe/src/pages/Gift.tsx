@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { CheckCircle2, Loader2 } from "lucide-react";
+
+const BASE = import.meta.env.BASE_URL;
 
 const tiers = [
   {
@@ -33,7 +34,6 @@ const tiers = [
 ];
 
 export default function Gift() {
-  const { toast } = useToast();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
   const [form, setForm] = useState({
     recipientName: "",
@@ -42,17 +42,42 @@ export default function Gift() {
     giverEmail: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    toast({
-      title: "Payment processing coming soon",
-      description: "We're setting up our payment system. Email donate@strokelyfe.org to gift a scholarship today.",
-    });
+    if (!selectedTier) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${BASE}api/gift-scholarships/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tier: selectedTier,
+          recipientName: form.recipientName,
+          recipientEmail: form.recipientEmail,
+          giverName: form.giverName,
+          giverEmail: form.giverEmail,
+          message: form.message || undefined,
+        }),
+      });
+      const data = await res.json() as { url?: string; error?: string };
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -186,6 +211,12 @@ export default function Gift() {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-sm text-destructive bg-destructive/10 px-3 py-2 rounded-md" data-testid="error-gift">
+                    {error}
+                  </p>
+                )}
+
                 <div className="pt-2">
                   {selectedTier && (
                     <p className="text-sm text-muted-foreground mb-3">
@@ -196,13 +227,17 @@ export default function Gift() {
                     type="submit"
                     size="lg"
                     className="w-full"
-                    disabled={!selectedTier}
+                    disabled={!selectedTier || loading}
                     data-testid="button-gift-checkout"
                   >
-                    Continue to payment →
+                    {loading ? (
+                      <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Redirecting to Stripe…</>
+                    ) : (
+                      "Continue to payment →"
+                    )}
                   </Button>
                   <p className="text-xs text-center text-muted-foreground mt-2">
-                    Tax-deductible. EIN 99-1313589. Receipt sent to your email.
+                    Secure checkout via Stripe. Tax-deductible. EIN 99-1313589. Receipt sent to your email.
                   </p>
                 </div>
               </form>

@@ -4,6 +4,9 @@ import storiesRouter from "./stories";
 import contactRouter from "./contact";
 import statsRouter from "./stats";
 import adminRouter from "./admin";
+import donationsRouter from "./donations";
+import giftScholarshipsRouter from "./giftScholarships";
+import stripeWebhookRouter from "./stripeWebhook";
 
 const router: IRouter = Router();
 
@@ -12,5 +15,8 @@ router.use(storiesRouter);
 router.use(contactRouter);
 router.use(statsRouter);
 router.use(adminRouter);
+router.use(donationsRouter);
+router.use(giftScholarshipsRouter);
+router.use(stripeWebhookRouter);
 
 export default router;

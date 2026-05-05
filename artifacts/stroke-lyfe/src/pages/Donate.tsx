@@ -5,7 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+
+const BASE = import.meta.env.BASE_URL;
 
 const presets = [25, 50, 100, 250, 500, 1000];
 
@@ -30,17 +32,51 @@ function getImpact(amt: number) {
 }
 
 export default function Donate() {
-  const { toast } = useToast();
   const [amount, setAmount] = useState<number>(100);
   const [custom, setCustom] = useState("");
   const [isRecurring, setIsRecurring] = useState(false);
   const [coverFee, setCoverFee] = useState(false);
   const [tributeName, setTributeName] = useState("");
   const [inHonorOf, setInHonorOf] = useState("");
+  const [donorName, setDonorName] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const effectiveAmount = custom ? parseFloat(custom) || 0 : amount;
-  const processingFee = coverFee ? Math.ceil(effectiveAmount * 0.029 + 0.30) : 0;
+  const processingFee = coverFee ? +(effectiveAmount * 0.029 + 0.30).toFixed(2) : 0;
   const totalAmount = effectiveAmount + processingFee;
+
+  async function handleCheckout() {
+    if (effectiveAmount < 1) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${BASE}api/donations/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: effectiveAmount,
+          isRecurring,
+          coverFee,
+          tributeOf: tributeName || undefined,
+          inHonorOf: inHonorOf || undefined,
+          donorName: donorName || undefined,
+          donorEmail: donorEmail || undefined,
+        }),
+      });
+      const data = await res.json() as { url?: string; error?: string };
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -133,8 +169,35 @@ export default function Donate() {
                     </Label>
                   </div>
 
+                  {/* Donor info */}
+                  <div className="mt-6 pt-6 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="donor-name" className="text-sm">Your name (optional)</Label>
+                      <Input
+                        id="donor-name"
+                        value={donorName}
+                        onChange={(e) => setDonorName(e.target.value)}
+                        placeholder="Jane Smith"
+                        className="mt-1"
+                        data-testid="input-donor-name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="donor-email" className="text-sm">Email for receipt (optional)</Label>
+                      <Input
+                        id="donor-email"
+                        type="email"
+                        value={donorEmail}
+                        onChange={(e) => setDonorEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="mt-1"
+                        data-testid="input-donor-email"
+                      />
+                    </div>
+                  </div>
+
                   {/* Tribute fields */}
-                  <div className="mt-6 pt-6 border-t border-border">
+                  <div className="mt-4 pt-4 border-t border-border">
                     <p className="text-sm font-medium text-foreground mb-3">Tribute gift (optional)</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
@@ -149,9 +212,9 @@ export default function Donate() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="tribute-name" className="text-xs text-muted-foreground">Notify by email (optional)</Label>
+                        <Label htmlFor="tribute-email" className="text-xs text-muted-foreground">Notify by email (optional)</Label>
                         <Input
-                          id="tribute-name"
+                          id="tribute-email"
                           type="email"
                           value={tributeName}
                           onChange={(e) => setTributeName(e.target.value)}
@@ -163,6 +226,13 @@ export default function Donate() {
                     </div>
                   </div>
 
+                  {/* Error */}
+                  {error && (
+                    <p className="mt-4 text-sm text-destructive bg-destructive/10 px-3 py-2 rounded-md" data-testid="error-donate">
+                      {error}
+                    </p>
+                  )}
+
                   {/* Submit */}
                   <div className="mt-6">
                     {effectiveAmount > 0 && (
@@ -173,18 +243,18 @@ export default function Donate() {
                     <Button
                       size="lg"
                       className="w-full"
-                      onClick={() =>
-                        toast({
-                          title: "Payment processing coming soon",
-                          description: "We're setting up our payment system. Check back shortly — or email donate@strokelyfe.org.",
-                        })
-                      }
+                      disabled={loading || effectiveAmount < 1}
+                      onClick={handleCheckout}
                       data-testid="button-continue-payment"
                     >
-                      Continue to payment →
+                      {loading ? (
+                        <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Redirecting to Stripe…</>
+                      ) : (
+                        "Continue to payment →"
+                      )}
                     </Button>
                     <p className="text-xs text-center text-muted-foreground mt-2">
-                      Secure. Tax-deductible. EIN 99-1313589.
+                      Secure checkout via Stripe. Tax-deductible. EIN 99-1313589.
                     </p>
                   </div>
                 </CardContent>
