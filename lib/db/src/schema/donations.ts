@@ -26,3 +26,12 @@ export const insertDonationSchema = createInsertSchema(donations).omit({ id: tru
 export type InsertDonation = z.infer<typeof insertDonationSchema>;
 export type Donation = typeof donations.$inferSelect;
 
+export const stripeWebhookEvents = pgTable("stripe_webhook_events", {
+  id: text("id").primaryKey(),
+  type: text("type").notNull(),
+  receivedAt: timestamp("received_at").notNull().defaultNow(),
+});
+
+export const insertStripeWebhookEventSchema = createInsertSchema(stripeWebhookEvents);
+export type InsertStripeWebhookEvent = z.infer<typeof insertStripeWebhookEventSchema>;
+export type StripeWebhookEvent = typeof stripeWebhookEvents.$inferSelect;
