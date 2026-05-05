@@ -2,10 +2,11 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookOpen, CheckCircle2, Users } from "lucide-react";
-import nickNow from "@assets/IMG_1750_1777981406518.jpeg";
-import beforeAfter from "@assets/2018_1777981175442.png";
-import nick2018 from "@assets/2c4df2a8-eaa5-4937-8c7d-892af18196c2_1777981256069.jpeg";
-import testimonyVideo from "@assets/v12044gd0000cfujmsbc77u1e71oqg7g_1777981256069.mp4";
+const BASE = import.meta.env.BASE_URL;
+const nickNow = `${BASE}assets/nick-now.jpeg`;
+const beforeAfter = `${BASE}assets/nick-before-after.png`;
+const nick2018 = `${BASE}assets/nick-2018.jpeg`;
+const testimonyVideo = `${BASE}assets/nick-testimony.mp4`;
 
 export default function About() {
   return (

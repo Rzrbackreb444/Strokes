@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import logo from "@assets/Untitled_design_1777980864783.png";
+const logo = `${import.meta.env.BASE_URL}assets/logo.png`;
 
 const navLinks = [
   { href: "/about", label: "About" },

@@ -109,15 +109,13 @@ export default function Stories() {
             <p className="text-muted-foreground mb-4 max-w-md mx-auto text-sm">
               Your recovery story might be the thing that gets someone else through tomorrow. We'd love to share it.
             </p>
-            <a
-              href="https://forms.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/submit-story"
               className="inline-flex items-center justify-center rounded-md bg-primary text-white text-sm font-medium px-6 py-2.5 hover:bg-primary/90 transition-colors"
               data-testid="button-submit-story"
             >
               Submit your story →
-            </a>
+            </Link>
           </div>
         </div>
       </section>

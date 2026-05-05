@@ -54,7 +54,10 @@ router.patch("/admin/stories/:id", async (req: Request, res: Response): Promise<
     const body = AdminUpdateStoryBody.parse(req.body);
 
     const updates: Partial<typeof stories.$inferInsert> = {};
-    if (body.isApproved != null) updates.isApproved = body.isApproved;
+    if (body.isApproved != null) {
+      updates.isApproved = body.isApproved;
+      updates.status = body.isApproved ? "approved" : "rejected";
+    }
     if (body.isFeatured != null) updates.isFeatured = body.isFeatured;
 
     const [updated] = await db
@@ -86,7 +89,7 @@ router.get("/admin/stats", async (req: Request, res: Response): Promise<void> =>
   for (const row of rows) cfg[row.key] = row.value;
 
   const storiesCount = await db.select({ count: count() }).from(stories);
-  const approvedCount = await db.select({ count: count() }).from(stories).where(eq(stories.isApproved, true));
+  const approvedCount = await db.select({ count: count() }).from(stories).where(eq(stories.status, "approved"));
 
   res.json({
     survivorsServed: parseInt(cfg["survivorsServed"] ?? "1247", 10),

@@ -5,9 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetPublicStats, useGetFeaturedStories } from "@workspace/api-client-react";
-import heroImg from "@assets/A_determined_middle-aged_man_recovering_from_a_stroke_in_a_br_1777980864783.jpeg";
-import aboutImg from "@assets/A_dedicated_female_physical_therapist_gently_working_on_the_a_1777980864783.jpeg";
-import nickNow from "@assets/IMG_1750_1777981406518.jpeg";
+const BASE = import.meta.env.BASE_URL;
+const heroImg = `${BASE}assets/hero.jpeg`;
+const aboutImg = `${BASE}assets/about.jpeg`;
+const nickNow = `${BASE}assets/nick-now.jpeg`;
 
 export default function Home() {
   const { data: stats } = useGetPublicStats();

@@ -2,6 +2,9 @@ import { pgTable, serial, text, boolean, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
+export const STORY_STATUS = ["pending", "approved", "rejected"] as const;
+export type StoryStatus = (typeof STORY_STATUS)[number];
+
 export const stories = pgTable("stories", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull().unique(),
@@ -13,6 +16,7 @@ export const stories = pgTable("stories", {
   body: text("body").notNull(),
   videoUrl: text("video_url"),
   posterUrl: text("poster_url"),
+  status: text("status").notNull().default("pending"),
   isFeatured: boolean("is_featured").notNull().default(false),
   isApproved: boolean("is_approved").notNull().default(false),
   submitterEmail: text("submitter_email"),

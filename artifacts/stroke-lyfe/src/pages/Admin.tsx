@@ -150,11 +150,18 @@ export default function Admin() {
                     </div>
                     <div className="flex items-center gap-3 shrink-0 flex-wrap">
                       {story.focusArea && <Badge variant="outline" className="text-xs">{story.focusArea}</Badge>}
+                      <Badge
+                        variant={story.status === "approved" ? "default" : story.status === "rejected" ? "destructive" : "secondary"}
+                        className="text-xs capitalize"
+                        data-testid={`badge-status-${story.id}`}
+                      >
+                        {story.status ?? "pending"}
+                      </Badge>
                       <div className="flex items-center gap-1.5">
                         <Label htmlFor={`approved-${story.id}`} className="text-xs text-muted-foreground">Approved</Label>
                         <Switch
                           id={`approved-${story.id}`}
-                          checked={story.isApproved}
+                          checked={story.status === "approved"}
                           onCheckedChange={(v) =>
                             updateStory.mutate({ id: String(story.id), token, data: { isApproved: v } })
                           }

@@ -17,6 +17,8 @@ import Privacy from "@/pages/legal/Privacy";
 import Terms from "@/pages/legal/Terms";
 import DonorRights from "@/pages/legal/DonorRights";
 import Admin from "@/pages/Admin";
+import SubmitStory from "@/pages/SubmitStory";
+import FAQ from "@/pages/FAQ";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ function Router() {
       <Route path="/legal/terms" component={Terms} />
       <Route path="/legal/donor-rights" component={DonorRights} />
       <Route path="/admin" component={Admin} />
+      <Route path="/submit-story" component={SubmitStory} />
+      <Route path="/faq" component={FAQ} />
       <Route component={NotFound} />
     </Switch>
   );

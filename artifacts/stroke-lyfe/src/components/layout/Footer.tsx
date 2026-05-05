@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useEmailSignup } from "@workspace/api-client-react";
 import { SiFacebook, SiInstagram, SiYoutube, SiTiktok } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
-import logo from "@assets/Untitled_design_1777980864783.png";
+const logo = `${import.meta.env.BASE_URL}assets/logo.png`;
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -88,6 +88,8 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-background mb-3 uppercase tracking-wider">Resources</h4>
             <ul className="space-y-2">
               <li><Link href="/stories" className="text-sm text-background/60 hover:text-background transition-colors">Story Library</Link></li>
+              <li><Link href="/submit-story" className="text-sm text-background/60 hover:text-background transition-colors">Share Your Story</Link></li>
+              <li><Link href="/faq" className="text-sm text-background/60 hover:text-background transition-colors">FAQ</Link></li>
               <li><Link href="/programs" className="text-sm text-background/60 hover:text-background transition-colors">Family Support Guides</Link></li>
               <li>
                 <a
