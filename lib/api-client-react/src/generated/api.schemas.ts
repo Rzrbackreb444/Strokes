@@ -8,3 +8,89 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface Story {
+  id: number;
+  slug: string;
+  title: string;
+  handle: string;
+  recoveryStage?: string | null;
+  focusArea?: string | null;
+  pullQuote: string;
+  body: string;
+  videoUrl?: string | null;
+  posterUrl?: string | null;
+  isFeatured: boolean;
+  isApproved: boolean;
+  publishedAt?: string | null;
+  createdAt: string;
+}
+
+export interface StoriesListResponse {
+  stories: Story[];
+  total: number;
+}
+
+export interface SubmitStoryBody {
+  title: string;
+  handle: string;
+  focusArea?: string | null;
+  recoveryStage?: string | null;
+  pullQuote: string;
+  body: string;
+  videoUrl?: string | null;
+  submitterEmail: string;
+}
+
+export interface ContactBody {
+  name: string;
+  email: string;
+  topic: string;
+  message: string;
+}
+
+export interface EmailSignupBody {
+  email: string;
+  source?: string | null;
+}
+
+export interface AdminUpdateStoryBody {
+  isApproved?: boolean | null;
+  isFeatured?: boolean | null;
+}
+
+export interface SiteStats {
+  survivorsServed: number;
+  scholarshipsFunded: number;
+}
+
+export interface MessageResponse {
+  message: string;
+}
+
+export interface ErrorResponse {
+  error: string;
+}
+
+export type GetStoriesParams = {
+  focusArea?: string;
+  featured?: boolean;
+  limit?: number;
+  offset?: number;
+};
+
+export type AdminGetStoriesParams = {
+  token: string;
+};
+
+export type AdminUpdateStoryParams = {
+  token: string;
+};
+
+export type AdminGetStatsParams = {
+  token: string;
+};
+
+export type AdminUpdateStatsParams = {
+  token: string;
+};

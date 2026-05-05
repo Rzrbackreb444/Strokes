@@ -8,9 +8,217 @@
 import * as zod from "zod";
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
+});
+
+/**
+ * @summary List approved stories
+ */
+export const getStoriesQueryLimitDefault = 20;
+export const getStoriesQueryOffsetDefault = 0;
+
+export const GetStoriesQueryParams = zod.object({
+  focusArea: zod.coerce.string().optional(),
+  featured: zod.coerce.boolean().optional(),
+  limit: zod.coerce.number().default(getStoriesQueryLimitDefault),
+  offset: zod.coerce.number().default(getStoriesQueryOffsetDefault),
+});
+
+export const GetStoriesResponse = zod.object({
+  stories: zod.array(
+    zod.object({
+      id: zod.number(),
+      slug: zod.string(),
+      title: zod.string(),
+      handle: zod.string(),
+      recoveryStage: zod.string().nullish(),
+      focusArea: zod.string().nullish(),
+      pullQuote: zod.string(),
+      body: zod.string(),
+      videoUrl: zod.string().nullish(),
+      posterUrl: zod.string().nullish(),
+      isFeatured: zod.boolean(),
+      isApproved: zod.boolean(),
+      publishedAt: zod.string().nullish(),
+      createdAt: zod.string(),
+    }),
+  ),
+  total: zod.number(),
+});
+
+/**
+ * @summary Get featured stories for homepage carousel
+ */
+export const GetFeaturedStoriesResponseItem = zod.object({
+  id: zod.number(),
+  slug: zod.string(),
+  title: zod.string(),
+  handle: zod.string(),
+  recoveryStage: zod.string().nullish(),
+  focusArea: zod.string().nullish(),
+  pullQuote: zod.string(),
+  body: zod.string(),
+  videoUrl: zod.string().nullish(),
+  posterUrl: zod.string().nullish(),
+  isFeatured: zod.boolean(),
+  isApproved: zod.boolean(),
+  publishedAt: zod.string().nullish(),
+  createdAt: zod.string(),
+});
+export const GetFeaturedStoriesResponse = zod.array(
+  GetFeaturedStoriesResponseItem,
+);
+
+/**
+ * @summary Submit a survivor story for review
+ */
+export const SubmitStoryBody = zod.object({
+  title: zod.string(),
+  handle: zod.string(),
+  focusArea: zod.string().nullish(),
+  recoveryStage: zod.string().nullish(),
+  pullQuote: zod.string(),
+  body: zod.string(),
+  videoUrl: zod.string().nullish(),
+  submitterEmail: zod.string(),
+});
+
+/**
+ * @summary Get a single story by slug
+ */
+export const GetStoryParams = zod.object({
+  slug: zod.coerce.string(),
+});
+
+export const GetStoryResponse = zod.object({
+  id: zod.number(),
+  slug: zod.string(),
+  title: zod.string(),
+  handle: zod.string(),
+  recoveryStage: zod.string().nullish(),
+  focusArea: zod.string().nullish(),
+  pullQuote: zod.string(),
+  body: zod.string(),
+  videoUrl: zod.string().nullish(),
+  posterUrl: zod.string().nullish(),
+  isFeatured: zod.boolean(),
+  isApproved: zod.boolean(),
+  publishedAt: zod.string().nullish(),
+  createdAt: zod.string(),
+});
+
+/**
+ * @summary Submit a contact form message
+ */
+export const SubmitContactBody = zod.object({
+  name: zod.string(),
+  email: zod.string(),
+  topic: zod.string(),
+  message: zod.string(),
+});
+
+/**
+ * @summary Sign up for the mailing list
+ */
+export const EmailSignupBody = zod.object({
+  email: zod.string(),
+  source: zod.string().nullish(),
+});
+
+/**
+ * @summary Get public site impact stats
+ */
+export const GetPublicStatsResponse = zod.object({
+  survivorsServed: zod.number(),
+  scholarshipsFunded: zod.number(),
+});
+
+/**
+ * @summary Admin - list all stories
+ */
+export const AdminGetStoriesQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminGetStoriesResponseItem = zod.object({
+  id: zod.number(),
+  slug: zod.string(),
+  title: zod.string(),
+  handle: zod.string(),
+  recoveryStage: zod.string().nullish(),
+  focusArea: zod.string().nullish(),
+  pullQuote: zod.string(),
+  body: zod.string(),
+  videoUrl: zod.string().nullish(),
+  posterUrl: zod.string().nullish(),
+  isFeatured: zod.boolean(),
+  isApproved: zod.boolean(),
+  publishedAt: zod.string().nullish(),
+  createdAt: zod.string(),
+});
+export const AdminGetStoriesResponse = zod.array(AdminGetStoriesResponseItem);
+
+/**
+ * @summary Admin - approve/feature a story
+ */
+export const AdminUpdateStoryParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminUpdateStoryQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminUpdateStoryBody = zod.object({
+  isApproved: zod.boolean().nullish(),
+  isFeatured: zod.boolean().nullish(),
+});
+
+export const AdminUpdateStoryResponse = zod.object({
+  id: zod.number(),
+  slug: zod.string(),
+  title: zod.string(),
+  handle: zod.string(),
+  recoveryStage: zod.string().nullish(),
+  focusArea: zod.string().nullish(),
+  pullQuote: zod.string(),
+  body: zod.string(),
+  videoUrl: zod.string().nullish(),
+  posterUrl: zod.string().nullish(),
+  isFeatured: zod.boolean(),
+  isApproved: zod.boolean(),
+  publishedAt: zod.string().nullish(),
+  createdAt: zod.string(),
+});
+
+/**
+ * @summary Admin - get site impact stats
+ */
+export const AdminGetStatsQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminGetStatsResponse = zod.object({
+  survivorsServed: zod.number(),
+  scholarshipsFunded: zod.number(),
+});
+
+/**
+ * @summary Admin - update site impact stats
+ */
+export const AdminUpdateStatsQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminUpdateStatsBody = zod.object({
+  survivorsServed: zod.number(),
+  scholarshipsFunded: zod.number(),
+});
+
+export const AdminUpdateStatsResponse = zod.object({
+  survivorsServed: zod.number(),
+  scholarshipsFunded: zod.number(),
 });

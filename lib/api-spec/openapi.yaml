@@ -10,13 +10,18 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: stories
+    description: Survivor stories
+  - name: contact
+    description: Contact and email signup
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +29,258 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /stories:
+    get:
+      operationId: getStories
+      tags: [stories]
+      summary: List approved stories
+      parameters:
+        - name: focusArea
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: featured
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: List of approved stories
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StoriesListResponse"
+
+  /stories/featured:
+    get:
+      operationId: getFeaturedStories
+      tags: [stories]
+      summary: Get featured stories for homepage carousel
+      responses:
+        "200":
+          description: Featured stories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Story"
+
+  /stories/submit:
+    post:
+      operationId: submitStory
+      tags: [stories]
+      summary: Submit a survivor story for review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitStoryBody"
+      responses:
+        "201":
+          description: Story submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /stories/{slug}:
+    get:
+      operationId: getStory
+      tags: [stories]
+      summary: Get a single story by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Story found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Story"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit a contact form message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactBody"
+      responses:
+        "201":
+          description: Message received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /email-signup:
+    post:
+      operationId: emailSignup
+      tags: [contact]
+      summary: Sign up for the mailing list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailSignupBody"
+      responses:
+        "201":
+          description: Signed up successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "409":
+          description: Already subscribed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /stats:
+    get:
+      operationId: getPublicStats
+      tags: [stories]
+      summary: Get public site impact stats
+      responses:
+        "200":
+          description: Public stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteStats"
+
+  /admin/stories:
+    get:
+      operationId: adminGetStories
+      tags: [admin]
+      summary: Admin - list all stories
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: All stories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Story"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/stories/{id}:
+    patch:
+      operationId: adminUpdateStory
+      tags: [admin]
+      summary: Admin - approve/feature a story
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUpdateStoryBody"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Story"
+
+  /admin/stats:
+    get:
+      operationId: adminGetStats
+      tags: [admin]
+      summary: Admin - get site impact stats
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteStats"
+    patch:
+      operationId: adminUpdateStats
+      tags: [admin]
+      summary: Admin - update site impact stats
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiteStats"
+      responses:
+        "200":
+          description: Updated stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +291,156 @@ components:
       required:
         - status
 
+    Story:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        title:
+          type: string
+        handle:
+          type: string
+        recoveryStage:
+          type: string
+          nullable: true
+        focusArea:
+          type: string
+          nullable: true
+        pullQuote:
+          type: string
+        body:
+          type: string
+        videoUrl:
+          type: string
+          nullable: true
+        posterUrl:
+          type: string
+          nullable: true
+        isFeatured:
+          type: boolean
+        isApproved:
+          type: boolean
+        publishedAt:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+      required:
+        - id
+        - slug
+        - title
+        - handle
+        - pullQuote
+        - body
+        - isFeatured
+        - isApproved
+        - createdAt
+
+    StoriesListResponse:
+      type: object
+      properties:
+        stories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Story"
+        total:
+          type: integer
+      required:
+        - stories
+        - total
+
+    SubmitStoryBody:
+      type: object
+      properties:
+        title:
+          type: string
+        handle:
+          type: string
+        focusArea:
+          type: string
+          nullable: true
+        recoveryStage:
+          type: string
+          nullable: true
+        pullQuote:
+          type: string
+        body:
+          type: string
+        videoUrl:
+          type: string
+          nullable: true
+        submitterEmail:
+          type: string
+      required:
+        - title
+        - handle
+        - pullQuote
+        - body
+        - submitterEmail
+
+    ContactBody:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        topic:
+          type: string
+        message:
+          type: string
+      required:
+        - name
+        - email
+        - topic
+        - message
+
+    EmailSignupBody:
+      type: object
+      properties:
+        email:
+          type: string
+        source:
+          type: string
+          nullable: true
+      required:
+        - email
+
+    AdminUpdateStoryBody:
+      type: object
+      properties:
+        isApproved:
+          type: boolean
+          nullable: true
+        isFeatured:
+          type: boolean
+          nullable: true
+
+    SiteStats:
+      type: object
+      properties:
+        survivorsServed:
+          type: integer
+        scholarshipsFunded:
+          type: integer
+      required:
+        - survivorsServed
+        - scholarshipsFunded
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
