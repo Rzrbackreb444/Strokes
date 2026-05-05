@@ -65,11 +65,13 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const kind = meta["kind"] ?? "donation";
   const isRecurring = meta["isRecurring"] === "true";
   const amountCents = session.amount_total ?? parseInt(meta["baseCents"] ?? "0", 10);
-  const donorEmail = session.customer_details?.email ?? "";
+  // customer_details.email is the most reliable source; customer_email is the fallback
+  const donorEmail =
+    session.customer_details?.email ?? (session as { customer_email?: string | null }).customer_email ?? "";
   const donorName = meta["donorName"] ?? session.customer_details?.name ?? null;
 
   if (!donorEmail) {
-    console.warn("[stripe-webhook] No donor email in session", session.id);
+    console.warn("[stripe-webhook] No donor email in session", session.id, "— skipping receipt");
     return;
   }
 
@@ -168,11 +170,14 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
   const donorEmail = invoice.customer_email ?? "";
   const amountCents = invoice.amount_paid;
 
-  if (!donorEmail || !amountCents || existing.length === 0) return;
+  if (!donorEmail || !amountCents) return;
 
   const sessionId = `sub_renewal_${invoice.id}`;
   const paymentIntentId =
     typeof inv.payment_intent === "string" ? inv.payment_intent : null;
+
+  // Use prior donation row's donor name if available; fall back to invoice metadata
+  const donorName = existing.length > 0 ? existing[0].donorName : null;
 
   await db
     .insert(donations)
@@ -184,7 +189,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
       amountCents,
       currency: invoice.currency ?? "usd",
       isRecurring: true,
-      donorName: existing[0].donorName,
+      donorName,
       donorEmail,
     })
     .onConflictDoNothing();
