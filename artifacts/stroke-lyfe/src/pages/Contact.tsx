@@ -172,6 +172,15 @@ export default function Contact() {
               </div>
 
               <div className="bg-muted rounded-lg p-5">
+                <h3 className="font-serif font-bold text-foreground mb-2">Mailing address</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Stroke Lyfe Inc.<br />
+                  622 South River Rd.<br />
+                  Lavaca, AR 72941
+                </p>
+              </div>
+
+              <div className="bg-muted rounded-lg p-5">
                 <h3 className="font-serif font-bold text-foreground mb-2">Response time</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   We respond to all messages within 48 business hours. Scholarship inquiries are prioritized and typically answered same-day.

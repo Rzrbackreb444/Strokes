@@ -45,7 +45,7 @@ export default function Footer() {
             <p className="text-sm font-semibold text-background/90">Stroke Lyfe Inc.</p>
             <p className="text-sm text-background/60 mt-1">501(c)(3) Nonprofit</p>
             <p className="text-sm text-background/60" data-testid="text-ein">EIN: 99-1313589</p>
-            <p className="text-sm text-background/60 mt-2">[Street Address]<br />[City, State ZIP]</p>
+            <p className="text-sm text-background/60 mt-2">622 South River Rd.<br />Lavaca, AR 72941</p>
             {/* Email signup */}
             <form onSubmit={handleSignup} className="mt-4 flex gap-2" data-testid="form-email-signup">
               <Input
