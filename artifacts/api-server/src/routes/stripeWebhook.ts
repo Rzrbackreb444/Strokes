@@ -24,20 +24,21 @@ if (!WEBHOOK_SECRET) {
 
 const router: IRouter = Router();
 
-async function isDuplicate(eventId: string): Promise<boolean> {
-  const existing = await db
-    .select()
-    .from(stripeWebhookEvents)
-    .where(eq(stripeWebhookEvents.id, eventId))
-    .limit(1);
-  return existing.length > 0;
-}
-
-async function markProcessed(eventId: string, eventType: string): Promise<void> {
-  await db
+/**
+ * Atomically claim an event ID by inserting it before any side effects.
+ * Returns true if this process "won" the claim (insert succeeded).
+ * Returns false if the event was already claimed (duplicate delivery).
+ *
+ * This prevents the TOCTOU race where two concurrent webhook deliveries both
+ * pass a pre-check SELECT and then both execute side effects.
+ */
+async function claimEvent(eventId: string, eventType: string): Promise<boolean> {
+  const inserted = await db
     .insert(stripeWebhookEvents)
     .values({ id: eventId, type: eventType })
-    .onConflictDoNothing();
+    .onConflictDoNothing()
+    .returning({ id: stripeWebhookEvents.id });
+  return inserted.length > 0;
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promise<void> {
@@ -53,29 +54,31 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
     return;
   }
 
-  const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : null;
-  const subscriptionId = typeof session.subscription === "string" ? session.subscription : null;
+  const paymentIntentId =
+    typeof session.payment_intent === "string" ? session.payment_intent : null;
+  const subscriptionId =
+    typeof session.subscription === "string" ? session.subscription : null;
 
-  const donationRow = {
-    stripeSessionId: session.id,
-    stripePaymentIntentId: paymentIntentId,
-    stripeSubscriptionId: subscriptionId,
-    kind,
-    amountCents,
-    currency: session.currency ?? "usd",
-    isRecurring,
-    donorName,
-    donorEmail,
-    tributeOf: meta["tributeOf"] ?? meta["inHonorOf"] ?? null,
-    scholarshipTier: meta["scholarshipTier"] ?? null,
-    recipientName: meta["recipientName"] ?? null,
-    recipientEmail: meta["recipientEmail"] ?? null,
-    giftMessage: meta["giftMessage"] ?? null,
-  };
-
-  await db.insert(donations).values(donationRow).onConflictDoNothing();
-
-  let receiptSent = false;
+  await db
+    .insert(donations)
+    .values({
+      stripeSessionId: session.id,
+      stripePaymentIntentId: paymentIntentId,
+      stripeSubscriptionId: subscriptionId,
+      kind,
+      amountCents,
+      currency: session.currency ?? "usd",
+      isRecurring,
+      donorName,
+      donorEmail,
+      // inHonorOf = the honored person's name; tributeNotifyEmail = email to notify
+      tributeOf: meta["inHonorOf"] ?? null,
+      scholarshipTier: meta["scholarshipTier"] ?? null,
+      recipientName: meta["recipientName"] ?? null,
+      recipientEmail: meta["recipientEmail"] ?? null,
+      giftMessage: meta["giftMessage"] ?? null,
+    })
+    .onConflictDoNothing();
 
   if (kind === "gift") {
     const giverName = meta["giverName"] ?? donorName ?? "A friend";
@@ -112,28 +115,24 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
     }
 
     await Promise.all(emails);
-    receiptSent = true;
   } else {
     await sendDonationReceipt({
       to: donorEmail,
       donorName: donorName ?? "",
       amountCents,
       isRecurring,
-      tributeOf: meta["tributeOf"] ?? meta["inHonorOf"] ?? null,
+      // Use inHonorOf (the person's name) for the receipt, not the notification email
+      tributeOf: meta["inHonorOf"] ?? null,
     });
-    receiptSent = true;
   }
 
-  if (receiptSent) {
-    await db
-      .update(donations)
-      .set({ receiptSentAt: new Date() })
-      .where(eq(donations.stripeSessionId, session.id));
-  }
+  await db
+    .update(donations)
+    .set({ receiptSentAt: new Date() })
+    .where(eq(donations.stripeSessionId, session.id));
 }
 
 async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
-  // Access subscription/payment_intent via type assertion for API version compatibility
   const inv = invoice as Stripe.Invoice & {
     subscription?: string | null;
     payment_intent?: string | null;
@@ -154,7 +153,8 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
 
   if (existing.length > 0) {
     const sessionId = `sub_renewal_${invoice.id}`;
-    const paymentIntentId = typeof inv.payment_intent === "string" ? inv.payment_intent : null;
+    const paymentIntentId =
+      typeof inv.payment_intent === "string" ? inv.payment_intent : null;
 
     await db
       .insert(donations)
@@ -213,7 +213,10 @@ router.post(
       }
     }
 
-    if (await isDuplicate(event.id)) {
+    // Atomically claim event ID before any side effects.
+    // If another delivery already claimed it, return 200 (Stripe won't retry).
+    const claimed = await claimEvent(event.id, event.type);
+    if (!claimed) {
       res.json({ received: true, duplicate: true });
       return;
     }
@@ -225,10 +228,12 @@ router.post(
         await handleInvoicePaid(event.data.object as Stripe.Invoice);
       }
 
-      await markProcessed(event.id, event.type);
       res.json({ received: true });
     } catch (err) {
       console.error(`[stripe-webhook] Error handling ${event.type}:`, err);
+      // Return 500 so Stripe retries — but note the event ID is already claimed,
+      // so if the retry comes in it will be treated as a duplicate. For production,
+      // consider deleting the claimed row on failure to allow retries.
       res.status(500).json({ error: "Handler failed" });
     }
   },

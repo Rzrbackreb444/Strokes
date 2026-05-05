@@ -25,16 +25,16 @@ router.post("/donations/checkout", async (req: Request, res: Response): Promise<
       amount,
       isRecurring = false,
       coverFee = false,
-      tributeOf,
       inHonorOf,
+      tributeNotifyEmail,
       donorEmail,
       donorName,
     } = req.body as {
       amount: number;
       isRecurring?: boolean;
       coverFee?: boolean;
-      tributeOf?: string;
       inHonorOf?: string;
+      tributeNotifyEmail?: string;
       donorEmail?: string;
       donorName?: string;
     };
@@ -55,8 +55,8 @@ router.post("/donations/checkout", async (req: Request, res: Response): Promise<
       coverFee: String(coverFee),
       isRecurring: String(isRecurring),
     };
-    if (tributeOf) metadata.tributeOf = tributeOf;
     if (inHonorOf) metadata.inHonorOf = inHonorOf;
+    if (tributeNotifyEmail) metadata.tributeNotifyEmail = tributeNotifyEmail;
     if (donorName) metadata.donorName = donorName;
 
     let session: Stripe.Checkout.Session;
@@ -148,7 +148,7 @@ router.get("/donations/verify", async (req: Request, res: Response): Promise<voi
       donorEmail: session.customer_details?.email ?? null,
       isRecurring,
       kind,
-      tributeOf: meta["tributeOf"] ?? null,
+      tributeOf: meta["inHonorOf"] ?? null,
       recipientName: meta["recipientName"] ?? null,
       scholarshipTier: meta["scholarshipTier"] ?? null,
       paymentStatus: session.payment_status,
