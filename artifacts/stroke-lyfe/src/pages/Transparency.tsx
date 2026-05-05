@@ -17,9 +17,27 @@ export default function Transparency() {
         </div>
       </section>
 
-      {/* BIG 3 NUMBERS */}
+      {/* STATUS BANNER */}
       <section className="py-20 bg-background" data-testid="section-financials">
         <div className="container mx-auto px-4 max-w-6xl">
+
+          {/* Newly registered callout */}
+          <div className="bg-accent/10 border border-accent/20 rounded-lg p-6 mb-16 flex flex-col sm:flex-row gap-4 items-start">
+            <div className="shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mt-0.5">
+              <span className="text-accent font-bold text-lg">!</span>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">We're just getting started.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Stroke Lyfe Inc. is a newly registered 501(c)(3) — EIN 99-1313589, verified on GuideStar / Candid. We currently have $0 in gross receipts and $0 in assets. This page will update as we raise and spend our first dollars. We commit to publishing our Form 990 and annual financials as soon as they are available.
+              </p>
+            </div>
+          </div>
+
+          {/* Intended allocation */}
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-6">Intended allocation — how we plan to spend every dollar raised</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-16">
             {[
               { pct: "87%", label: "Programs", detail: "Directly funds scholarships, coaching, and survivor support." },
@@ -67,22 +85,24 @@ export default function Transparency() {
               <h2 className="font-serif text-xl font-bold text-foreground mb-4">Documents</h2>
               <div className="space-y-3">
                 {[
-                  { label: "Form 990 (2025)", year: "2025" },
-                  { label: "Annual Report (2025)", year: "2025" },
-                  { label: "Audited Financial Statements (2025)", year: "2025" },
+                  { label: "Form 990", note: "Available after first full fiscal year" },
+                  { label: "Annual Report", note: "Coming end of 2026" },
+                  { label: "Audited Financial Statements", note: "Available after first full fiscal year" },
                 ].map((doc) => (
-                  <button
+                  <div
                     key={doc.label}
-                    className="flex items-center justify-between w-full p-3 rounded-md border border-border bg-background text-sm hover:border-primary/50 transition-colors"
-                    onClick={() => {}}
+                    className="flex items-center justify-between w-full p-3 rounded-md border border-border bg-background text-sm"
                     data-testid={`button-download-${doc.label.replace(/\s+/g, "-").toLowerCase()}`}
                   >
-                    <span className="text-foreground font-medium">{doc.label}</span>
-                    <Download className="h-4 w-4 text-muted-foreground" />
-                  </button>
+                    <div>
+                      <span className="text-foreground font-medium block">{doc.label}</span>
+                      <span className="text-xs text-muted-foreground">{doc.note}</span>
+                    </div>
+                    <Download className="h-4 w-4 text-muted-foreground/40" />
+                  </div>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-3">Documents available after first full fiscal year.</p>
+              <p className="text-xs text-muted-foreground mt-3">We will publish all financial documents as they become available. No secrets.</p>
             </div>
           </div>
 
@@ -94,7 +114,6 @@ export default function Transparency() {
                 { name: "Nick Kremers", title: "Executive Director", note: "Founder" },
                 { name: "Lisa Kremers", title: "Board Member", note: "" },
                 { name: "Debbie Kremers", title: "Board Member", note: "" },
-                { name: "[Treasurer]", title: "Treasurer", note: "CPA on file" },
               ].map((member) => (
                 <Card key={member.name} data-testid={`card-board-transparency-${member.name.replace(/\s+/g, "-").toLowerCase()}`}>
                   <CardContent className="p-4">
