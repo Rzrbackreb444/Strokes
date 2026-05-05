@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -30,19 +29,22 @@ export default function Admin() {
   const qc = useQueryClient();
   const [statsForm, setStatsForm] = useState({ survivorsServed: "", scholarshipsFunded: "" });
 
+  const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
+  const statsParams = { token: token ?? "" };
+
   const storiesQuery = useAdminGetStories(
-    { limit: 100, offset: 0 },
-    { query: { enabled: !!token, queryKey: getAdminGetStoriesQueryKey({ limit: 100, offset: 0 }) } }
+    storiesParams,
+    { query: { enabled: !!token, queryKey: getAdminGetStoriesQueryKey(storiesParams) } }
   );
   const statsQuery = useAdminGetStats(
-    {},
-    { query: { enabled: !!token, queryKey: getAdminGetStatsQueryKey({}) } }
+    statsParams,
+    { query: { enabled: !!token, queryKey: getAdminGetStatsQueryKey(statsParams) } }
   );
 
   const updateStory = useAdminUpdateStory({
     mutation: {
       onSuccess: () => {
-        qc.invalidateQueries({ queryKey: getAdminGetStoriesQueryKey({ limit: 100, offset: 0 }) });
+        qc.invalidateQueries({ queryKey: getAdminGetStoriesQueryKey(storiesParams) });
         toast({ title: "Story updated" });
       },
     },
@@ -51,7 +53,7 @@ export default function Admin() {
   const updateStats = useAdminUpdateStats({
     mutation: {
       onSuccess: () => {
-        qc.invalidateQueries({ queryKey: getAdminGetStatsQueryKey({}) });
+        qc.invalidateQueries({ queryKey: getAdminGetStatsQueryKey(statsParams) });
         toast({ title: "Stats updated" });
         setStatsForm({ survivorsServed: "", scholarshipsFunded: "" });
       },
@@ -71,10 +73,10 @@ export default function Admin() {
 
   function handleStatsSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const body: Record<string, number> = {};
+    const body: { survivorsServed?: number; scholarshipsFunded?: number } = {};
     if (statsForm.survivorsServed) body.survivorsServed = Number(statsForm.survivorsServed);
     if (statsForm.scholarshipsFunded) body.scholarshipsFunded = Number(statsForm.scholarshipsFunded);
-    updateStats.mutate({ token, data: body });
+    updateStats.mutate({ data: body as { survivorsServed: number; scholarshipsFunded: number }, params: { token: token! } });
   }
 
   return (
@@ -151,19 +153,19 @@ export default function Admin() {
                     <div className="flex items-center gap-3 shrink-0 flex-wrap">
                       {story.focusArea && <Badge variant="outline" className="text-xs">{story.focusArea}</Badge>}
                       <Badge
-                        variant={story.status === "approved" ? "default" : story.status === "rejected" ? "destructive" : "secondary"}
-                        className="text-xs capitalize"
+                        variant={story.isApproved ? "default" : "secondary"}
+                        className="text-xs"
                         data-testid={`badge-status-${story.id}`}
                       >
-                        {story.status ?? "pending"}
+                        {story.isApproved ? "approved" : "pending"}
                       </Badge>
                       <div className="flex items-center gap-1.5">
                         <Label htmlFor={`approved-${story.id}`} className="text-xs text-muted-foreground">Approved</Label>
                         <Switch
                           id={`approved-${story.id}`}
-                          checked={story.status === "approved"}
+                          checked={story.isApproved}
                           onCheckedChange={(v) =>
-                            updateStory.mutate({ id: String(story.id), token, data: { isApproved: v } })
+                            updateStory.mutate({ id: story.id, data: { isApproved: v }, params: { token: token! } })
                           }
                           data-testid={`switch-approved-${story.id}`}
                         />
@@ -174,7 +176,7 @@ export default function Admin() {
                           id={`featured-${story.id}`}
                           checked={story.isFeatured}
                           onCheckedChange={(v) =>
-                            updateStory.mutate({ id: String(story.id), token, data: { isFeatured: v } })
+                            updateStory.mutate({ id: story.id, data: { isFeatured: v }, params: { token: token! } })
                           }
                           data-testid={`switch-featured-${story.id}`}
                         />

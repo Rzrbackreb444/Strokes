@@ -83,7 +83,7 @@ export const SubmitStoryBody = zod.object({
   pullQuote: zod.string(),
   body: zod.string(),
   videoUrl: zod.string().nullish(),
-  submitterEmail: zod.string(),
+  submitterEmail: zod.string().nullish(),
 });
 
 /**

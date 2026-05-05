@@ -37,6 +37,45 @@ router.get("/admin/stories", async (req: Request, res: Response): Promise<void> 
   res.json(rows);
 });
 
+// PATCH /api/stories/:id (public alias for admin approval, matches task spec)
+router.patch("/stories/:id", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      res.status(400).json({ error: "Invalid story ID" });
+      return;
+    }
+    const body = AdminUpdateStoryBody.parse(req.body);
+
+    const updates: Partial<typeof stories.$inferInsert> = {};
+    if (body.isApproved != null) {
+      updates.isApproved = body.isApproved;
+      updates.status = body.isApproved ? "approved" : "rejected";
+    }
+    if (body.isFeatured != null) updates.isFeatured = body.isFeatured;
+
+    const [updated] = await db
+      .update(stories)
+      .set(updates)
+      .where(eq(stories.id, id))
+      .returning();
+
+    if (!updated) {
+      res.status(404).json({ error: "Story not found" });
+      return;
+    }
+    res.json(updated);
+  } catch {
+    res.status(400).json({ error: "Invalid data" });
+  }
+});
+
 // PATCH /api/admin/stories/:id
 router.patch("/admin/stories/:id", async (req: Request, res: Response): Promise<void> => {
   const { token } = req.query as { token?: string };

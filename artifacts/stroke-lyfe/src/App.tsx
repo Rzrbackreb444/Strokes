@@ -19,6 +19,10 @@ import DonorRights from "@/pages/legal/DonorRights";
 import Admin from "@/pages/Admin";
 import SubmitStory from "@/pages/SubmitStory";
 import FAQ from "@/pages/FAQ";
+import Services from "@/pages/Services";
+import Events from "@/pages/Events";
+import Resources from "@/pages/Resources";
+import Blog from "@/pages/Blog";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -42,6 +46,10 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/submit-story" component={SubmitStory} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/services" component={Services} />
+      <Route path="/events" component={Events} />
+      <Route path="/resources" component={Resources} />
+      <Route path="/blog" component={Blog} />
       <Route component={NotFound} />
     </Switch>
   );

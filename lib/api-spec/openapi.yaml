@@ -373,12 +373,12 @@ components:
           nullable: true
         submitterEmail:
           type: string
+          nullable: true
       required:
         - title
         - handle
         - pullQuote
         - body
-        - submitterEmail
 
     ContactBody:
       type: object
