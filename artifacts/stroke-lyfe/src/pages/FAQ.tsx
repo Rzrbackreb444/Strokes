@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const faqs = [
   {
@@ -101,9 +102,30 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is Stroke Lyfe?", "acceptedAnswer": { "@type": "Answer", "text": "Stroke Lyfe Inc. is a 501(c)(3) nonprofit founded by stroke survivor Nick Kremers. Our mission is to enrich the lives of stroke survivors through motivation and to further research in recovery advances. We fund scholarships into Stroke Recovery Academy and connect survivors to each other and to family support resources." } },
+    { "@type": "Question", "name": "Is Stroke Lyfe the same as Stroke Recovery Academy?", "acceptedAnswer": { "@type": "Answer", "text": "No. Stroke Recovery Academy is a for-profit recovery platform. Stroke Lyfe Inc. is the nonprofit. Donations to Stroke Lyfe are tax-deductible and go toward funding survivor access to the Academy." } },
+    { "@type": "Question", "name": "Is my donation to Stroke Lyfe tax-deductible?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Donations to Stroke Lyfe Inc. are tax-deductible to the fullest extent of the law. EIN: 99-1313589. You will receive a receipt for your records." } },
+    { "@type": "Question", "name": "Where does my money go?", "acceptedAnswer": { "@type": "Answer", "text": "87 cents of every dollar goes directly to survivor programs — primarily funding scholarships into Stroke Recovery Academy. 9% covers operations and 4% covers fundraising." } },
+    { "@type": "Question", "name": "How do I apply for a stroke survivor scholarship?", "acceptedAnswer": { "@type": "Answer", "text": "Contact us at hello@strokelyfe.org or use the contact form. There's no formal application — just reach out, tell us your situation, and we'll work through the waitlist in order. No application fees, ever." } },
+    { "@type": "Question", "name": "I had my stroke years ago. Is it too late to recover?", "acceptedAnswer": { "@type": "Answer", "text": "No. Neuroplasticity doesn't have a deadline. Nick Kremers' biggest recovery wins came in years four through seven post-stroke — not the first year. You are not too late. You are not too recovered." } },
+    { "@type": "Question", "name": "Can I make a recurring monthly donation?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Monthly giving is available on our Donate page. Monthly donors are the backbone of what we're building — they let us commit to survivors on the waitlist with confidence." } },
+    { "@type": "Question", "name": "Does Stroke Lyfe have resources for caregivers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Our Family Support program provides guides, toolkits, and a private community for partners, parents, and children navigating recovery alongside a survivor." } },
+  ],
+};
+
 export default function FAQ() {
   return (
     <div>
+      <SEO
+        title="FAQ — Stroke Lyfe Nonprofit Questions Answered"
+        description="Common questions about Stroke Lyfe Inc., survivor scholarships, tax-deductible donations, and stroke recovery resources. EIN 99-1313589."
+        path="/faq"
+        extraSchemas={[FAQ_SCHEMA]}
+      />
       <section className="py-20 bg-foreground text-background" data-testid="section-faq-hero">
         <div className="container mx-auto px-4 max-w-6xl">
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Questions</p>

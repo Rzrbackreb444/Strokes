@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookOpen, CheckCircle2, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 const BASE = import.meta.env.BASE_URL;
 const nickNow = `${BASE}assets/nick-now.jpeg`;
 const beforeAfter = `${BASE}assets/nick-before-after.png`;
@@ -12,6 +13,11 @@ const aboutImg = `${BASE}assets/about.jpeg`;
 export default function About() {
   return (
     <div>
+      <SEO
+        title="About Stroke Lyfe — Nick Kremers & the Mission"
+        description="Meet Nick Kremers — stroke survivor at 26, now founder of a 501(c)(3) nonprofit. Learn how years of self-directed recovery became a mission to help every survivor access real tools."
+        path="/about"
+      />
       {/* HERO */}
       <section className="py-20 bg-foreground text-background" data-testid="section-about-hero">
         <div className="container mx-auto px-4 max-w-6xl">

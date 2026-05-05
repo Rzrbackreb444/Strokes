@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetStories, getGetStoriesQueryKey } from "@workspace/api-client-react";
+import SEO from "@/components/SEO";
 
 const FOCUS_AREAS = ["All", "Speech", "Mobility", "Cognition", "Caregiver"];
 
@@ -30,6 +31,11 @@ export default function Stories() {
 
   return (
     <div>
+      <SEO
+        title="Survivor Stories — Real Stroke Recovery Journeys"
+        description="Read honest accounts from stroke survivors who rebuilt their lives. Specific, real, and full of the detail that actually helps — because they've been through it."
+        path="/stories"
+      />
       {/* HERO */}
       <section className="py-20 bg-foreground text-background" data-testid="section-stories-hero">
         <div className="container mx-auto px-4 max-w-6xl">

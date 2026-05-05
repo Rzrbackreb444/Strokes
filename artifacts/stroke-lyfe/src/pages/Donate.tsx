@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,15 +13,15 @@ const BASE = import.meta.env.BASE_URL;
 const presets = [25, 50, 100, 250, 500, 1000];
 
 const impactMap = [
-  { amount: 25, label: "Funds one week of AI coaching tools for a survivor." },
-  { amount: 50, label: "Covers a survivor's resource library access for a month." },
-  { amount: 97, label: "Funds one full Survivor Scholarship — Academy access + coaching." },
-  { amount: 100, label: "Covers transportation support for two therapy appointments." },
-  { amount: 250, label: "Funds a Mentored scholarship — 3 months of group coaching." },
-  { amount: 297, label: "Sponsors a Mentored tier scholarship for one survivor." },
-  { amount: 500, label: "Funds 5 Survivor scholarships — one for each person on the waitlist today." },
-  { amount: 997, label: "Funds an Elite scholarship — 1:1 coaching with Nick + custom plan." },
-  { amount: 1000, label: "Funds 10 survivors for a full month. Names are real. We'll send them." },
+  { amount: 25, label: "Fuels one week of motivational resources and tools for a survivor." },
+  { amount: 50, label: "Covers a survivor's access to our resource library for a month." },
+  { amount: 97, label: "Funds one full Survivor Scholarship — coaching, community, and recovery support." },
+  { amount: 100, label: "Supports research partnerships advancing stroke recovery breakthroughs." },
+  { amount: 250, label: "Funds 3 months of group coaching and peer motivation for a survivor." },
+  { amount: 297, label: "Sponsors a Mentored Scholarship — structured recovery coaching for one survivor." },
+  { amount: 500, label: "Funds 5 survivors with full program access — motivation, coaching, and community." },
+  { amount: 997, label: "Funds an Elite Scholarship — personalized 1:1 coaching and a custom recovery plan." },
+  { amount: 1000, label: "Transforms the lives of 10 survivors for a full month. Names are real. We'll send them." },
 ];
 
 function getImpact(amt: number) {
@@ -80,13 +81,18 @@ export default function Donate() {
 
   return (
     <div>
+      <SEO
+        title="Donate to Stroke Lyfe — Support Stroke Survivor Recovery"
+        description="Your donation to Stroke Lyfe Inc. funds survivor scholarships, recovery coaching, and neuroplasticity research. Tax-deductible. EIN 99-1313589. Give for any reason."
+        path="/donate"
+      />
       {/* HERO */}
       <section className="py-16 bg-foreground text-background" data-testid="section-donate-hero">
         <div className="container mx-auto px-4 max-w-6xl">
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Make a Difference</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold">We're just getting started. That means your donation matters more right now.</h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold">Give for any reason. Every dollar enriches the life of a stroke survivor.</h1>
           <p className="mt-4 text-background/70 max-w-xl text-lg">
-            Stroke Lyfe is a brand new 501(c)(3). Every early donor shapes what this org becomes. Your gift today funds the first scholarships, proves the model, and puts a real survivor on the path to recovery.
+            Stroke Lyfe's mission is to enrich the lives of stroke survivors through motivation and to further research in recovery advances. Your gift — whatever the reason — directly funds that mission: scholarships, coaching, community, and the science that brings better recoveries within reach.
           </p>
         </div>
       </section>
@@ -267,10 +273,10 @@ export default function Donate() {
                 <h3 className="font-serif font-bold text-foreground mb-4">What your gift does</h3>
                 <div className="space-y-3">
                   {[
-                    { amount: "$25", label: "One week of AI coaching" },
-                    { amount: "$97", label: "One Survivor Scholarship" },
-                    { amount: "$297", label: "Mentored Scholarship — 3 months" },
-                    { amount: "$1,000", label: "10 survivors for a month" },
+                    { amount: "$25", label: "One week of motivation tools & resources" },
+                    { amount: "$97", label: "One full Survivor Scholarship" },
+                    { amount: "$297", label: "3 months of coaching & community" },
+                    { amount: "$1,000", label: "10 survivors supported for a full month" },
                   ].map((item) => (
                     <div key={item.amount} className="flex items-start gap-3">
                       <span className="font-bold text-primary text-sm shrink-0 w-14">{item.amount}</span>
@@ -283,7 +289,7 @@ export default function Donate() {
               <div className="bg-muted rounded-lg p-5">
                 <h3 className="font-serif font-bold text-foreground mb-2">How this works</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  You donate to Stroke Lyfe Inc. (the 501(c)(3) nonprofit). We use that to fund a survivor's scholarship into Stroke Recovery Academy. That's it.
+                  You donate to Stroke Lyfe Inc. (the 501(c)(3) nonprofit) for any reason — in honor of someone, in support of a survivor, or simply because the mission resonates. We use every dollar to motivate survivors, fund scholarships, and advance recovery research.
                 </p>
               </div>
 

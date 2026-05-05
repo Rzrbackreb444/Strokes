@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookOpen, Users, Heart, Library, CheckCircle2 } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const programs = [
   {
@@ -41,6 +42,11 @@ const programs = [
 export default function Programs() {
   return (
     <div>
+      <SEO
+        title="Programs — Scholarships, Coaching & Research"
+        description="Stroke Lyfe funds survivor scholarships into Stroke Recovery Academy, caregiver support programs, and neuroplasticity research. Every dollar goes to work."
+        path="/programs"
+      />
       {/* HERO */}
       <section className="py-20 bg-foreground text-background" data-testid="section-programs-hero">
         <div className="container mx-auto px-4 max-w-6xl">

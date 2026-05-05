@@ -1,78 +1,74 @@
-# Workspace
+# Stroke Lyfe
 
-## Overview
+A 501(c)(3) nonprofit website that enriches the lives of stroke survivors through motivation and furthering recovery research. Accepts donations, gifts survivor scholarships, and publishes E-E-A-T blog content.
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+## Run & Operate
+
+| Command | Purpose |
+|---|---|
+| `pnpm --filter @workspace/api-server run dev` | Start API server (port 8080) |
+| `pnpm --filter @workspace/stroke-lyfe run dev` | Start frontend dev server (port 22585) |
+| `pnpm --filter @workspace/db run push` | Push DB schema changes (dev only) |
+| `pnpm --filter @workspace/api-spec run codegen` | Regenerate API hooks from OpenAPI spec |
+| `pnpm run typecheck` | Full typecheck across all packages |
+
+**Required env vars:** `DATABASE_URL`, `STRIPE_SECRET_KEY`, `VITE_STRIPE_PUBLIC_KEY`, `RESEND_API_KEY`, `ADMIN_SECRET`, `STRIPE_WEBHOOK_SECRET`, `INDEXNOW_KEY`
 
 ## Stack
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **TypeScript version**: 5.9
-- **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
-- **Payments**: Stripe (test mode — keys in Secrets)
-- **Email**: Resend (keys in Secrets)
+- **Frontend:** React + Vite + Tailwind CSS + shadcn/ui (artifact: `stroke-lyfe`, port 22585)
+- **Backend:** Express 5 + TypeScript (artifact: `api-server`, port 8080)
+- **Database:** PostgreSQL + Drizzle ORM + drizzle-zod
+- **Payments:** Stripe (Checkout Sessions + Webhooks)
+- **Email:** Resend (HTML receipts + gift notifications)
+- **Build:** esbuild, pnpm workspaces, TypeScript 5.9, Node 24
 
-## Key Commands
+## Where things live
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
+- `artifacts/stroke-lyfe/src/` — React pages and components
+- `artifacts/stroke-lyfe/src/components/SEO.tsx` — per-page meta/OG/JSON-LD SEO component
+- `artifacts/stroke-lyfe/src/pages/BlogPost.tsx` — blog post data (5 posts) + post template
+- `artifacts/api-server/src/routes/` — Express route handlers
+- `artifacts/api-server/src/routes/seo.ts` — `/sitemap.xml`, `/robots.txt`, `/api/indexnow/ping`
+- `artifacts/api-server/src/lib/emails.ts` — Resend HTML email templates
+- `lib/db/src/schema/` — DB schema (stories, donations, contact, siteConfig)
+- `lib/api-spec/` — OpenAPI spec + Orval codegen → `lib/api-client-react/`
 
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+## Architecture decisions
 
-## Secrets Required
+- **Single production process:** API server (port 8080) serves the Vite-built frontend as static files in production via `express.static` + SPA fallback. Two separate dev servers in development.
+- **Proxy routing:** `.replit` has ONE `[[ports]]` entry (8080 only). `api-server` artifact `paths = ["/api"]` only — adding `"/"` breaks the dev proxy.
+- **SEO at component level:** No react-helmet. `SEO.tsx` uses `useEffect` DOM manipulation to set title, meta, canonical, OG, Twitter, and JSON-LD per page.
+- **Sitemap + robots served from API:** Routes at root level in `app.ts` (before `/api` mount) so they work in production without needing a separate static file.
+- **Stripe webhook idempotency:** Events are claimed atomically via `INSERT … ON CONFLICT DO NOTHING` before side effects. Failed handlers release the claim so Stripe can retry.
+- **Blog is static data:** 5 posts defined as a typed array in `BlogPost.tsx`. No CMS needed yet.
 
-The following secrets must be set in the Replit Secrets panel:
+## Product
 
-| Secret | Description |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string (provisioned automatically) |
-| `STRIPE_SECRET_KEY` | Stripe secret key (sk_test_... for test mode, sk_live_... for production) |
-| `VITE_STRIPE_PUBLIC_KEY` | Stripe publishable key (pk_test_... / pk_live_...) |
-| `RESEND_API_KEY` | Resend API key for transactional emails |
-| `ADMIN_SECRET` | Secret token for /admin panel access |
-| `STRIPE_WEBHOOK_SECRET` | **Required before going live.** Obtain from Stripe Dashboard → Developers → Webhooks. Register the endpoint `https://strokelyfe.org/api/stripe/webhook` and copy the signing secret (whsec_...). Without this, webhook events are processed without signature verification — a security risk in production. |
+- **Donate page** — one-time or recurring, preset/custom amounts, tribute gifts, fee coverage, Stripe Checkout
+- **Gift a Scholarship** — 3 tiers ($97/$297/$997), recipient details → Stripe, two Resend emails
+- **Thank You page** — verifies Stripe session, shows personalized confirmation
+- **Blog** — 5 live E-E-A-T posts on neuroplasticity, mission, donation, recovery gap, caregiver grief
+- **Stories** — public survivor stories, admin approval workflow
+- **Transparency** — EIN, financials, board, donor rights
+- **FAQ** — FAQPage JSON-LD schema for AEO/AI answer engines
+- **SEO engine** — per-page meta, OG, JSON-LD (Organization, NGO, Article, FAQPage, WebSite), sitemap.xml, robots.txt, IndexNow ping
 
-## Stripe Webhook Setup (pre-launch checklist)
+## User preferences
 
-1. Go to Stripe Dashboard → Developers → Webhooks
-2. Add endpoint: `https://strokelyfe.org/api/stripe/webhook`
-3. Select events: `checkout.session.completed`, `invoice.paid`
-4. Copy the signing secret (starts with `whsec_`)
-5. Add it as `STRIPE_WEBHOOK_SECRET` in Replit Secrets
-6. Restart the API server
+- No emojis in code or UI copy
+- Keep api-server `paths = ["/api"]` only in artifact.toml — adding "/" breaks dev proxy
+- `.replit` must have ONE `[[ports]]` entry (8080) — extra entries break deployment
 
-For local testing, use `stripe listen --forward-to localhost:8080/api/stripe/webhook` from the Stripe CLI.
+## Gotchas
 
-## Payment Flows
+- `STRIPE_WEBHOOK_SECRET` required before going live. Register `https://strokelyfe.org/api/stripe/webhook` in Stripe Dashboard → select `checkout.session.completed` + `invoice.paid`.
+- Stripe webhook raw body: `express.raw()` middleware applied at `/api/stripe/webhook` in `app.ts` before `express.json()`.
+- DB migration: `pnpm --filter @workspace/db run push` (dev). For production schema changes, see database skill.
+- `stories.publishedAt` (timestamp, nullable) is the published flag — NOT a boolean `published` column.
 
-### Donation flow
-1. `POST /api/donations/checkout` — creates Stripe Checkout session (one-time or monthly subscription)
-2. Stripe redirects to `/thank-you?session_id=...`
-3. `GET /api/donations/verify?session_id=...` — verifies session and returns donor info
-4. Webhook `checkout.session.completed` writes donation row + sends Resend receipt
-5. Webhook `invoice.paid` handles monthly subscription renewals
+## Pointers
 
-### Gift scholarship flow
-1. `POST /api/gift-scholarships/checkout` — creates Stripe Checkout session for $97/$297/$997 tier
-2. Stripe redirects to `/thank-you?session_id=...`
-3. Webhook `checkout.session.completed` sends two emails: donor confirmation + recipient notification with Academy activation link
-
-## DB Schema
-
-| Table | Purpose |
-|---|---|
-| `stories` | Survivor stories (status: pending/approved/rejected) |
-| `donations` | Stripe donation records (one-time + recurring) |
-| `contact_messages` | Contact form submissions |
-| `mailing_list` | Footer email signups |
-| `site_config` | Key/value store (survivorsServed, scholarshipsFunded stats) |
-| `stripe_webhook_events` | Webhook event deduplication (keyed on Stripe event ID) |
+- Stripe Webhook Setup: Dashboard → Developers → Webhooks → add `https://strokelyfe.org/api/stripe/webhook`
+- IndexNow key: set `INDEXNOW_KEY` env var; key file served at `/{key}.txt` by api-server
+- Email from address: `Stroke Lyfe <noreply@strokelyfe.org>` — domain must be verified in Resend

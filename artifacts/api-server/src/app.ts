@@ -4,6 +4,7 @@ import pinoHttp from "pino-http";
 import path from "path";
 import { fileURLToPath } from "url";
 import router from "./routes";
+import seoRouter from "./routes/seo";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
@@ -37,6 +38,9 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// SEO routes served at root level (sitemap.xml, robots.txt, IndexNow key)
+app.use(seoRouter);
 
 app.use("/api", router);
 

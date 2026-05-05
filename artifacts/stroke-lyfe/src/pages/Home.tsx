@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ArrowRight, Heart, Users, BookOpen, CheckCircle2, ChevronRight } from "lucide-react";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,11 @@ export default function Home() {
 
   return (
     <div>
+      <SEO
+        title="Stroke Lyfe — 501(c)(3) Stroke Recovery Nonprofit"
+        description="Stroke Lyfe is a 501(c)(3) nonprofit founded by survivor Nick Kremers. We fund scholarships into Stroke Recovery Academy, motivate recovery, and advance research in stroke rehabilitation."
+        path="/"
+      />
       {/* HERO */}
       <section className="relative min-h-[85vh] flex items-center" data-testid="section-hero">
         <div
