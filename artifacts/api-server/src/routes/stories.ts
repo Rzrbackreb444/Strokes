@@ -51,7 +51,7 @@ router.get("/stories/featured", async (_req: Request, res: Response): Promise<vo
 
 // GET /api/stories/:slug  (must come AFTER /stories/featured)
 router.get("/stories/:slug", async (req: Request, res: Response): Promise<void> => {
-  const { slug } = req.params;
+  const slug = req.params["slug"] as string;
   const row = await db
     .select()
     .from(stories)

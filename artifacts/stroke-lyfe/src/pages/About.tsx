@@ -7,6 +7,7 @@ const nickNow = `${BASE}assets/nick-now.jpeg`;
 const beforeAfter = `${BASE}assets/nick-before-after.png`;
 const nick2018 = `${BASE}assets/nick-2018.jpeg`;
 const testimonyVideo = `${BASE}assets/nick-testimony.mp4`;
+const aboutImg = `${BASE}assets/about.jpeg`;
 
 export default function About() {
   return (
@@ -199,6 +200,34 @@ export default function About() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT RECOVERY LOOKS LIKE */}
+      <section className="py-20 bg-background" data-testid="section-about-recovery-photo">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <img
+                src={aboutImg}
+                alt="Stroke survivor working with a physical therapist during recovery session"
+                className="w-full rounded-lg object-cover shadow-md"
+                style={{ maxHeight: "480px" }}
+              />
+            </div>
+            <div>
+              <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">What recovery looks like</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
+                Real sessions. Real progress. Real people.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Scholarship recipients gain access to physical therapy, occupational therapy, speech therapy, and cognitive rehab — the same programs that changed Nick's life. A Stroke Lyfe scholarship removes the financial barrier so survivors can focus entirely on getting better.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                No waitlists longer than two weeks. No insurance gatekeeping. No judgement. Just a real shot at recovery.
+              </p>
             </div>
           </div>
         </div>

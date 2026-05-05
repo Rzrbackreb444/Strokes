@@ -39,7 +39,7 @@ export interface SubmitStoryBody {
   pullQuote: string;
   body: string;
   videoUrl?: string | null;
-  submitterEmail: string;
+  submitterEmail?: string | null;
 }
 
 export interface ContactBody {
@@ -60,8 +60,8 @@ export interface AdminUpdateStoryBody {
 }
 
 export interface SiteStats {
-  survivorsServed: number;
-  scholarshipsFunded: number;
+  survivorsServed?: number;
+  scholarshipsFunded?: number;
 }
 
 export interface MessageResponse {

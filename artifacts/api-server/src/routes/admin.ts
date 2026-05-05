@@ -46,7 +46,7 @@ router.patch("/stories/:id", async (req: Request, res: Response): Promise<void> 
   }
 
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.params["id"] as string, 10);
     if (isNaN(id)) {
       res.status(400).json({ error: "Invalid story ID" });
       return;
@@ -85,7 +85,7 @@ router.patch("/admin/stories/:id", async (req: Request, res: Response): Promise<
   }
 
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.params["id"] as string, 10);
     if (isNaN(id)) {
       res.status(400).json({ error: "Invalid story ID" });
       return;
