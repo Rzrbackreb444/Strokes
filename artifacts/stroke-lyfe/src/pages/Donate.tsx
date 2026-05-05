@@ -48,9 +48,9 @@ export default function Donate() {
       <section className="py-16 bg-foreground text-background" data-testid="section-donate-hero">
         <div className="container mx-auto px-4 max-w-6xl">
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Make a Difference</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold">Your donation funds recovery.</h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold">We're just getting started. That means your donation matters more right now.</h1>
           <p className="mt-4 text-background/70 max-w-xl text-lg">
-            87 cents of every dollar funds survivor programs. The rest keeps the lights on and the books audited.
+            Stroke Lyfe is a brand new 501(c)(3). Every early donor shapes what this org becomes. Your gift today funds the first scholarships, proves the model, and puts a real survivor on the path to recovery.
           </p>
         </div>
       </section>
@@ -211,9 +211,16 @@ export default function Donate() {
               </div>
 
               <div className="bg-muted rounded-lg p-5">
+                <h3 className="font-serif font-bold text-foreground mb-2">How this works</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <strong className="text-foreground">Stroke Recovery Academy</strong> is a for-profit platform built by Nick Kremers. <strong className="text-foreground">Stroke Lyfe Inc.</strong> is the nonprofit that funds survivor access to it — so cost is never the reason someone can't recover. Your donation goes to the nonprofit (tax-deductible, EIN 99-1313589) and directly funds a scholarship into the Academy.
+                </p>
+              </div>
+
+              <div className="bg-muted rounded-lg p-5">
                 <h3 className="font-serif font-bold text-foreground mb-2">Secure & tax-deductible</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Donations are processed securely. Stroke Lyfe Inc. is a 501(c)(3) nonprofit (EIN: 99-1313589). Your donation is tax-deductible to the fullest extent of the law.
+                  Stroke Lyfe Inc. is a 501(c)(3) public charity (EIN: 99-1313589). Your donation is tax-deductible to the fullest extent of the law.
                 </p>
               </div>
 
