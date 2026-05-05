@@ -15,18 +15,16 @@ run = "pnpm --filter @workspace/api-server run dev"
 [services.production]
 
 [services.production.build]
-args = ["pnpm", "--filter", "@workspace/api-server", "run", "build"]
+# Build frontend first so the API server can serve its static files in production
+args = ["sh", "-c", "PORT=22585 BASE_PATH=/ pnpm --filter @workspace/stroke-lyfe run build && pnpm --filter @workspace/api-server run build"]
 
 [services.production.build.env]
 NODE_ENV = "production"
 
 [services.production.run]
-# we don't run through pnpm to make startup faster in production
+# Run directly (not through pnpm) for faster cold starts
 args = ["node", "--enable-source-maps", "artifacts/api-server/dist/index.mjs"]
 
 [services.production.run.env]
 PORT = "8080"
 NODE_ENV = "production"
-
-[services.production.health.startup]
-path = "/api/healthz"
