@@ -150,8 +150,8 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
               { name: "Nick Kremers", title: "Founder & Executive Director", bio: "Stroke survivor, recovery advocate, and founder of Stroke Recovery Academy." },
-              { name: "[Board Chair]", title: "Board Chair", bio: "Placeholder — contact us to learn about board service." },
-              { name: "[Treasurer]", title: "Treasurer", bio: "Placeholder — contact us to learn about board service." },
+              { name: "Lisa Kremers", title: "Board Member", bio: "" },
+              { name: "Debbie Kremers", title: "Board Member", bio: "" },
             ].map((member) => (
               <Card key={member.name} data-testid={`card-board-${member.name.replace(/\s+/g, "-").toLowerCase()}`}>
                 <CardContent className="p-5 text-center">

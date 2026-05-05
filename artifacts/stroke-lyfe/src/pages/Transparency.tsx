@@ -92,7 +92,8 @@ export default function Transparency() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { name: "Nick Kremers", title: "Executive Director", note: "Founder" },
-                { name: "[Board Chair]", title: "Board Chair", note: "Appointed 2024" },
+                { name: "Lisa Kremers", title: "Board Member", note: "" },
+                { name: "Debbie Kremers", title: "Board Member", note: "" },
                 { name: "[Treasurer]", title: "Treasurer", note: "CPA on file" },
               ].map((member) => (
                 <Card key={member.name} data-testid={`card-board-transparency-${member.name.replace(/\s+/g, "-").toLowerCase()}`}>
