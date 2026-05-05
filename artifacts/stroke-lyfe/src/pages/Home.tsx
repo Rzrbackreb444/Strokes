@@ -119,11 +119,11 @@ export default function Home() {
             <div>
               <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-4">Why We Exist</p>
               <blockquote className="font-serif text-2xl md:text-3xl font-bold text-foreground leading-tight mb-6">
-                "I had my stroke at 36. Insurance said I was too recovered to stay in therapy. I was still in a wheelchair. This is the org I wish had existed."
+                "They predicted 30% recovery and told me I'd never walk normally again. I'm at 90%+. The timeline they give you is a floor, not a ceiling."
               </blockquote>
               <p className="text-muted-foreground mb-2 font-medium">— Nick Kremers, Founder</p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                Nick had his stroke on December 3, 2018 at 36. When insurance said he was "too recovered" to stay in therapy — while he was still in a wheelchair — he understood exactly what was broken. Stroke Lyfe is the organization he needed and couldn't find.
+                Nick had his stroke on December 3, 2018 at 36. Insurance discharged him while he was still in a wheelchair — "too recovered" to qualify for more therapy. He built what should have existed: a platform, a community, and now a nonprofit to fund access for every survivor who can't afford it.
               </p>
               <Button variant="outline" asChild data-testid="button-read-story">
                 <Link href="/about">

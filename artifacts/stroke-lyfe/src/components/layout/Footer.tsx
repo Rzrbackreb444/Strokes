@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useEmailSignup } from "@workspace/api-client-react";
-import { SiFacebook, SiInstagram, SiYoutube } from "react-icons/si";
+import { SiFacebook, SiInstagram, SiYoutube, SiTiktok } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import logo from "@assets/Untitled_design_1777980864783.png";
 
@@ -121,7 +121,10 @@ export default function Footer() {
           <a href="https://linkedin.com/company/strokelyfe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-background/50 hover:text-background transition-colors" data-testid="link-social-linkedin">
             <FaLinkedin className="h-5 w-5" />
           </a>
-          <a href="https://facebook.com/strokelyfe" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-background/50 hover:text-background transition-colors" data-testid="link-social-facebook">
+          <a href="https://tiktok.com/@nickkremers" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-background/50 hover:text-background transition-colors" data-testid="link-social-tiktok">
+            <SiTiktok className="h-5 w-5" />
+          </a>
+          <a href="https://facebook.com/NicholasKremersSr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-background/50 hover:text-background transition-colors" data-testid="link-social-facebook">
             <SiFacebook className="h-5 w-5" />
           </a>
           <a href="https://instagram.com/strokelyfe" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-background/50 hover:text-background transition-colors" data-testid="link-social-instagram">

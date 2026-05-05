@@ -45,31 +45,31 @@ export default function About() {
             <div className="prose prose-lg max-w-none">
               <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-4">Nick's Story</p>
               <h2 className="font-serif text-3xl font-bold text-foreground mb-6">
-                "I was 36 years old. December 3, 2018. I had no idea what was about to happen."
+                "December 3, 2018. I was 36. I was benching over 400 pounds. And then half my body went silent."
               </h2>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Nick Kremers had his stroke at 36. He had a young family, a career, a life moving fast — and then it stopped. The damage was real and the road back would take years. But the part that still makes him angry isn't the stroke itself.
+                Nick Kremers was built like a brick wall — an athlete his whole life, football, basketball, baseball, gymnastics. He worked long days and felt unbreakable. Then one morning his left side stopped listening. His arm went heavy. His leg: dead weight. Words crumbled on his tongue. He'd had a massive hemorrhagic stroke.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
-                It's what happened after. After a few rounds of therapy, his insurance company reviewed his case and made a determination: Nick was too recovered to continue. They sent him home. He was still in a wheelchair.
+                The ICU took 50 pounds off him. Tube feedings gave way to pureed food that tasted like cardboard. A doctor told him he'd probably never walk normally again. They predicted 30% recovery. Then insurance reviewed his case and made their determination: he was too recovered to continue therapy. They sent him home. He was still in a wheelchair.
               </p>
 
               <blockquote className="font-serif text-xl font-bold text-foreground border-l-4 border-primary pl-6 my-6">
-                "Too recovered. I was still in a wheelchair when they said that. That sentence is why this organization exists."
+                "You'll probably never walk normally again." I now walk better than most people who've never had a stroke. Predicted 30%. At 90%+. Still rising.
               </blockquote>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
-                The system isn't broken by accident. It's built around what's measurable and billable, not around what recovery actually requires — which is consistency, community, and time. Nick got the discharge paperwork, the binder of exercises, and no real path forward. So he built one.
+                The recovery nobody told him about: the biggest wins came in years four through seven — not the first year. Neuroplasticity doesn't have a deadline. Nick rebuilt his drop foot. Rebuilt his speech. Rebuilt his identity — from patient to founder. He now reaches 14,500 survivors weekly on TikTok (<a href="https://tiktok.com/@nickkremers" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@nickkremers</a>) and built Stroke Recovery Academy to give survivors a real daily structure and community.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
-                That path became Stroke Recovery Academy — a platform that gives survivors daily structure, real coaching, and a community of people who understand the experience from the inside. But the Academy costs money, and not every survivor has it. Stroke Lyfe exists to close that gap. Every donation funds a real person on a real waitlist. When they get their scholarship, we tell you.
+                But the Academy costs money, and not every survivor has it. Stroke Lyfe exists to close that gap. Every donation funds a real person on a real waitlist. When they activate their scholarship, we tell you.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                If you're reading this as a survivor: you are not too recovered. You're not behind. What you're doing is hard and it takes as long as it takes. If you're reading this as a donor: Nick knows what it's like to be told you don't qualify anymore. Your gift says otherwise.
+                If you're a survivor: you are not too recovered. You are not behind. The timeline they gave you is a floor, not a ceiling. If you're a donor: Nick knows exactly what it's like to be told you don't qualify anymore. Your gift says otherwise.
               </p>
             </div>
           </div>
