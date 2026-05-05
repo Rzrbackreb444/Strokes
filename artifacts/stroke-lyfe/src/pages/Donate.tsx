@@ -213,7 +213,7 @@ export default function Donate() {
               <div className="bg-muted rounded-lg p-5">
                 <h3 className="font-serif font-bold text-foreground mb-2">How this works</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  <strong className="text-foreground">Stroke Recovery Academy</strong> is a for-profit platform built by Nick Kremers. <strong className="text-foreground">Stroke Lyfe Inc.</strong> is the nonprofit that funds survivor access to it — so cost is never the reason someone can't recover. Your donation goes to the nonprofit (tax-deductible, EIN 99-1313589) and directly funds a scholarship into the Academy.
+                  You donate to Stroke Lyfe Inc. (the 501(c)(3) nonprofit). We use that to fund a survivor's scholarship into Stroke Recovery Academy. That's it.
                 </p>
               </div>
 

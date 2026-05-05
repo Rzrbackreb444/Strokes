@@ -8,7 +8,7 @@ const programs = [
     icon: <Heart className="h-7 w-7 text-accent" />,
     title: "Survivor Scholarships",
     subtitle: "Remove the cost barrier",
-    body: "Stroke Recovery Academy is a for-profit recovery platform built by Nick Kremers. Stroke Lyfe exists so that cost is never the reason someone can't access it. We fund full Academy scholarships for survivors who can't afford it — $97, $297, or $997 depending on the level of support needed. No application fees. No waitlist games. We work through the list in order. Your donation to Stroke Lyfe (the nonprofit) is what makes this possible.",
+    body: "We fund full access to Stroke Recovery Academy for survivors who can't afford it. Every scholarship is $97, $297, or $997 depending on the level of support needed. Donations to Stroke Lyfe (the nonprofit) go directly toward this. No application fees. No waitlist games. We work through the list in order.",
     features: ["Full Academy access", "Exercise library", "AI coaching", "Community access", "Monthly check-ins"],
     testId: "card-program-scholarships",
   },
