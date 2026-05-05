@@ -9,8 +9,11 @@ import {
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
-function verifyToken(token: string | unknown): boolean {
+function verifyToken(token: string | unknown, authHeader?: string): boolean {
   if (!ADMIN_SECRET) return false;
+  if (authHeader?.startsWith("Bearer ")) {
+    return authHeader.slice(7) === ADMIN_SECRET;
+  }
   return token === ADMIN_SECRET;
 }
 
@@ -19,7 +22,7 @@ const router: IRouter = Router();
 // GET /api/admin/stories
 router.get("/admin/stories", async (req: Request, res: Response): Promise<void> => {
   const { token, limit: limitStr, offset: offsetStr } = req.query as Record<string, string | undefined>;
-  if (!verifyToken(token)) {
+  if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -40,7 +43,7 @@ router.get("/admin/stories", async (req: Request, res: Response): Promise<void> 
 // PATCH /api/stories/:id (public alias for admin approval, matches task spec)
 router.patch("/stories/:id", async (req: Request, res: Response): Promise<void> => {
   const { token } = req.query as { token?: string };
-  if (!verifyToken(token)) {
+  if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -79,7 +82,7 @@ router.patch("/stories/:id", async (req: Request, res: Response): Promise<void> 
 // PATCH /api/admin/stories/:id
 router.patch("/admin/stories/:id", async (req: Request, res: Response): Promise<void> => {
   const { token } = req.query as { token?: string };
-  if (!verifyToken(token)) {
+  if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -118,7 +121,7 @@ router.patch("/admin/stories/:id", async (req: Request, res: Response): Promise<
 // GET /api/admin/stats
 router.get("/admin/stats", async (req: Request, res: Response): Promise<void> => {
   const { token } = req.query as { token?: string };
-  if (!verifyToken(token)) {
+  if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -141,7 +144,7 @@ router.get("/admin/stats", async (req: Request, res: Response): Promise<void> =>
 // PATCH /api/admin/stats
 router.patch("/admin/stats", async (req: Request, res: Response): Promise<void> => {
   const { token } = req.query as { token?: string };
-  if (!verifyToken(token)) {
+  if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -161,7 +164,13 @@ router.patch("/admin/stats", async (req: Request, res: Response): Promise<void> 
     if (body.survivorsServed !== undefined) await upsert("survivorsServed", body.survivorsServed);
     if (body.scholarshipsFunded !== undefined) await upsert("scholarshipsFunded", body.scholarshipsFunded);
 
-    res.json({ ok: true });
+    const rows = await db.select().from(siteConfig);
+    const cfg: Record<string, string> = {};
+    for (const row of rows) cfg[row.key] = row.value;
+    res.json({
+      survivorsServed: parseInt(cfg["survivorsServed"] ?? "1247", 10),
+      scholarshipsFunded: parseInt(cfg["scholarshipsFunded"] ?? "312", 10),
+    });
   } catch {
     res.status(400).json({ error: "Invalid data" });
   }
