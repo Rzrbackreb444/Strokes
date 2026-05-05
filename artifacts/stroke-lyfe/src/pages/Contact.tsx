@@ -42,7 +42,7 @@ export default function Contact() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    submitContact.mutate({ name: form.name, email: form.email, topic: form.topic, message: form.message });
+    submitContact.mutate({ data: { name: form.name, email: form.email, topic: form.topic, message: form.message } });
   }
 
   return (

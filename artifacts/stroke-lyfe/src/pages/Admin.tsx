@@ -76,7 +76,7 @@ export default function Admin() {
     const body: { survivorsServed?: number; scholarshipsFunded?: number } = {};
     if (statsForm.survivorsServed) body.survivorsServed = Number(statsForm.survivorsServed);
     if (statsForm.scholarshipsFunded) body.scholarshipsFunded = Number(statsForm.scholarshipsFunded);
-    updateStats.mutate({ data: body as { survivorsServed: number; scholarshipsFunded: number }, params: { token: token! } });
+    updateStats.mutate({ data: body, params: { token: token! } });
   }
 
   return (

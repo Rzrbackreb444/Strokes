@@ -214,8 +214,8 @@ export const AdminUpdateStatsQueryParams = zod.object({
 });
 
 export const AdminUpdateStatsBody = zod.object({
-  survivorsServed: zod.number(),
-  scholarshipsFunded: zod.number(),
+  survivorsServed: zod.number().optional(),
+  scholarshipsFunded: zod.number().optional(),
 });
 
 export const AdminUpdateStatsResponse = zod.object({

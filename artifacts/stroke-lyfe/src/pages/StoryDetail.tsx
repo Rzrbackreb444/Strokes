@@ -139,15 +139,13 @@ export default function StoryDetail() {
       <section className="py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 max-w-6xl text-center">
           <p className="text-muted-foreground mb-3 text-sm">Have a story of your own?</p>
-          <a
-            href="https://forms.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/submit-story"
             className="inline-flex items-center justify-center text-sm font-medium text-primary hover:underline"
             data-testid="button-submit-your-story"
           >
             Submit your story →
-          </a>
+          </Link>
         </div>
       </section>
     </div>

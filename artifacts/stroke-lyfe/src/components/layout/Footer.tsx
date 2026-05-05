@@ -31,7 +31,7 @@ export default function Footer() {
   function handleSignup(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
-    signup.mutate({ email, source: "footer" });
+    signup.mutate({ data: { email, source: "footer" } });
   }
 
   return (

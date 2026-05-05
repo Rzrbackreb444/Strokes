@@ -41,8 +41,10 @@ function Router() {
       <Route path="/transparency" component={Transparency} />
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/legal/privacy" component={Privacy} />
+      <Route path="/privacy" component={Privacy} />
       <Route path="/legal/terms" component={Terms} />
       <Route path="/legal/donor-rights" component={DonorRights} />
+      <Route path="/gift-scholarship" component={Gift} />
       <Route path="/admin" component={Admin} />
       <Route path="/submit-story" component={SubmitStory} />
       <Route path="/faq" component={FAQ} />
