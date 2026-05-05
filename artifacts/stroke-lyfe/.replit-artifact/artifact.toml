@@ -10,9 +10,9 @@ name = "react-vite"
 version = "1.0.0"
 
 [[services]]
-name = "web"
-paths = [ "/" ]
 localPort = 22585
+name = "web"
+paths = ["/"]
 
 [services.development]
 run = "pnpm --filter @workspace/stroke-lyfe run dev"
