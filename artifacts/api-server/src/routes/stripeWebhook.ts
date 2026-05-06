@@ -7,6 +7,7 @@ import {
   sendDonationReceipt,
   sendGiftDonorConfirmation,
   sendGiftRecipientNotification,
+  sendTributeNotification,
 } from "../lib/emails";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
@@ -137,14 +138,32 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
 
     await Promise.all(emails);
   } else {
+    const tributeNotifyEmail = meta["tributeNotifyEmail"]?.trim() || null;
+    const inHonorOf = meta["inHonorOf"]?.trim() || null;
+
+    // Receipt is the primary side-effect — await it so failures correctly propagate
+    // and trigger Stripe retries without risking duplicate tribute sends.
     await sendDonationReceipt({
       to: donorEmail,
       donorName: donorName ?? "",
       amountCents,
       isRecurring,
       // Display the honored person's name in the receipt, not the notification email
-      tributeOf: meta["inHonorOf"] ?? null,
+      tributeOf: inHonorOf,
     });
+
+    // Tribute notification is best-effort — a failure must never block receipt
+    // delivery or cause the webhook to be retried (which would re-send the receipt).
+    if (tributeNotifyEmail && inHonorOf) {
+      sendTributeNotification({
+        to: tributeNotifyEmail,
+        donorName: donorName ?? "",
+        honoredName: inHonorOf,
+        amountCents,
+      }).catch((err) => {
+        console.error("[stripe-webhook] Tribute notification failed (non-fatal):", err);
+      });
+    }
   }
 
   await db

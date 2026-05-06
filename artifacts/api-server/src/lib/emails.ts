@@ -131,6 +131,40 @@ export async function sendGiftDonorConfirmation(opts: {
   });
 }
 
+export async function sendTributeNotification(opts: {
+  to: string;
+  donorName: string;
+  honoredName: string;
+  amountCents: number;
+}) {
+  const { to, donorName, honoredName, amountCents } = opts;
+  const amt = dollars(amountCents);
+
+  const html = `
+<html><body style="${baseStyle()}">
+<div style="${containerStyle()}">
+  ${headerHtml("A donation was made in their honor")}
+  <div style="padding: 32px 40px;">
+    <p style="font-size: 15px; color: #444; margin: 0 0 24px; line-height: 1.6;">
+      <strong>${donorName || "Someone"}</strong> made a <strong>${amt}</strong> donation to Stroke Lyfe Inc. in honor of <strong>${honoredName}</strong>.
+    </p>
+    <p style="font-size: 15px; color: #444; margin: 0 0 24px; line-height: 1.6;">
+      Stroke Lyfe Inc. is a 501(c)(3) public charity (EIN ${EIN}) dedicated to helping stroke survivors access recovery resources.
+    </p>
+    <a href="https://strokelyfe.org?utm_source=tributenotification&utm_medium=email&utm_campaign=tribute" style="display: inline-block; background: #b8940a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: bold;">Learn more about Stroke Lyfe →</a>
+  </div>
+  ${footerHtml()}
+</div>
+</body></html>`;
+
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: `${donorName || "Someone"} made a donation in honor of ${honoredName} — Stroke Lyfe Inc.`,
+    html,
+  });
+}
+
 export async function sendGiftRecipientNotification(opts: {
   to: string;
   recipientName: string;
