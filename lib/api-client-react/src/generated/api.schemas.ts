@@ -115,6 +115,10 @@ export type AdminUpdateStoryParams = {
   token: string;
 };
 
+export type AdminResendReceiptParams = {
+  token: string;
+};
+
 export type AdminResendTributeParams = {
   token: string;
 };

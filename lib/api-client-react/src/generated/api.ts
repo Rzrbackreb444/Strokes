@@ -20,6 +20,7 @@ import type {
   AdminGetDonationsParams,
   AdminGetStatsParams,
   AdminGetStoriesParams,
+  AdminResendReceiptParams,
   AdminResendTributeParams,
   AdminUpdateStatsParams,
   AdminUpdateStoryBody,
@@ -1020,6 +1021,106 @@ export const useAdminUpdateStory = <
   TContext
 > => {
   return useMutation(getAdminUpdateStoryMutationOptions(options));
+};
+
+/**
+ * @summary Admin - resend donation receipt email(s)
+ */
+export const getAdminResendReceiptUrl = (
+  id: number,
+  params: AdminResendReceiptParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/donations/${id}/resend-receipt?${stringifiedParams}`
+    : `/api/admin/donations/${id}/resend-receipt`;
+};
+
+export const adminResendReceipt = async (
+  id: number,
+  params: AdminResendReceiptParams,
+  options?: RequestInit,
+): Promise<Donation> => {
+  return customFetch<Donation>(getAdminResendReceiptUrl(id, params), {
+    ...options,
+    method: "POST",
+  });
+};
+
+export const getAdminResendReceiptMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminResendReceipt>>,
+    TError,
+    { id: number; params: AdminResendReceiptParams },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminResendReceipt>>,
+  TError,
+  { id: number; params: AdminResendReceiptParams },
+  TContext
+> => {
+  const mutationKey = ["adminResendReceipt"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminResendReceipt>>,
+    { id: number; params: AdminResendReceiptParams }
+  > = (props) => {
+    const { id, params } = props ?? {};
+
+    return adminResendReceipt(id, params, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AdminResendReceiptMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminResendReceipt>>
+>;
+
+export type AdminResendReceiptMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Admin - resend donation receipt email(s)
+ */
+export const useAdminResendReceipt = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminResendReceipt>>,
+    TError,
+    { id: number; params: AdminResendReceiptParams },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof adminResendReceipt>>,
+  TError,
+  { id: number; params: AdminResendReceiptParams },
+  TContext
+> => {
+  return useMutation(getAdminResendReceiptMutationOptions(options));
 };
 
 /**

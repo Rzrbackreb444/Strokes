@@ -6,7 +6,12 @@ import {
   AdminUpdateStoryBody,
   AdminUpdateStatsBody,
 } from "@workspace/api-zod";
-import { sendTributeNotification } from "../lib/emails";
+import {
+  sendDonationReceipt,
+  sendGiftDonorConfirmation,
+  sendGiftRecipientNotification,
+  sendTributeNotification,
+} from "../lib/emails";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
@@ -196,6 +201,81 @@ router.patch("/admin/stats", async (req: Request, res: Response): Promise<void> 
   } catch {
     res.status(400).json({ error: "Invalid data" });
   }
+});
+
+// POST /api/admin/donations/:id/resend-receipt
+router.post("/admin/donations/:id/resend-receipt", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const id = parseInt(req.params["id"] as string, 10);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid donation ID" });
+    return;
+  }
+
+  const [donation] = await db.select().from(donations).where(eq(donations.id, id)).limit(1);
+  if (!donation) {
+    res.status(404).json({ error: "Donation not found" });
+    return;
+  }
+
+  try {
+    if (donation.kind === "gift") {
+      const giverName = donation.donorName ?? "A friend";
+      const recipientName = donation.recipientName ?? "";
+      const recipientEmail = donation.recipientEmail ?? "";
+      const tierName = donation.scholarshipTier ?? "Survivor";
+      const message = donation.giftMessage ?? null;
+
+      const emails: Promise<void>[] = [];
+      emails.push(
+        sendGiftDonorConfirmation({
+          to: donation.donorEmail,
+          giverName,
+          recipientName,
+          amountCents: donation.amountCents,
+          tierName,
+        }),
+      );
+      if (recipientEmail) {
+        emails.push(
+          sendGiftRecipientNotification({
+            to: recipientEmail,
+            recipientName,
+            giverName,
+            tierName,
+            amountCents: donation.amountCents,
+            message,
+          }),
+        );
+      }
+      await Promise.all(emails);
+    } else {
+      await sendDonationReceipt({
+        to: donation.donorEmail,
+        donorName: donation.donorName ?? "",
+        amountCents: donation.amountCents,
+        isRecurring: donation.isRecurring,
+        tributeOf: donation.tributeOf ?? null,
+      });
+    }
+  } catch (err) {
+    console.error("[admin] Receipt resend failed:", err);
+    res.status(502).json({ error: "Failed to send receipt email" });
+    return;
+  }
+
+  const [updated] = await db
+    .update(donations)
+    .set({ receiptSentAt: new Date() })
+    .where(eq(donations.id, id))
+    .returning();
+
+  res.json(updated);
 });
 
 // POST /api/admin/donations/:id/resend-tribute

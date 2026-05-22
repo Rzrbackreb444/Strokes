@@ -14,6 +14,7 @@ import {
   useAdminUpdateStats,
   useAdminGetDonations,
   useAdminResendTribute,
+  useAdminResendReceipt,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
   getAdminGetDonationsQueryKey,
@@ -76,6 +77,19 @@ export default function Admin() {
       },
       onError: (err: unknown) => {
         const message = err instanceof Error ? err.message : "Failed to resend tribute notification";
+        toast({ title: "Resend failed", description: message, variant: "destructive" });
+      },
+    },
+  });
+
+  const resendReceipt = useAdminResendReceipt({
+    mutation: {
+      onSuccess: () => {
+        qc.invalidateQueries({ queryKey: getAdminGetDonationsQueryKey(donationsParams) });
+        toast({ title: "Receipt sent" });
+      },
+      onError: (err: unknown) => {
+        const message = err instanceof Error ? err.message : "Failed to resend receipt";
         toast({ title: "Resend failed", description: message, variant: "destructive" });
       },
     },
@@ -174,6 +188,7 @@ export default function Admin() {
                       <th className="pb-2 pr-4 font-medium">Amount</th>
                       <th className="pb-2 pr-4 font-medium">Kind</th>
                       <th className="pb-2 pr-4 font-medium">In honor of</th>
+                      <th className="pb-2 pr-4 font-medium">Receipt</th>
                       <th className="pb-2 pr-4 font-medium">Tribute notification</th>
                       <th className="pb-2 pr-4 font-medium">Actions</th>
                       <th className="pb-2 font-medium">Date</th>
@@ -214,6 +229,17 @@ export default function Admin() {
                           )}
                         </td>
                         <td className="py-2 pr-4">
+                          {donation.receiptSentAt ? (
+                            <Badge variant="default" className="text-xs bg-green-600" data-testid={`badge-receipt-sent-${donation.id}`}>
+                              Sent {new Date(donation.receiptSentAt).toLocaleDateString()}
+                            </Badge>
+                          ) : (
+                            <Badge variant="secondary" className="text-xs text-amber-700 bg-amber-100" data-testid={`badge-receipt-unsent-${donation.id}`}>
+                              Not sent
+                            </Badge>
+                          )}
+                        </td>
+                        <td className="py-2 pr-4">
                           {donation.tributeOf ? (
                             donation.tributeNotificationSentAt ? (
                               <Badge variant="default" className="text-xs bg-green-600">
@@ -229,20 +255,36 @@ export default function Admin() {
                           )}
                         </td>
                         <td className="py-2 pr-4">
-                          {donation.tributeOf && !donation.tributeNotificationSentAt && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs h-7 px-2"
-                              disabled={resendTribute.isPending}
-                              onClick={() =>
-                                resendTribute.mutate({ id: donation.id, params: { token: token! } })
-                              }
-                              data-testid={`button-resend-tribute-${donation.id}`}
-                            >
-                              Resend
-                            </Button>
-                          )}
+                          <div className="flex flex-col gap-1">
+                            {!donation.receiptSentAt && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-xs h-7 px-2"
+                                disabled={resendReceipt.isPending}
+                                onClick={() =>
+                                  resendReceipt.mutate({ id: donation.id, params: { token: token! } })
+                                }
+                                data-testid={`button-resend-receipt-${donation.id}`}
+                              >
+                                Resend receipt
+                              </Button>
+                            )}
+                            {donation.tributeOf && !donation.tributeNotificationSentAt && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-xs h-7 px-2"
+                                disabled={resendTribute.isPending}
+                                onClick={() =>
+                                  resendTribute.mutate({ id: donation.id, params: { token: token! } })
+                                }
+                                data-testid={`button-resend-tribute-${donation.id}`}
+                              >
+                                Resend tribute
+                              </Button>
+                            )}
+                          </div>
                         </td>
                         <td className="py-2 text-muted-foreground text-xs">
                           {new Date(donation.createdAt).toLocaleDateString()}

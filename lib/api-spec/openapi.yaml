@@ -278,6 +278,48 @@ paths:
               schema:
                 $ref: "#/components/schemas/Story"
 
+  /admin/donations/{id}/resend-receipt:
+    post:
+      operationId: adminResendReceipt
+      tags: [admin]
+      summary: Admin - resend donation receipt email(s)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Receipt sent, returns updated donation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Donation"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Donation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "502":
+          description: Email send failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /admin/donations/{id}/resend-tribute:
     post:
       operationId: adminResendTribute
