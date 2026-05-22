@@ -120,7 +120,7 @@ export default function Home() {
                 src={nickNow}
                 alt="Nick Kremers, founder of Stroke Lyfe, today"
                 className="w-full h-80 md:h-96 object-cover rounded-lg"
-                style={{ objectPosition: "center 80%" }}
+                style={{ objectPosition: "center 20%" }}
               />
             </div>
             <div>
