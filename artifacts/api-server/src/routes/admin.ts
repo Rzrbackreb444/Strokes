@@ -1,7 +1,8 @@
 import { Router, type IRouter, type Request, type Response } from "express";
+import Stripe from "stripe";
 import { db } from "@workspace/db";
 import { stories, siteConfig, donations } from "@workspace/db";
-import { eq, desc, count } from "drizzle-orm";
+import { eq, desc, count, isNull, isNotNull } from "drizzle-orm";
 import {
   AdminUpdateStoryBody,
   AdminUpdateStatsBody,
@@ -12,6 +13,10 @@ import {
   sendGiftRecipientNotification,
   sendTributeNotification,
 } from "../lib/emails";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
+  apiVersion: "2026-04-22.dahlia",
+});
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
@@ -330,6 +335,75 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
     .returning();
 
   res.json(updated);
+});
+
+// POST /api/admin/donations/backfill-tribute-emails
+// One-time backfill: for tribute donations missing tributeNotifyEmail, fetch the
+// Stripe session metadata and write the email back to the DB.
+router.post("/admin/donations/backfill-tribute-emails", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const rows = await db
+    .select()
+    .from(donations)
+    .where(isNull(donations.tributeNotifyEmail))
+    // Only tribute donations (tributeOf is set)
+    .then((all) => all.filter((d) => d.tributeOf != null));
+
+  if (rows.length === 0) {
+    res.json({ updated: 0, skipped: 0, total: 0, message: "Nothing to backfill." });
+    return;
+  }
+
+  let updated = 0;
+  let skipped = 0;
+  const errors: string[] = [];
+
+  for (const row of rows) {
+    // Rows from sub-renewal synthetic sessions (sub_renewal_*) have no real Stripe
+    // checkout session — skip them immediately.
+    if (row.stripeSessionId.startsWith("sub_renewal_")) {
+      console.log(`[backfill] Skipping synthetic session ${row.stripeSessionId} (id=${row.id})`);
+      skipped++;
+      continue;
+    }
+
+    try {
+      const session = await stripe.checkout.sessions.retrieve(row.stripeSessionId);
+      const email = (session.metadata?.["tributeNotifyEmail"] ?? "").trim() || null;
+
+      if (!email) {
+        console.log(`[backfill] No tributeNotifyEmail in Stripe metadata for session ${row.stripeSessionId} (id=${row.id}) — skipping`);
+        skipped++;
+        continue;
+      }
+
+      await db
+        .update(donations)
+        .set({ tributeNotifyEmail: email })
+        .where(eq(donations.id, row.id));
+
+      console.log(`[backfill] Updated donation id=${row.id} with tributeNotifyEmail=${email}`);
+      updated++;
+    } catch (err) {
+      const msg = `donation id=${row.id} session=${row.stripeSessionId}: ${String(err)}`;
+      console.error(`[backfill] Error processing ${msg}`);
+      errors.push(msg);
+      skipped++;
+    }
+  }
+
+  res.json({
+    total: rows.length,
+    updated,
+    skipped,
+    errors: errors.length > 0 ? errors : undefined,
+    message: `Backfill complete. ${updated} updated, ${skipped} skipped out of ${rows.length} candidate rows.`,
+  });
 });
 
 export default router;
