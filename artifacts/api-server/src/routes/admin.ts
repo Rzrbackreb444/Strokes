@@ -394,11 +394,13 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
 // One-time backfill: for tribute donations missing tributeNotifyEmail, fetch the
 // Stripe session metadata and write the email back to the DB.
 router.post("/admin/donations/backfill-tribute-emails", async (req: Request, res: Response): Promise<void> => {
-  const { token } = req.query as { token?: string };
+  const { token, sendEmails } = req.query as { token?: string; sendEmails?: string };
   if (!verifyToken(token, req.headers.authorization)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
+
+  const shouldSendEmails = sendEmails === "true";
 
   const rows = await db
     .select()
@@ -408,12 +410,14 @@ router.post("/admin/donations/backfill-tribute-emails", async (req: Request, res
     .then((all) => all.filter((d) => d.tributeOf != null));
 
   if (rows.length === 0) {
-    res.json({ updated: 0, skipped: 0, total: 0, message: "Nothing to backfill." });
+    res.json({ updated: 0, skipped: 0, total: 0, emailsSent: 0, emailsFailed: 0, message: "Nothing to backfill." });
     return;
   }
 
   let updated = 0;
   let skipped = 0;
+  let emailsSent = 0;
+  let emailsFailed = 0;
   const errors: string[] = [];
 
   for (const row of rows) {
@@ -442,6 +446,28 @@ router.post("/admin/donations/backfill-tribute-emails", async (req: Request, res
 
       console.log(`[backfill] Updated donation id=${row.id} with tributeNotifyEmail=${email}`);
       updated++;
+
+      if (shouldSendEmails) {
+        try {
+          await sendTributeNotification({
+            to: email,
+            donorName: row.donorName ?? "",
+            honoredName: row.tributeOf!,
+            amountCents: row.amountCents,
+          });
+          await db
+            .update(donations)
+            .set({ tributeNotificationSentAt: new Date() })
+            .where(eq(donations.id, row.id));
+          console.log(`[backfill] Tribute notification sent for donation id=${row.id} to ${email}`);
+          emailsSent++;
+        } catch (emailErr) {
+          const msg = `email failed for donation id=${row.id} (${email}): ${String(emailErr)}`;
+          console.error(`[backfill] ${msg}`);
+          errors.push(msg);
+          emailsFailed++;
+        }
+      }
     } catch (err) {
       const msg = `donation id=${row.id} session=${row.stripeSessionId}: ${String(err)}`;
       console.error(`[backfill] Error processing ${msg}`);
@@ -450,12 +476,15 @@ router.post("/admin/donations/backfill-tribute-emails", async (req: Request, res
     }
   }
 
+  const emailSummary = shouldSendEmails ? ` ${emailsSent} emails sent, ${emailsFailed} failed.` : "";
   res.json({
     total: rows.length,
     updated,
     skipped,
+    emailsSent: shouldSendEmails ? emailsSent : undefined,
+    emailsFailed: shouldSendEmails ? emailsFailed : undefined,
     errors: errors.length > 0 ? errors : undefined,
-    message: `Backfill complete. ${updated} updated, ${skipped} skipped out of ${rows.length} candidate rows.`,
+    message: `Backfill complete. ${updated} updated, ${skipped} skipped out of ${rows.length} candidate rows.${emailSummary}`,
   });
 });
 
