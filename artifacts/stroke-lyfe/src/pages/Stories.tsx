@@ -9,12 +9,12 @@ import SEO from "@/components/SEO";
 const FOCUS_AREAS = ["All", "Speech", "Mobility", "Cognition", "Caregiver"];
 
 const placeholderStories = [
-  { id: 1, slug: "maria-s", pullQuote: "I got my voice back. It wasn't instant, but I got it back.", handle: "Maria S.", focusArea: "Speech", posterUrl: null },
-  { id: 2, slug: "devon-t", pullQuote: "Day 1 to day 200 — same survivor, completely different life.", handle: "Devon T.", focusArea: "Mobility", posterUrl: null },
-  { id: 3, slug: "aisha-r", pullQuote: "The people here saw me as me, not my MRI.", handle: "Aisha R.", focusArea: "Caregiver", posterUrl: null },
-  { id: 4, slug: "james-w", pullQuote: "I had to relearn my son's name. I'm not ashamed of that anymore.", handle: "James W.", focusArea: "Cognition", posterUrl: null },
-  { id: 5, slug: "linda-p", pullQuote: "The hardest part wasn't the stroke. It was the silence afterward.", handle: "Linda P.", focusArea: "Speech", posterUrl: null },
-  { id: 6, slug: "marcus-e", pullQuote: "Nobody told me this was going to be a years-long process. Now I help others understand that.", handle: "Marcus E.", focusArea: "Mobility", posterUrl: null },
+  { id: 1, slug: "maria-s", pullQuote: "I got my voice back. It wasn't instant, but I got it back.", handle: "Maria S.", focusArea: "Speech", posterUrl: "/stories/maria-s.png" },
+  { id: 2, slug: "devon-t", pullQuote: "Day 1 to day 200 — same survivor, completely different life.", handle: "Devon T.", focusArea: "Mobility", posterUrl: "/stories/devon-t.png" },
+  { id: 3, slug: "aisha-r", pullQuote: "The people here saw me as me, not my MRI.", handle: "Aisha R.", focusArea: "Caregiver", posterUrl: "/stories/aisha-r.png" },
+  { id: 4, slug: "james-w", pullQuote: "I had to relearn my son's name. I'm not ashamed of that anymore.", handle: "James W.", focusArea: "Cognition", posterUrl: "/stories/james-w.png" },
+  { id: 5, slug: "linda-p", pullQuote: "The hardest part wasn't the stroke. It was the silence afterward.", handle: "Linda P.", focusArea: "Speech", posterUrl: "/stories/linda-p.png" },
+  { id: 6, slug: "marcus-e", pullQuote: "Nobody told me this was going to be a years-long process. Now I help others understand that.", handle: "Marcus E.", focusArea: "Mobility", posterUrl: "/stories/marcus-e.png" },
 ];
 
 export default function Stories() {

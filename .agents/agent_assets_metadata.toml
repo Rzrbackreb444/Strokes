@@ -1,0 +1,38 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "2kFAggWRRdIMqJXB6Ctam"
+uri = "file://artifacts/stroke-lyfe/public/stories/maria-s.png"
+type = "image"
+title = "maria-s-survivor-portrait"
+
+[[generated]]
+id = "EYvp92tJeOp3voUhpfuf5"
+uri = "file://artifacts/stroke-lyfe/public/stories/devon-t.png"
+type = "image"
+title = "devon-t-survivor-portrait"
+
+[[generated]]
+id = "-tP6dG-Ln7pEs4v1CGCeK"
+uri = "file://artifacts/stroke-lyfe/public/stories/aisha-r.png"
+type = "image"
+title = "aisha-r-caregiver-portrait"
+
+[[generated]]
+id = "5RGwXKln40axzlaQvTACs"
+uri = "file://artifacts/stroke-lyfe/public/stories/james-w.png"
+type = "image"
+title = "james-w-survivor-portrait"
+
+[[generated]]
+id = "UQoReanacd3XWju37EzYD"
+uri = "file://artifacts/stroke-lyfe/public/stories/linda-p.png"
+type = "image"
+title = "linda-p-survivor-portrait"
+
+[[generated]]
+id = "EmCld-yvTsGTzOBdZAeCY"
+uri = "file://artifacts/stroke-lyfe/public/stories/marcus-e.png"
+type = "image"
+title = "marcus-e-survivor-portrait"
