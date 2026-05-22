@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, Share2, Link2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import NotFound from "@/pages/not-found";
@@ -1133,6 +1134,56 @@ export const BLOG_POSTS: Post[] = [
   },
 ];
 
+const SITE_URL_CLIENT = "https://strokelyfe.org";
+
+function extractFaqs(sections: Section[]): { q: string; a: string }[] {
+  const faqs: { q: string; a: string }[] = [];
+  let inFaq = false;
+  for (let i = 0; i < sections.length; i++) {
+    const s = sections[i];
+    if (s.type === "h2" && s.content === "Frequently Asked Questions") { inFaq = true; continue; }
+    if (inFaq && s.type === "h2") break;
+    if (inFaq && s.type === "h3") {
+      const next = sections[i + 1];
+      if (next && next.type === "p") { faqs.push({ q: s.content, a: next.content }); i++; }
+    }
+  }
+  return faqs;
+}
+
+function ScrollDonateBar() {
+  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  useEffect(() => {
+    if (sessionStorage.getItem("donate-bar-dismissed")) { setDismissed(true); return; }
+    const onScroll = () => {
+      if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight > 0.75) setVisible(true);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  if (dismissed || !visible) return null;
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-foreground text-background border-t border-background/20 shadow-2xl">
+      <div className="container mx-auto px-4 max-w-3xl py-3 flex items-center justify-between gap-4">
+        <p className="text-sm font-medium text-background/90 flex-1 leading-snug">
+          Recovery like Nick's should be possible for everyone. Help fund it.
+        </p>
+        <div className="flex items-center gap-2 shrink-0">
+          <Button asChild size="sm"><Link href="/donate">Donate now</Link></Button>
+          <button
+            onClick={() => { setDismissed(true); sessionStorage.setItem("donate-bar-dismissed", "1"); }}
+            className="text-background/50 hover:text-background transition-colors p-1 rounded"
+            aria-label="Dismiss"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function renderSection(section: Section, index: number) {
   switch (section.type) {
     case "h2":
@@ -1169,7 +1220,30 @@ function renderSection(section: Section, index: number) {
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  const [copied, setCopied] = useState(false);
+
   if (!post) return <NotFound />;
+
+  const postUrl = `${SITE_URL_CLIENT}/blog/${post.slug}`;
+  const faqs = extractFaqs(post.sections);
+  const faqSchema: object[] = faqs.length > 0
+    ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(({ q, a }) => ({
+          "@type": "Question",
+          "name": q,
+          "acceptedAnswer": { "@type": "Answer", "text": a },
+        })),
+      }]
+    : [];
+
+  function handleCopy() {
+    navigator.clipboard.writeText(postUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {});
+  }
 
   return (
     <>
@@ -1180,7 +1254,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         type="article"
         publishedAt={post.publishedAt}
         author={post.author}
+        extraSchemas={faqSchema}
       />
+      <ScrollDonateBar />
       <div>
         {/* Hero */}
         <section className="py-16 bg-foreground text-background">
@@ -1211,8 +1287,43 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               {post.sections.map((s, i) => renderSection(s, i))}
             </article>
 
+            {/* Social sharing */}
+            <div className="mt-10 pt-6 border-t border-border flex flex-wrap items-center gap-3" data-testid="section-share">
+              <span className="text-sm font-medium text-foreground flex items-center gap-1.5">
+                <Share2 className="h-4 w-4 text-muted-foreground" /> Share:
+              </span>
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}&via=strokelyfe`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs border border-border rounded-md px-3 py-1.5 hover:border-primary hover:text-primary transition-colors font-medium"
+                data-testid="button-share-twitter"
+              >
+                X / Twitter
+              </a>
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs border border-border rounded-md px-3 py-1.5 hover:border-primary hover:text-primary transition-colors font-medium"
+                data-testid="button-share-facebook"
+              >
+                Facebook
+              </a>
+              <button
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1.5 text-xs border border-border rounded-md px-3 py-1.5 hover:border-primary hover:text-primary transition-colors font-medium"
+                data-testid="button-share-copy"
+              >
+                {copied
+                  ? <><Check className="h-3.5 w-3.5 text-accent" /> Copied!</>
+                  : <><Link2 className="h-3.5 w-3.5" /> Copy link</>
+                }
+              </button>
+            </div>
+
             {/* Divider + More Posts */}
-            <div className="mt-16 pt-10 border-t border-border">
+            <div className="mt-10 pt-10 border-t border-border">
               <h2 className="font-serif text-xl font-bold text-foreground mb-6">More from Stroke Lyfe</h2>
               <div className="space-y-4">
                 {BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3).map((related) => (

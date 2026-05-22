@@ -47,7 +47,8 @@ export default function Footer() {
             <p className="text-sm text-background/60" data-testid="text-ein">EIN: 99-1313589</p>
             <p className="text-sm text-background/60 mt-2">622 South River Rd.<br />Lavaca, AR 72941</p>
             {/* Email signup */}
-            <form onSubmit={handleSignup} className="mt-4 flex gap-2" data-testid="form-email-signup">
+            <p className="text-xs text-background/40 mt-3 mb-1.5 leading-relaxed">Monthly recovery stories from Nick. No spam.</p>
+            <form onSubmit={handleSignup} className="flex gap-2" data-testid="form-email-signup">
               <Input
                 type="email"
                 placeholder="your@email.com"
@@ -87,10 +88,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-background mb-3 uppercase tracking-wider">Resources</h4>
             <ul className="space-y-2">
+              <li><Link href="/apply" className="text-sm text-background/60 hover:text-background transition-colors">Apply for a Scholarship</Link></li>
               <li><Link href="/stories" className="text-sm text-background/60 hover:text-background transition-colors">Story Library</Link></li>
               <li><Link href="/submit-story" className="text-sm text-background/60 hover:text-background transition-colors">Share Your Story</Link></li>
               <li><Link href="/faq" className="text-sm text-background/60 hover:text-background transition-colors">FAQ</Link></li>
-              <li><Link href="/programs" className="text-sm text-background/60 hover:text-background transition-colors">Family Support Guides</Link></li>
               <li>
                 <a
                   href="https://strokerecoveryacademy.com?utm_source=strokelyfe&utm_medium=site&utm_campaign=footer"
@@ -101,7 +102,7 @@ export default function Footer() {
                   Recovery Academy ↗
                 </a>
               </li>
-              <li><Link href="/contact" className="text-sm text-background/60 hover:text-background transition-colors">Get Help</Link></li>
+              <li><Link href="/press" className="text-sm text-background/60 hover:text-background transition-colors">Press & Media</Link></li>
             </ul>
           </div>
 

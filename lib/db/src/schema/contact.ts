@@ -27,3 +27,23 @@ export const mailingList = pgTable("mailing_list", {
 export const insertMailingListSchema = createInsertSchema(mailingList).omit({ id: true, createdAt: true });
 export type InsertMailingList = z.infer<typeof insertMailingListSchema>;
 export type MailingListEntry = typeof mailingList.$inferSelect;
+
+export const scholarshipApplications = pgTable("scholarship_applications", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  state: text("state"),
+  timeSinceStroke: text("time_since_stroke"),
+  currentTherapy: text("current_therapy"),
+  incomeBracket: text("income_bracket"),
+  story: text("story").notNull(),
+  programsInterested: text("programs_interested"),
+  referralSource: text("referral_source"),
+  status: text("status").notNull().default("pending"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertScholarshipApplicationSchema = createInsertSchema(scholarshipApplications).omit({ id: true, createdAt: true, status: true });
+export type InsertScholarshipApplication = z.infer<typeof insertScholarshipApplicationSchema>;
+export type ScholarshipApplication = typeof scholarshipApplications.$inferSelect;

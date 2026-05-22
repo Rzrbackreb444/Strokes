@@ -7,6 +7,7 @@ import adminRouter from "./admin";
 import donationsRouter from "./donations";
 import giftScholarshipsRouter from "./giftScholarships";
 import stripeWebhookRouter from "./stripeWebhook";
+import applicationsRouter from "./applications";
 
 const router: IRouter = Router();
 
@@ -18,5 +19,6 @@ router.use(adminRouter);
 router.use(donationsRouter);
 router.use(giftScholarshipsRouter);
 router.use(stripeWebhookRouter);
+router.use(applicationsRouter);
 
 export default router;
