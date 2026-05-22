@@ -45,6 +45,12 @@ export default function Admin() {
   const [statsForm, setStatsForm] = useState({ survivorsServed: "", scholarshipsFunded: "" });
   const [tributeConfirm, setTributeConfirm] = useState<{ id: number; originalEmail: string } | null>(null);
   const [editedTributeEmail, setEditedTributeEmail] = useState("");
+  const [receiptConfirm, setReceiptConfirm] = useState<{
+    id: number;
+    donorEmail: string;
+    recipientEmail?: string;
+    kind: string;
+  } | null>(null);
 
   const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
   const statsParams = { token: token ?? "" };
@@ -285,7 +291,12 @@ export default function Admin() {
                                 className="text-xs h-7 px-2"
                                 disabled={resendReceipt.isPending}
                                 onClick={() =>
-                                  resendReceipt.mutate({ id: donation.id, params: { token: token! } })
+                                  setReceiptConfirm({
+                                    id: donation.id,
+                                    donorEmail: donation.donorEmail,
+                                    recipientEmail: donation.recipientEmail ?? undefined,
+                                    kind: donation.kind,
+                                  })
                                 }
                                 data-testid={`button-resend-receipt-${donation.id}`}
                               >
@@ -385,6 +396,49 @@ export default function Admin() {
           </CardContent>
         </Card>
       </div>
+
+      <AlertDialog open={!!receiptConfirm} onOpenChange={(open) => { if (!open) setReceiptConfirm(null); }}>
+        <AlertDialogContent data-testid="dialog-resend-receipt-confirm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Resend receipt?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {receiptConfirm?.kind === "gift"
+                ? "The receipt will be sent to the following address(es)."
+                : "The receipt will be sent to the following address."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="px-1 pb-2 space-y-2 text-sm">
+            <div>
+              <p className="text-xs text-muted-foreground mb-0.5">Donor email</p>
+              <p className="font-medium text-foreground" data-testid="receipt-confirm-donor-email">
+                {receiptConfirm?.donorEmail}
+              </p>
+            </div>
+            {receiptConfirm?.kind === "gift" && receiptConfirm.recipientEmail && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-0.5">Gift recipient email</p>
+                <p className="font-medium text-foreground" data-testid="receipt-confirm-recipient-email">
+                  {receiptConfirm.recipientEmail}
+                </p>
+              </div>
+            )}
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-receipt-confirm-cancel">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              data-testid="button-receipt-confirm-send"
+              disabled={resendReceipt.isPending}
+              onClick={() => {
+                if (!receiptConfirm) return;
+                resendReceipt.mutate({ id: receiptConfirm.id, params: { token: token! } });
+                setReceiptConfirm(null);
+              }}
+            >
+              Send
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <AlertDialog open={!!tributeConfirm} onOpenChange={(open) => { if (!open) setTributeConfirm(null); }}>
         <AlertDialogContent data-testid="dialog-resend-tribute-confirm">
