@@ -137,6 +137,42 @@ export const GetPublicStatsResponse = zod.object({
 });
 
 /**
+ * @summary Admin - list all donations
+ */
+export const adminGetDonationsQueryLimitDefault = 100;
+export const adminGetDonationsQueryOffsetDefault = 0;
+
+export const AdminGetDonationsQueryParams = zod.object({
+  token: zod.coerce.string(),
+  limit: zod.coerce.number().default(adminGetDonationsQueryLimitDefault),
+  offset: zod.coerce.number().default(adminGetDonationsQueryOffsetDefault),
+});
+
+export const AdminGetDonationsResponseItem = zod.object({
+  id: zod.number(),
+  stripeSessionId: zod.string(),
+  stripePaymentIntentId: zod.string().nullish(),
+  stripeSubscriptionId: zod.string().nullish(),
+  kind: zod.string(),
+  amountCents: zod.number(),
+  currency: zod.string(),
+  isRecurring: zod.boolean(),
+  donorName: zod.string().nullish(),
+  donorEmail: zod.string(),
+  tributeOf: zod.string().nullish(),
+  scholarshipTier: zod.string().nullish(),
+  recipientName: zod.string().nullish(),
+  recipientEmail: zod.string().nullish(),
+  giftMessage: zod.string().nullish(),
+  receiptSentAt: zod.coerce.date().nullish(),
+  tributeNotificationSentAt: zod.coerce.date().nullish(),
+  createdAt: zod.coerce.date(),
+});
+export const AdminGetDonationsResponse = zod.array(
+  AdminGetDonationsResponseItem,
+);
+
+/**
  * @summary Admin - list all stories
  */
 export const AdminGetStoriesQueryParams = zod.object({
@@ -214,8 +250,8 @@ export const AdminUpdateStatsQueryParams = zod.object({
 });
 
 export const AdminUpdateStatsBody = zod.object({
-  survivorsServed: zod.number().optional(),
-  scholarshipsFunded: zod.number().optional(),
+  survivorsServed: zod.number(),
+  scholarshipsFunded: zod.number(),
 });
 
 export const AdminUpdateStatsResponse = zod.object({

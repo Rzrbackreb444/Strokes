@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response } from "express";
 import { db } from "@workspace/db";
-import { stories, siteConfig } from "@workspace/db";
+import { stories, siteConfig, donations } from "@workspace/db";
 import { eq, desc, count } from "drizzle-orm";
 import {
   AdminUpdateStoryBody,
@@ -18,6 +18,27 @@ function verifyToken(token: string | unknown, authHeader?: string): boolean {
 }
 
 const router: IRouter = Router();
+
+// GET /api/admin/donations
+router.get("/admin/donations", async (req: Request, res: Response): Promise<void> => {
+  const { token, limit: limitStr, offset: offsetStr } = req.query as Record<string, string | undefined>;
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const limit = parseInt(limitStr ?? "100", 10);
+  const offset = parseInt(offsetStr ?? "0", 10);
+
+  const rows = await db
+    .select()
+    .from(donations)
+    .orderBy(desc(donations.createdAt))
+    .limit(limit)
+    .offset(offset);
+
+  res.json(rows);
+});
 
 // GET /api/admin/stories
 router.get("/admin/stories", async (req: Request, res: Response): Promise<void> => {

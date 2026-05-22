@@ -12,8 +12,10 @@ import {
   useAdminUpdateStory,
   useAdminGetStats,
   useAdminUpdateStats,
+  useAdminGetDonations,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
+  getAdminGetDonationsQueryKey,
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -31,6 +33,7 @@ export default function Admin() {
 
   const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
   const statsParams = { token: token ?? "" };
+  const donationsParams = { token: token ?? "", limit: 100, offset: 0 };
 
   const storiesQuery = useAdminGetStories(
     storiesParams,
@@ -39,6 +42,10 @@ export default function Admin() {
   const statsQuery = useAdminGetStats(
     statsParams,
     { query: { enabled: !!token, queryKey: getAdminGetStatsQueryKey(statsParams) } }
+  );
+  const donationsQuery = useAdminGetDonations(
+    donationsParams,
+    { query: { enabled: !!token, queryKey: getAdminGetDonationsQueryKey(donationsParams) } }
   );
 
   const updateStory = useAdminUpdateStory({
@@ -73,10 +80,16 @@ export default function Admin() {
 
   function handleStatsSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const body: { survivorsServed?: number; scholarshipsFunded?: number } = {};
-    if (statsForm.survivorsServed) body.survivorsServed = Number(statsForm.survivorsServed);
-    if (statsForm.scholarshipsFunded) body.scholarshipsFunded = Number(statsForm.scholarshipsFunded);
-    updateStats.mutate({ data: body, params: { token: token! } });
+    const survivorsServed = statsForm.survivorsServed ? Number(statsForm.survivorsServed) : undefined;
+    const scholarshipsFunded = statsForm.scholarshipsFunded ? Number(statsForm.scholarshipsFunded) : undefined;
+    if (survivorsServed === undefined && scholarshipsFunded === undefined) return;
+    updateStats.mutate({
+      data: {
+        survivorsServed: survivorsServed ?? 0,
+        scholarshipsFunded: scholarshipsFunded ?? 0,
+      },
+      params: { token: token! },
+    });
   }
 
   return (
@@ -125,6 +138,79 @@ export default function Admin() {
                 Save stats
               </Button>
             </form>
+          </CardContent>
+        </Card>
+
+        {/* Donations list */}
+        <Card className="mb-8" data-testid="card-admin-donations">
+          <CardContent className="p-6">
+            <h2 className="font-serif text-xl font-bold text-foreground mb-4">Donations</h2>
+            {donationsQuery.isLoading ? (
+              <div className="space-y-3">
+                {Array(5).fill(0).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
+              </div>
+            ) : donationsQuery.data?.length === 0 ? (
+              <p className="text-muted-foreground text-sm">No donations yet.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-left text-muted-foreground">
+                      <th className="pb-2 pr-4 font-medium">Donor</th>
+                      <th className="pb-2 pr-4 font-medium">Amount</th>
+                      <th className="pb-2 pr-4 font-medium">Kind</th>
+                      <th className="pb-2 pr-4 font-medium">In honor of</th>
+                      <th className="pb-2 pr-4 font-medium">Tribute notification</th>
+                      <th className="pb-2 font-medium">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {donationsQuery.data?.map((donation) => (
+                      <tr
+                        key={donation.id}
+                        className="border-b border-border last:border-0"
+                        data-testid={`row-donation-${donation.id}`}
+                      >
+                        <td className="py-2 pr-4">
+                          <p className="font-medium text-foreground">{donation.donorName ?? "—"}</p>
+                          <p className="text-xs text-muted-foreground">{donation.donorEmail}</p>
+                        </td>
+                        <td className="py-2 pr-4 text-foreground">
+                          ${((donation.amountCents) / 100).toFixed(2)}
+                          {donation.isRecurring && (
+                            <span className="ml-1 text-xs text-muted-foreground">/mo</span>
+                          )}
+                        </td>
+                        <td className="py-2 pr-4">
+                          <Badge variant="outline" className="text-xs capitalize">{donation.kind}</Badge>
+                        </td>
+                        <td className="py-2 pr-4 text-muted-foreground">
+                          {donation.tributeOf ?? "—"}
+                        </td>
+                        <td className="py-2 pr-4">
+                          {donation.tributeOf ? (
+                            donation.tributeNotificationSentAt ? (
+                              <Badge variant="default" className="text-xs bg-green-600">
+                                Sent {new Date(donation.tributeNotificationSentAt).toLocaleDateString()}
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs text-amber-700 bg-amber-100">
+                                Not sent
+                              </Badge>
+                            )
+                          ) : (
+                            <span className="text-muted-foreground text-xs">N/A</span>
+                          )}
+                        </td>
+                        <td className="py-2 text-muted-foreground text-xs">
+                          {new Date(donation.createdAt).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </CardContent>
         </Card>
 

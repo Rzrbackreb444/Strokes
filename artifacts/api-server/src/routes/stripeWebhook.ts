@@ -160,9 +160,16 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         donorName: donorName ?? "",
         honoredName: inHonorOf,
         amountCents,
-      }).catch((err) => {
-        console.error("[stripe-webhook] Tribute notification failed (non-fatal):", err);
-      });
+      })
+        .then(() => {
+          return db
+            .update(donations)
+            .set({ tributeNotificationSentAt: new Date() })
+            .where(eq(donations.stripeSessionId, session.id));
+        })
+        .catch((err) => {
+          console.error("[stripe-webhook] Tribute notification failed (non-fatal):", err);
+        });
     }
   }
 

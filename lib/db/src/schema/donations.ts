@@ -19,6 +19,7 @@ export const donations = pgTable("donations", {
   recipientEmail: text("recipient_email"),
   giftMessage: text("gift_message"),
   receiptSentAt: timestamp("receipt_sent_at"),
+  tributeNotificationSentAt: timestamp("tribute_notification_sent_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

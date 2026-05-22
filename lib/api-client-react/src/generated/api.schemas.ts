@@ -60,8 +60,8 @@ export interface AdminUpdateStoryBody {
 }
 
 export interface SiteStats {
-  survivorsServed?: number;
-  scholarshipsFunded?: number;
+  survivorsServed: number;
+  scholarshipsFunded: number;
 }
 
 export interface MessageResponse {
@@ -72,9 +72,36 @@ export interface ErrorResponse {
   error: string;
 }
 
+export interface Donation {
+  id: number;
+  stripeSessionId: string;
+  stripePaymentIntentId?: string | null;
+  stripeSubscriptionId?: string | null;
+  kind: string;
+  amountCents: number;
+  currency: string;
+  isRecurring: boolean;
+  donorName?: string | null;
+  donorEmail: string;
+  tributeOf?: string | null;
+  scholarshipTier?: string | null;
+  recipientName?: string | null;
+  recipientEmail?: string | null;
+  giftMessage?: string | null;
+  receiptSentAt?: string | null;
+  tributeNotificationSentAt?: string | null;
+  createdAt: string;
+}
+
 export type GetStoriesParams = {
   focusArea?: string;
   featured?: boolean;
+  limit?: number;
+  offset?: number;
+};
+
+export type AdminGetDonationsParams = {
+  token: string;
   limit?: number;
   offset?: number;
 };
