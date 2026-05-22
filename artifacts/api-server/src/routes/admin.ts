@@ -1,8 +1,8 @@
 import { Router, type IRouter, type Request, type Response } from "express";
 import Stripe from "stripe";
 import { db } from "@workspace/db";
-import { stories, siteConfig, donations } from "@workspace/db";
-import { eq, desc, count, isNull, isNotNull } from "drizzle-orm";
+import { stories, siteConfig, donations, donationAuditLog } from "@workspace/db";
+import { eq, desc, count, isNull, asc } from "drizzle-orm";
 import {
   AdminUpdateStoryBody,
   AdminUpdateStatsBody,
@@ -243,6 +243,18 @@ router.patch("/admin/donations/:id", async (req: Request, res: Response): Promis
       .where(eq(donations.id, id))
       .returning();
 
+    if (
+      body.tributeNotifyEmail !== undefined &&
+      (body.tributeNotifyEmail?.trim() || null) !== (existing.tributeNotifyEmail?.trim() ?? null)
+    ) {
+      await db.insert(donationAuditLog).values({
+        donationId: id,
+        field: "tributeNotifyEmail",
+        oldValue: existing.tributeNotifyEmail ?? null,
+        newValue: body.tributeNotifyEmail?.trim() || null,
+      });
+    }
+
     res.json(updated);
   } catch {
     res.status(400).json({ error: "Invalid data" });
@@ -358,6 +370,12 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
       .update(donations)
       .set({ tributeNotifyEmail: overrideEmail })
       .where(eq(donations.id, id));
+    await db.insert(donationAuditLog).values({
+      donationId: id,
+      field: "tributeNotifyEmail",
+      oldValue: donation.tributeNotifyEmail ?? null,
+      newValue: overrideEmail,
+    });
     donation.tributeNotifyEmail = overrideEmail;
   }
 
@@ -388,6 +406,29 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
     .returning();
 
   res.json(updated);
+});
+
+// GET /api/admin/donations/:id/audit-log
+router.get("/admin/donations/:id/audit-log", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const id = parseInt(req.params["id"] as string, 10);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid donation ID" });
+    return;
+  }
+
+  const entries = await db
+    .select()
+    .from(donationAuditLog)
+    .where(eq(donationAuditLog.donationId, id))
+    .orderBy(asc(donationAuditLog.changedAt));
+
+  res.json(entries);
 });
 
 // POST /api/admin/donations/backfill-tribute-emails

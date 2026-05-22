@@ -142,3 +142,16 @@ export type AdminGetStatsParams = {
 export type AdminUpdateStatsParams = {
   token: string;
 };
+
+export interface DonationAuditLogEntry {
+  id: number;
+  donationId: number;
+  field: string;
+  oldValue?: string | null;
+  newValue?: string | null;
+  changedAt: string;
+}
+
+export type AdminGetDonationAuditLogParams = {
+  token: string;
+};

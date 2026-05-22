@@ -28,6 +28,17 @@ export const insertDonationSchema = createInsertSchema(donations).omit({ id: tru
 export type InsertDonation = z.infer<typeof insertDonationSchema>;
 export type Donation = typeof donations.$inferSelect;
 
+export const donationAuditLog = pgTable("donation_audit_log", {
+  id: serial("id").primaryKey(),
+  donationId: integer("donation_id").notNull().references(() => donations.id),
+  field: text("field").notNull(),
+  oldValue: text("old_value"),
+  newValue: text("new_value"),
+  changedAt: timestamp("changed_at").notNull().defaultNow(),
+});
+
+export type DonationAuditLogEntry = typeof donationAuditLog.$inferSelect;
+
 export const stripeWebhookEvents = pgTable("stripe_webhook_events", {
   id: text("id").primaryKey(),
   type: text("type").notNull(),

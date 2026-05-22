@@ -335,6 +335,29 @@ export const AdminResendTributeResponse = zod.object({
 });
 
 /**
+ * @summary Admin - get audit log for a donation
+ */
+export const AdminGetDonationAuditLogParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminGetDonationAuditLogQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminGetDonationAuditLogResponseItem = zod.object({
+  id: zod.number(),
+  donationId: zod.number(),
+  field: zod.string(),
+  oldValue: zod.string().nullish(),
+  newValue: zod.string().nullish(),
+  changedAt: zod.coerce.date(),
+});
+export const AdminGetDonationAuditLogResponse = zod.array(
+  AdminGetDonationAuditLogResponseItem,
+);
+
+/**
  * @summary Admin - get site impact stats
  */
 export const AdminGetStatsQueryParams = zod.object({

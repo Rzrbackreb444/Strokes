@@ -17,6 +17,7 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
+  AdminGetDonationAuditLogParams,
   AdminGetDonationsParams,
   AdminGetStatsParams,
   AdminGetStoriesParams,
@@ -30,6 +31,7 @@ import type {
   AdminUpdateStoryParams,
   ContactBody,
   Donation,
+  DonationAuditLogEntry,
   EmailSignupBody,
   ErrorResponse,
   GetStoriesParams,
@@ -1544,3 +1546,114 @@ export const useAdminUpdateStats = <
 > => {
   return useMutation(getAdminUpdateStatsMutationOptions(options));
 };
+
+/**
+ * @summary Admin - get audit log for a donation
+ */
+export const getAdminGetDonationAuditLogUrl = (
+  id: number,
+  params: AdminGetDonationAuditLogParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/donations/${id}/audit-log?${stringifiedParams}`
+    : `/api/admin/donations/${id}/audit-log`;
+};
+
+export const adminGetDonationAuditLog = async (
+  id: number,
+  params: AdminGetDonationAuditLogParams,
+  options?: RequestInit,
+): Promise<DonationAuditLogEntry[]> => {
+  return customFetch<DonationAuditLogEntry[]>(
+    getAdminGetDonationAuditLogUrl(id, params),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export const getAdminGetDonationAuditLogQueryKey = (
+  id: number,
+  params?: AdminGetDonationAuditLogParams,
+) => {
+  return [
+    `/api/admin/donations/${id}/audit-log`,
+    ...(params ? [params] : []),
+  ] as const;
+};
+
+export const getAdminGetDonationAuditLogQueryOptions = <
+  TData = Awaited<ReturnType<typeof adminGetDonationAuditLog>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  id: number,
+  params: AdminGetDonationAuditLogParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof adminGetDonationAuditLog>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getAdminGetDonationAuditLogQueryKey(id, params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof adminGetDonationAuditLog>>
+  > = ({ signal }) =>
+    adminGetDonationAuditLog(id, params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof adminGetDonationAuditLog>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type AdminGetDonationAuditLogQueryResult = NonNullable<
+  Awaited<ReturnType<typeof adminGetDonationAuditLog>>
+>;
+export type AdminGetDonationAuditLogQueryError = ErrorType<ErrorResponse>;
+
+export function useAdminGetDonationAuditLog<
+  TData = Awaited<ReturnType<typeof adminGetDonationAuditLog>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  id: number,
+  params: AdminGetDonationAuditLogParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof adminGetDonationAuditLog>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getAdminGetDonationAuditLogQueryOptions(
+    id,
+    params,
+    options,
+  );
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}

@@ -18,6 +18,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   useAdminGetStories,
   useAdminUpdateStory,
   useAdminGetStats,
@@ -25,6 +31,7 @@ import {
   useAdminGetDonations,
   useAdminResendTribute,
   useAdminResendReceipt,
+  useAdminGetDonationAuditLog,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
   getAdminGetDonationsQueryKey,
@@ -35,6 +42,63 @@ function useAdminToken() {
   if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
   return params.get("token");
+}
+
+function AuditLogDialog({
+  donationId,
+  token,
+  open,
+  onClose,
+}: {
+  donationId: number | null;
+  token: string;
+  open: boolean;
+  onClose: () => void;
+}) {
+  const auditQuery = useAdminGetDonationAuditLog(
+    donationId ?? 0,
+    { token },
+    { query: { enabled: open && donationId != null } },
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
+      <DialogContent data-testid="dialog-audit-log">
+        <DialogHeader>
+          <DialogTitle>Email correction history</DialogTitle>
+        </DialogHeader>
+        {auditQuery.isLoading ? (
+          <div className="space-y-2 py-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
+        ) : auditQuery.data?.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-2">No corrections recorded.</p>
+        ) : (
+          <div className="space-y-3 py-2">
+            {auditQuery.data?.map((entry) => (
+              <div key={entry.id} className="text-sm border border-border rounded-md p-3 space-y-1" data-testid={`audit-entry-${entry.id}`}>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-foreground capitalize">{entry.field.replace(/([A-Z])/g, " $1").toLowerCase()}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(entry.changedAt).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-xs text-muted-foreground">
+                    From: <span className="text-foreground font-mono">{entry.oldValue ?? <em>empty</em>}</span>
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    To: <span className="text-foreground font-mono">{entry.newValue ?? <em>empty</em>}</span>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
 }
 
 export default function Admin() {
@@ -50,6 +114,7 @@ export default function Admin() {
     recipientEmail?: string;
     kind: string;
   } | null>(null);
+  const [auditLogDonationId, setAuditLogDonationId] = useState<number | null>(null);
 
   const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
   const statsParams = { token: token ?? "" };
@@ -237,9 +302,24 @@ export default function Admin() {
                             <div>
                               <p className="text-foreground">{donation.tributeOf}</p>
                               {donation.tributeNotifyEmail && (
-                                <p className="text-xs text-muted-foreground" data-testid={`tribute-notify-email-${donation.id}`}>
-                                  Notify: {donation.tributeNotifyEmail}
-                                </p>
+                                <div className="flex items-center gap-1">
+                                  <p className="text-xs text-muted-foreground" data-testid={`tribute-notify-email-${donation.id}`}>
+                                    Notify: {donation.tributeNotifyEmail}
+                                  </p>
+                                  <button
+                                    type="button"
+                                    title="View email correction history"
+                                    aria-label="View email correction history"
+                                    className="text-muted-foreground hover:text-foreground transition-colors"
+                                    onClick={() => setAuditLogDonationId(donation.id)}
+                                    data-testid={`button-audit-log-${donation.id}`}
+                                  >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                      <circle cx="12" cy="12" r="10" />
+                                      <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                  </button>
+                                </div>
                               )}
                             </div>
                           ) : (
@@ -386,6 +466,13 @@ export default function Admin() {
           </CardContent>
         </Card>
       </div>
+
+      <AuditLogDialog
+        donationId={auditLogDonationId}
+        token={token!}
+        open={auditLogDonationId != null}
+        onClose={() => setAuditLogDonationId(null)}
+      />
 
       <AlertDialog open={!!receiptConfirm} onOpenChange={(open) => { if (!open) setReceiptConfirm(null); }}>
         <AlertDialogContent data-testid="dialog-resend-receipt-confirm">
