@@ -3,6 +3,23 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM = "Stroke Lyfe <noreply@strokelyfe.org>";
+
+/**
+ * Wrapper around resend.emails.send that logs the full Resend error before
+ * re-throwing, so domain-verification failures (and other API errors) are
+ * clearly visible in server logs instead of surfacing as opaque rejections.
+ */
+async function send(params: Parameters<typeof resend.emails.send>[0]): Promise<void> {
+  const { data, error } = await resend.emails.send(params);
+  if (error) {
+    console.error(
+      `[emails] Resend error sending to ${params.to} from ${params.from}: ${error.name} — ${error.message}`,
+    );
+    throw new Error(`Resend send failed: ${error.name} — ${error.message}`);
+  }
+  console.log(`[emails] Sent "${params.subject}" to ${params.to} (id: ${data?.id})`);
+}
+
 const EIN = "99-1313589";
 const ADDRESS = "622 South River Rd., Lavaca, AR 72941";
 
@@ -82,7 +99,7 @@ export async function sendDonationReceipt(opts: {
 </div>
 </body></html>`;
 
-  await resend.emails.send({
+  await send({
     from: FROM,
     to,
     subject: `Your ${amt} donation receipt — Stroke Lyfe Inc.`,
@@ -123,7 +140,7 @@ export async function sendGiftDonorConfirmation(opts: {
 </div>
 </body></html>`;
 
-  await resend.emails.send({
+  await send({
     from: FROM,
     to,
     subject: `Gift confirmed — ${tierName} Scholarship for ${recipientName}`,
@@ -157,7 +174,7 @@ export async function sendTributeNotification(opts: {
 </div>
 </body></html>`;
 
-  await resend.emails.send({
+  await send({
     from: FROM,
     to,
     subject: `${donorName || "Someone"} made a donation in honor of ${honoredName} — Stroke Lyfe Inc.`,
@@ -205,7 +222,7 @@ export async function sendGiftRecipientNotification(opts: {
 </div>
 </body></html>`;
 
-  await resend.emails.send({
+  await send({
     from: FROM,
     to,
     subject: `${giverName} gifted you a ${tierName} Scholarship — Stroke Lyfe`,
