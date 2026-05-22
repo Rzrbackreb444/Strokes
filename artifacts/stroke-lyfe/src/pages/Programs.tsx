@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, Users, Heart, Library, CheckCircle2 } from "lucide-react";
+import { BookOpen, Users, Heart, Library, CheckCircle2, Brain } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const programs = [
@@ -9,9 +9,17 @@ const programs = [
     icon: <Heart className="h-7 w-7 text-accent" />,
     title: "Survivor Scholarships",
     subtitle: "Remove the cost barrier",
-    body: "We fund full access to Stroke Recovery Academy for survivors who can't afford it. Every scholarship is $97, $297, or $997 depending on the level of support needed. Donations to Stroke Lyfe (the nonprofit) go directly toward this. No application fees. No waitlist games. We work through the list in order.",
-    features: ["Full Academy access", "Exercise library", "AI coaching", "Community access", "Monthly check-ins"],
+    body: "We fund access to recovery programs, coaching, and tools for survivors who can't afford them. Scholarships cover Stroke Recovery Academy tiers ($97–$997) as well as other vetted programs and products. No application fees. No waitlist games. We work through the list in order and publish every allocation.",
+    features: ["Recovery program access", "AI coaching tools", "Community membership", "Monthly check-ins", "Research-backed resources"],
     testId: "card-program-scholarships",
+  },
+  {
+    icon: <Brain className="h-7 w-7 text-accent" />,
+    title: "Mindset & Motivation",
+    subtitle: "The inner work matters as much as the physical",
+    body: "Stroke reshapes identity. The person who woke up in that hospital bed — their career, their role as a parent or partner, their sense of self — is changed. We address that directly: daily motivation tools, mindset frameworks drawn from Nick's own recovery, and honest programming about purpose and life after stroke. Because functional recovery without psychological recovery isn't enough.",
+    features: ["Daily motivation content", "Identity & purpose programming", "Mindset coaching frameworks", "Young survivor resources", "Post-stroke fatigue guidance"],
+    testId: "card-program-mindset",
   },
   {
     icon: <Users className="h-7 w-7 text-accent" />,
@@ -52,10 +60,10 @@ export default function Programs() {
         <div className="container mx-auto px-4 max-w-6xl">
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">What We Do</p>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Four programs.<br />One mission.
+            Five programs.<br />One mission.
           </h1>
           <p className="mt-6 text-background/70 max-w-xl text-lg leading-relaxed">
-            Stroke Lyfe is just getting off the ground — which means the survivors we fund today are among the first. Every dollar raised right now builds the foundation everything else runs on.
+            Stroke doesn't just take physical function. It takes social life, identity, motivation, and purpose. Every program we run addresses a different dimension of that loss — because recovery that stops at "functional" isn't enough.
           </p>
         </div>
       </section>

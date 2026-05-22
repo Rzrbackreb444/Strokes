@@ -13,15 +13,16 @@ const BASE = import.meta.env.BASE_URL;
 const presets = [25, 50, 100, 250, 500, 1000];
 
 const impactMap = [
-  { amount: 25, label: "Fuels one week of motivational resources and tools for a survivor." },
-  { amount: 50, label: "Covers a survivor's access to our resource library for a month." },
-  { amount: 97, label: "Funds one full Survivor Scholarship — coaching, community, and recovery support." },
-  { amount: 100, label: "Supports research partnerships advancing stroke recovery breakthroughs." },
-  { amount: 250, label: "Funds 3 months of group coaching and peer motivation for a survivor." },
-  { amount: 297, label: "Sponsors a Mentored Scholarship — structured recovery coaching for one survivor." },
-  { amount: 500, label: "Funds 5 survivors with full program access — motivation, coaching, and community." },
-  { amount: 997, label: "Funds an Elite Scholarship — personalized 1:1 coaching and a custom recovery plan." },
-  { amount: 1000, label: "Transforms the lives of 10 survivors for a full month. Names are real. We'll send them." },
+  { amount: 25, label: "Provides one week of mindset tools, daily motivation content, and social connection resources for a survivor." },
+  { amount: 50, label: "Funds a survivor's access to peer community and social programming for a full month." },
+  { amount: 97, label: "Funds one full Survivor Scholarship — coaching, community, motivation, and recovery tools for a month." },
+  { amount: 100, label: "Supports research into stroke recovery advances — helping raise the ceiling for every future survivor." },
+  { amount: 150, label: "Connects a survivor with a peer mentor who's lived what they're living — real match, real relationship." },
+  { amount: 250, label: "Funds 3 months of group coaching, peer motivation, and social programming for one survivor." },
+  { amount: 297, label: "Sponsors a Mentored Scholarship — structured coaching, accountability, and identity work for one survivor." },
+  { amount: 500, label: "Enriches the lives of 5 survivors for a month — mindset, social connection, coaching, and community." },
+  { amount: 997, label: "Funds an Elite Scholarship — personalized 1:1 coaching, custom recovery plan, and lifetime program access." },
+  { amount: 1000, label: "Ten survivors. One month. Full access to every Stroke Lyfe program. Names are real. We'll send them to you." },
 ];
 
 function getImpact(amt: number) {

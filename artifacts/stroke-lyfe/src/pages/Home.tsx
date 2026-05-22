@@ -82,29 +82,29 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="h-6 w-6 text-accent" />
+                <Heart className="h-6 w-6 text-accent" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Education</h3>
+              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Motivation</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Stroke recovery is a process, not an event. We give survivors and families the knowledge to navigate it — what to expect, what to ask for, and when to push back.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-6 w-6 text-accent" />
-              </div>
-              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Accountability</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Recovery doesn't happen alone. We pair survivors with tools, coaches, and peers who hold them accountable to the daily work that actually moves the needle.
+                The hardest part of stroke recovery isn't physical — it's mental. We give survivors the mindset tools, daily motivation, and lived proof that a fuller life is possible.
               </p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <Users className="h-6 w-6 text-accent" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Community</h3>
+              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Social Life</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                The isolation after a stroke is real. We connect survivors to others who get it — not because they read about it, but because they lived it.
+                Stroke devastates social identity. Friends disappear. Events feel impossible. We rebuild that — through peer connection, community, and programs that put life back into living.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-6 w-6 text-accent" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-foreground mb-2">Research</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We fund the science that raises the ceiling. Every survivor we work with generates outcome data. Every data point advances what's possible for the next person who has a stroke.
               </p>
             </div>
           </div>

@@ -337,6 +337,115 @@ export const BLOG_POSTS: Post[] = [
     ],
   },
   {
+    slug: "stroke-social-isolation",
+    title: "The Social Aftermath of Stroke: What Nobody Talks About",
+    description:
+      "After stroke, the physical losses get attention. The social losses — friends who disappear, events that feel impossible, an identity that no longer fits — get almost none. This is the conversation that needs to happen.",
+    tag: "Social Life",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "6 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "Two months after my stroke, I noticed something nobody had warned me about. The friends who had texted every day in the hospital — they stopped. Not all of them. But many. The invitations to things dried up. People didn't know what to say. I didn't know what to say. A mutual silence settled in, and with it came something more painful than anything happening in my left arm.",
+      },
+      {
+        type: "p",
+        content:
+          "I had lost part of my social life. And unlike the physical deficits — which everyone acknowledged, which came with therapy plans and measurements and goals — this loss was invisible. Nobody gave me a timeline for rebuilding my friendships. Nobody put 'social identity reconstruction' on the discharge paperwork.",
+      },
+      {
+        type: "h2",
+        content: "Why This Happens",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke changes you visibly. You may walk differently, speak differently, move differently. And our culture doesn't handle visible difference well. People who care about you genuinely don't know what to do. They're afraid of saying the wrong thing. They assume you're tired, or in pain, or not up for company. They step back to give you space — and then that space becomes permanent.",
+      },
+      {
+        type: "p",
+        content:
+          "There's also the practical reality: the places you used to go together are harder now. Loud restaurants are exhausting when you're managing post-stroke fatigue or auditory processing changes. Concerts are inaccessible with mobility challenges. Casual sports leagues, weekend hikes, the standing Thursday dinner — the architecture of your social life was built for a person who no longer exists in the same form.",
+      },
+      {
+        type: "h2",
+        content: "The Identity Dimension",
+      },
+      {
+        type: "p",
+        content:
+          "Here's what makes it more complicated: you may not recognize yourself either. The person who was outgoing, who initiated plans, who held a career and a role and a place in a social ecosystem — that person is in transition. Some of those traits come back. Some change. Some are replaced by something new that your old friends don't know how to meet.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "You're grieving a version of yourself while simultaneously trying to become whoever comes next. That's an enormous amount to carry. And it's almost entirely invisible to the medical system.",
+      },
+      {
+        type: "p",
+        content:
+          "Post-stroke depression — which affects 30–40% of survivors in the first year — is partly a neurological consequence of brain injury. But it's also a rational response to genuine loss. You've lost capabilities, roles, relationships, and the sense of who you are. That deserves to be named and addressed directly, not just managed with medication.",
+      },
+      {
+        type: "h2",
+        content: "Post-Stroke Fatigue: The Social Saboteur",
+      },
+      {
+        type: "p",
+        content:
+          "One of the most underreported stroke consequences is fatigue — a specific, neurological exhaustion that is categorically different from normal tiredness. Post-stroke fatigue can make a two-hour dinner feel like running a marathon. It can make social events — which require attention, processing, conversation management, emotional attunement — genuinely depleting in ways that are hard to explain to someone who hasn't experienced it.",
+      },
+      {
+        type: "p",
+        content:
+          "When you cancel plans repeatedly because you're too exhausted, people stop asking. When you leave events early because you've hit a wall, it reads as disinterest. The social withdrawal that post-stroke fatigue produces gets misread as personality change, depression, or simple unavailability. And so the isolation compounds.",
+      },
+      {
+        type: "h2",
+        content: "Young Survivors Carry This Differently",
+      },
+      {
+        type: "p",
+        content:
+          "If you had your stroke under 50, the social dimension of stroke is especially acute. Your peers aren't navigating disability. They're building careers, raising children, traveling. The gap between your life and theirs can feel insurmountable — even if your functional recovery is progressing well. The social reference points don't match. The conversation subjects diverge. The ease that used to exist in friendships requires work you may not have capacity for.",
+      },
+      {
+        type: "p",
+        content:
+          "This is one of the reasons why peer connection — matching survivors with others who have lived something similar at a similar age and life stage — is one of the most impactful things we do at Stroke Lyfe. Not a therapist. Not a volunteer. A person who had a stroke in their 30s or 40s and rebuilt a life, and is willing to walk alongside you while you build yours.",
+      },
+      {
+        type: "h2",
+        content: "What Actually Helps",
+      },
+      {
+        type: "ul",
+        items: [
+          "Peer connection with matched survivors — not support groups of mixed ages/profiles, but genuine 1:1 matching with someone who lived something similar",
+          "Naming the grief explicitly — with a therapist, a peer, or in writing. Social identity loss is real loss. It deserves acknowledgment.",
+          "Rebuilding social architecture at your current capacity, not your pre-stroke capacity — shorter events, quieter environments, lower stakes",
+          "Being honest with the people in your life about what you can and can't do — and letting them meet you there",
+          "Finding new communities built around your current life, not your old one",
+        ],
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe exists in part because the medical system doesn't address any of this. We do. If you're a survivor navigating the social aftermath — or a family member watching someone you love withdraw — reach out. This is exactly what we're here for.",
+      },
+      {
+        type: "cta",
+        label: "Connect with Stroke Lyfe",
+        href: "/contact",
+        sub: "Or donate to fund peer connection programs for survivors who can't afford them.",
+      },
+    ],
+  },
+  {
     slug: "neuroplasticity-stroke-recovery",
     title: "Neuroplasticity After Stroke: The Science That Gives Survivors Hope",
     description:
