@@ -1,4 +1,5 @@
 import { Router, type IRouter, type Request, type Response } from "express";
+import Stripe from "stripe";
 import { db } from "@workspace/db";
 import { stories, siteConfig, donations } from "@workspace/db";
 import { eq, desc, count } from "drizzle-orm";
@@ -6,6 +7,11 @@ import {
   AdminUpdateStoryBody,
   AdminUpdateStatsBody,
 } from "@workspace/api-zod";
+import { sendTributeNotification } from "../lib/emails";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
+  apiVersion: "2026-04-22.dahlia",
+});
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
@@ -195,6 +201,69 @@ router.patch("/admin/stats", async (req: Request, res: Response): Promise<void> 
   } catch {
     res.status(400).json({ error: "Invalid data" });
   }
+});
+
+// POST /api/admin/donations/:id/resend-tribute
+router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const id = parseInt(req.params["id"] as string, 10);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid donation ID" });
+    return;
+  }
+
+  const [donation] = await db.select().from(donations).where(eq(donations.id, id)).limit(1);
+  if (!donation) {
+    res.status(404).json({ error: "Donation not found" });
+    return;
+  }
+
+  if (!donation.tributeOf) {
+    res.status(400).json({ error: "This donation is not a tribute donation" });
+    return;
+  }
+
+  let tributeNotifyEmail: string | null = null;
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(donation.stripeSessionId);
+    tributeNotifyEmail = session.metadata?.["tributeNotifyEmail"]?.trim() ?? null;
+  } catch (err) {
+    console.error("[admin] Failed to retrieve Stripe session for tribute resend:", err);
+    res.status(502).json({ error: "Failed to retrieve tribute recipient email from Stripe" });
+    return;
+  }
+
+  if (!tributeNotifyEmail) {
+    res.status(422).json({ error: "No tribute notification email on record for this donation" });
+    return;
+  }
+
+  try {
+    await sendTributeNotification({
+      to: tributeNotifyEmail,
+      donorName: donation.donorName ?? "",
+      honoredName: donation.tributeOf,
+      amountCents: donation.amountCents,
+    });
+  } catch (err) {
+    console.error("[admin] Tribute notification resend failed:", err);
+    res.status(502).json({ error: "Failed to send tribute notification email" });
+    return;
+  }
+
+  const [updated] = await db
+    .update(donations)
+    .set({ tributeNotificationSentAt: new Date() })
+    .where(eq(donations.id, id))
+    .returning();
+
+  res.json(updated);
 });
 
 export default router;

@@ -13,6 +13,7 @@ import {
   useAdminGetStats,
   useAdminUpdateStats,
   useAdminGetDonations,
+  useAdminResendTribute,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
   getAdminGetDonationsQueryKey,
@@ -63,6 +64,19 @@ export default function Admin() {
         qc.invalidateQueries({ queryKey: getAdminGetStatsQueryKey(statsParams) });
         toast({ title: "Stats updated" });
         setStatsForm({ survivorsServed: "", scholarshipsFunded: "" });
+      },
+    },
+  });
+
+  const resendTribute = useAdminResendTribute({
+    mutation: {
+      onSuccess: () => {
+        qc.invalidateQueries({ queryKey: getAdminGetDonationsQueryKey(donationsParams) });
+        toast({ title: "Tribute notification sent" });
+      },
+      onError: (err: unknown) => {
+        const message = err instanceof Error ? err.message : "Failed to resend tribute notification";
+        toast({ title: "Resend failed", description: message, variant: "destructive" });
       },
     },
   });
@@ -161,6 +175,7 @@ export default function Admin() {
                       <th className="pb-2 pr-4 font-medium">Kind</th>
                       <th className="pb-2 pr-4 font-medium">In honor of</th>
                       <th className="pb-2 pr-4 font-medium">Tribute notification</th>
+                      <th className="pb-2 pr-4 font-medium">Actions</th>
                       <th className="pb-2 font-medium">Date</th>
                     </tr>
                   </thead>
@@ -200,6 +215,22 @@ export default function Admin() {
                             )
                           ) : (
                             <span className="text-muted-foreground text-xs">N/A</span>
+                          )}
+                        </td>
+                        <td className="py-2 pr-4">
+                          {donation.tributeOf && !donation.tributeNotificationSentAt && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-7 px-2"
+                              disabled={resendTribute.isPending}
+                              onClick={() =>
+                                resendTribute.mutate({ id: donation.id, params: { token: token! } })
+                              }
+                              data-testid={`button-resend-tribute-${donation.id}`}
+                            >
+                              Resend
+                            </Button>
                           )}
                         </td>
                         <td className="py-2 text-muted-foreground text-xs">
