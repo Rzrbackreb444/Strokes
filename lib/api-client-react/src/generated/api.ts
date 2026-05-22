@@ -20,6 +20,7 @@ import type {
   AdminGetDonationsParams,
   AdminGetStatsParams,
   AdminGetStoriesParams,
+  AdminResendTributeParams,
   AdminUpdateStatsParams,
   AdminUpdateStoryBody,
   AdminUpdateStoryParams,
@@ -1022,6 +1023,106 @@ export const useAdminUpdateStory = <
 };
 
 /**
+ * @summary Admin - resend tribute notification email
+ */
+export const getAdminResendTributeUrl = (
+  id: number,
+  params: AdminResendTributeParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/donations/${id}/resend-tribute?${stringifiedParams}`
+    : `/api/admin/donations/${id}/resend-tribute`;
+};
+
+export const adminResendTribute = async (
+  id: number,
+  params: AdminResendTributeParams,
+  options?: RequestInit,
+): Promise<Donation> => {
+  return customFetch<Donation>(getAdminResendTributeUrl(id, params), {
+    ...options,
+    method: "POST",
+  });
+};
+
+export const getAdminResendTributeMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminResendTribute>>,
+    TError,
+    { id: number; params: AdminResendTributeParams },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminResendTribute>>,
+  TError,
+  { id: number; params: AdminResendTributeParams },
+  TContext
+> => {
+  const mutationKey = ["adminResendTribute"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminResendTribute>>,
+    { id: number; params: AdminResendTributeParams }
+  > = (props) => {
+    const { id, params } = props ?? {};
+
+    return adminResendTribute(id, params, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AdminResendTributeMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminResendTribute>>
+>;
+
+export type AdminResendTributeMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Admin - resend tribute notification email
+ */
+export const useAdminResendTribute = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminResendTribute>>,
+    TError,
+    { id: number; params: AdminResendTributeParams },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof adminResendTribute>>,
+  TError,
+  { id: number; params: AdminResendTributeParams },
+  TContext
+> => {
+  return useMutation(getAdminResendTributeMutationOptions(options));
+};
+
+/**
  * @summary Admin - get site impact stats
  */
 export const getAdminGetStatsUrl = (params: AdminGetStatsParams) => {
@@ -1190,98 +1291,6 @@ export type AdminUpdateStatsMutationResult = NonNullable<
 >;
 export type AdminUpdateStatsMutationBody = BodyType<SiteStats>;
 export type AdminUpdateStatsMutationError = ErrorType<unknown>;
-
-/**
- * @summary Admin - resend tribute notification for a donation
- */
-export const getAdminResendTributeUrl = (id: number, params: { token: string }) => {
-  const normalizedParams = new URLSearchParams();
-  Object.entries(params || {}).forEach(([key, value]) => {
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? "null" : value.toString());
-    }
-  });
-  const stringifiedParams = normalizedParams.toString();
-  return stringifiedParams.length > 0
-    ? `/api/admin/donations/${id}/resend-tribute?${stringifiedParams}`
-    : `/api/admin/donations/${id}/resend-tribute`;
-};
-
-export const adminResendTribute = async (
-  id: number,
-  params: { token: string },
-  options?: RequestInit,
-): Promise<Donation> => {
-  return customFetch<Donation>(getAdminResendTributeUrl(id, params), {
-    ...options,
-    method: "POST",
-  });
-};
-
-export const getAdminResendTributeMutationOptions = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminResendTribute>>,
-    TError,
-    { id: number; params: { token: string } },
-    TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminResendTribute>>,
-  TError,
-  { id: number; params: { token: string } },
-  TContext
-> => {
-  const mutationKey = ["adminResendTribute"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminResendTribute>>,
-    { id: number; params: { token: string } }
-  > = (props) => {
-    const { id, params } = props ?? {};
-    return adminResendTribute(id, params, requestOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type AdminResendTributeMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminResendTribute>>
->;
-export type AdminResendTributeMutationError = ErrorType<unknown>;
-
-/**
- * @summary Admin - resend tribute notification for a donation
- */
-export const useAdminResendTribute = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminResendTribute>>,
-    TError,
-    { id: number; params: { token: string } },
-    TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof adminResendTribute>>,
-  TError,
-  { id: number; params: { token: string } },
-  TContext
-> => {
-  return useMutation(getAdminResendTributeMutationOptions(options));
-};
 
 /**
  * @summary Admin - update site impact stats

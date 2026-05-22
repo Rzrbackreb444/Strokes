@@ -199,8 +199,19 @@ export default function Admin() {
                         <td className="py-2 pr-4">
                           <Badge variant="outline" className="text-xs capitalize">{donation.kind}</Badge>
                         </td>
-                        <td className="py-2 pr-4 text-muted-foreground">
-                          {donation.tributeOf ?? "—"}
+                        <td className="py-2 pr-4">
+                          {donation.tributeOf ? (
+                            <div>
+                              <p className="text-foreground">{donation.tributeOf}</p>
+                              {donation.tributeNotifyEmail && (
+                                <p className="text-xs text-muted-foreground" data-testid={`tribute-notify-email-${donation.id}`}>
+                                  Notify: {donation.tributeNotifyEmail}
+                                </p>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
                         </td>
                         <td className="py-2 pr-4">
                           {donation.tributeOf ? (

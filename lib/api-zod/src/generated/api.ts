@@ -232,6 +232,39 @@ export const AdminUpdateStoryResponse = zod.object({
 });
 
 /**
+ * @summary Admin - resend tribute notification email
+ */
+export const AdminResendTributeParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminResendTributeQueryParams = zod.object({
+  token: zod.coerce.string(),
+});
+
+export const AdminResendTributeResponse = zod.object({
+  id: zod.number(),
+  stripeSessionId: zod.string(),
+  stripePaymentIntentId: zod.string().nullish(),
+  stripeSubscriptionId: zod.string().nullish(),
+  kind: zod.string(),
+  amountCents: zod.number(),
+  currency: zod.string(),
+  isRecurring: zod.boolean(),
+  donorName: zod.string().nullish(),
+  donorEmail: zod.string(),
+  tributeOf: zod.string().nullish(),
+  scholarshipTier: zod.string().nullish(),
+  recipientName: zod.string().nullish(),
+  recipientEmail: zod.string().nullish(),
+  giftMessage: zod.string().nullish(),
+  tributeNotifyEmail: zod.string().nullish(),
+  receiptSentAt: zod.coerce.date().nullish(),
+  tributeNotificationSentAt: zod.coerce.date().nullish(),
+  createdAt: zod.coerce.date(),
+});
+
+/**
  * @summary Admin - get site impact stats
  */
 export const AdminGetStatsQueryParams = zod.object({

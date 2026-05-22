@@ -278,6 +278,60 @@ paths:
               schema:
                 $ref: "#/components/schemas/Story"
 
+  /admin/donations/{id}/resend-tribute:
+    post:
+      operationId: adminResendTribute
+      tags: [admin]
+      summary: Admin - resend tribute notification email
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Tribute notification sent, returns updated donation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Donation"
+        "400":
+          description: Not a tribute donation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Donation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: No tribute email on record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "502":
+          description: Email send failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /admin/stats:
     get:
       operationId: adminGetStats
@@ -523,6 +577,9 @@ components:
           type: string
           nullable: true
         giftMessage:
+          type: string
+          nullable: true
+        tributeNotifyEmail:
           type: string
           nullable: true
         receiptSentAt:
