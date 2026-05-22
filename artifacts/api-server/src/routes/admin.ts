@@ -6,6 +6,7 @@ import { eq, desc, count, isNull, isNotNull } from "drizzle-orm";
 import {
   AdminUpdateStoryBody,
   AdminUpdateStatsBody,
+  AdminUpdateDonationBody,
 } from "@workspace/api-zod";
 import {
   sendDonationReceipt,
@@ -203,6 +204,46 @@ router.patch("/admin/stats", async (req: Request, res: Response): Promise<void> 
       survivorsServed: parseInt(cfg["survivorsServed"] ?? "1247", 10),
       scholarshipsFunded: parseInt(cfg["scholarshipsFunded"] ?? "312", 10),
     });
+  } catch {
+    res.status(400).json({ error: "Invalid data" });
+  }
+});
+
+// PATCH /api/admin/donations/:id
+router.patch("/admin/donations/:id", async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.query as { token?: string };
+  if (!verifyToken(token, req.headers.authorization)) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const id = parseInt(req.params["id"] as string, 10);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid donation ID" });
+    return;
+  }
+
+  try {
+    const body = AdminUpdateDonationBody.parse(req.body);
+
+    const [existing] = await db.select().from(donations).where(eq(donations.id, id)).limit(1);
+    if (!existing) {
+      res.status(404).json({ error: "Donation not found" });
+      return;
+    }
+
+    const updates: Partial<typeof donations.$inferInsert> = {};
+    if (body.tributeNotifyEmail !== undefined) {
+      updates.tributeNotifyEmail = body.tributeNotifyEmail?.trim() || null;
+    }
+
+    const [updated] = await db
+      .update(donations)
+      .set(updates)
+      .where(eq(donations.id, id))
+      .returning();
+
+    res.json(updated);
   } catch {
     res.status(400).json({ error: "Invalid data" });
   }

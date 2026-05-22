@@ -25,6 +25,7 @@ import {
   useAdminGetDonations,
   useAdminResendTribute,
   useAdminResendReceipt,
+  useAdminUpdateDonation,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
   getAdminGetDonationsQueryKey,
@@ -42,7 +43,8 @@ export default function Admin() {
   const { toast } = useToast();
   const qc = useQueryClient();
   const [statsForm, setStatsForm] = useState({ survivorsServed: "", scholarshipsFunded: "" });
-  const [tributeConfirm, setTributeConfirm] = useState<{ id: string; email: string } | null>(null);
+  const [tributeConfirm, setTributeConfirm] = useState<{ id: number; originalEmail: string } | null>(null);
+  const [editedTributeEmail, setEditedTributeEmail] = useState("");
 
   const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
   const statsParams = { token: token ?? "" };
@@ -89,6 +91,15 @@ export default function Admin() {
       onError: (err: unknown) => {
         const message = err instanceof Error ? err.message : "Failed to resend tribute notification";
         toast({ title: "Resend failed", description: message, variant: "destructive" });
+      },
+    },
+  });
+
+  const updateDonation = useAdminUpdateDonation({
+    mutation: {
+      onError: (err: unknown) => {
+        const message = err instanceof Error ? err.message : "Failed to update donation";
+        toast({ title: "Update failed", description: message, variant: "destructive" });
       },
     },
   });
@@ -287,12 +298,13 @@ export default function Admin() {
                                 variant="outline"
                                 className="text-xs h-7 px-2"
                                 disabled={resendTribute.isPending}
-                                onClick={() =>
+                                onClick={() => {
+                                  setEditedTributeEmail(donation.tributeNotifyEmail ?? "");
                                   setTributeConfirm({
                                     id: donation.id,
-                                    email: donation.tributeNotifyEmail ?? "",
-                                  })
-                                }
+                                    originalEmail: donation.tributeNotifyEmail ?? "",
+                                  });
+                                }}
                                 data-testid={`button-resend-tribute-${donation.id}`}
                               >
                                 Resend tribute
@@ -379,21 +391,41 @@ export default function Admin() {
           <AlertDialogHeader>
             <AlertDialogTitle>Resend tribute notification?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will send a tribute notification email to:
-              <br />
-              <span className="font-medium text-foreground" data-testid="dialog-tribute-email">
-                {tributeConfirm?.email || <em className="text-muted-foreground">no email on record</em>}
-              </span>
+              The notification will be sent to the email below. You can correct it before sending.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <div className="px-1 pb-2">
+            <Label htmlFor="tribute-notify-email" className="text-xs text-muted-foreground mb-1 block">
+              Recipient email
+            </Label>
+            <Input
+              id="tribute-notify-email"
+              type="email"
+              value={editedTributeEmail}
+              onChange={(e) => setEditedTributeEmail(e.target.value)}
+              placeholder="recipient@example.com"
+              data-testid="input-tribute-notify-email"
+            />
+          </div>
           <AlertDialogFooter>
             <AlertDialogCancel data-testid="button-tribute-confirm-cancel">Cancel</AlertDialogCancel>
             <AlertDialogAction
               data-testid="button-tribute-confirm-send"
-              onClick={() => {
-                if (tributeConfirm) {
+              disabled={updateDonation.isPending || resendTribute.isPending}
+              onClick={async () => {
+                if (!tributeConfirm) return;
+                const trimmedEmail = editedTributeEmail.trim();
+                try {
+                  if (trimmedEmail !== tributeConfirm.originalEmail) {
+                    await updateDonation.mutateAsync({
+                      id: tributeConfirm.id,
+                      data: { tributeNotifyEmail: trimmedEmail || null },
+                      params: { token: token! },
+                    });
+                  }
                   resendTribute.mutate({ id: tributeConfirm.id, params: { token: token! } });
                   setTributeConfirm(null);
+                } catch {
                 }
               }}
             >

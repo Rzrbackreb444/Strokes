@@ -54,6 +54,10 @@ export interface EmailSignupBody {
   source?: string | null;
 }
 
+export interface AdminUpdateDonationBody {
+  tributeNotifyEmail?: string | null;
+}
+
 export interface AdminUpdateStoryBody {
   isApproved?: boolean | null;
   isFeatured?: boolean | null;
@@ -112,6 +116,10 @@ export type AdminGetStoriesParams = {
 };
 
 export type AdminUpdateStoryParams = {
+  token: string;
+};
+
+export type AdminUpdateDonationParams = {
   token: string;
 };
 

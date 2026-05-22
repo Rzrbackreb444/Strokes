@@ -22,6 +22,8 @@ import type {
   AdminGetStoriesParams,
   AdminResendReceiptParams,
   AdminResendTributeParams,
+  AdminUpdateDonationBody,
+  AdminUpdateDonationParams,
   AdminUpdateStatsParams,
   AdminUpdateStoryBody,
   AdminUpdateStoryParams,
@@ -1021,6 +1023,129 @@ export const useAdminUpdateStory = <
   TContext
 > => {
   return useMutation(getAdminUpdateStoryMutationOptions(options));
+};
+
+/**
+ * @summary Admin - update a donation record (e.g. correct tributeNotifyEmail)
+ */
+export const getAdminUpdateDonationUrl = (
+  id: number,
+  params: AdminUpdateDonationParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/donations/${id}?${stringifiedParams}`
+    : `/api/admin/donations/${id}`;
+};
+
+export const adminUpdateDonation = async (
+  id: number,
+  adminUpdateDonationBody: AdminUpdateDonationBody,
+  params: AdminUpdateDonationParams,
+  options?: RequestInit,
+): Promise<Donation> => {
+  return customFetch<Donation>(getAdminUpdateDonationUrl(id, params), {
+    ...options,
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(adminUpdateDonationBody),
+  });
+};
+
+export const getAdminUpdateDonationMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminUpdateDonation>>,
+    TError,
+    {
+      id: number;
+      data: BodyType<AdminUpdateDonationBody>;
+      params: AdminUpdateDonationParams;
+    },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminUpdateDonation>>,
+  TError,
+  {
+    id: number;
+    data: BodyType<AdminUpdateDonationBody>;
+    params: AdminUpdateDonationParams;
+  },
+  TContext
+> => {
+  const mutationKey = ["adminUpdateDonation"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminUpdateDonation>>,
+    {
+      id: number;
+      data: BodyType<AdminUpdateDonationBody>;
+      params: AdminUpdateDonationParams;
+    }
+  > = (props) => {
+    const { id, data, params } = props ?? {};
+
+    return adminUpdateDonation(id, data, params, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AdminUpdateDonationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminUpdateDonation>>
+>;
+export type AdminUpdateDonationMutationBody = BodyType<AdminUpdateDonationBody>;
+export type AdminUpdateDonationMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Admin - update a donation record (e.g. correct tributeNotifyEmail)
+ */
+export const useAdminUpdateDonation = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminUpdateDonation>>,
+    TError,
+    {
+      id: number;
+      data: BodyType<AdminUpdateDonationBody>;
+      params: AdminUpdateDonationParams;
+    },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof adminUpdateDonation>>,
+  TError,
+  {
+    id: number;
+    data: BodyType<AdminUpdateDonationBody>;
+    params: AdminUpdateDonationParams;
+  },
+  TContext
+> => {
+  return useMutation(getAdminUpdateDonationMutationOptions(options));
 };
 
 /**
