@@ -102,6 +102,7 @@ export default function Footer() {
                   Recovery Academy ↗
                 </a>
               </li>
+              <li><Link href="/book" className="text-sm text-background/60 hover:text-background transition-colors">The Book</Link></li>
               <li><Link href="/press" className="text-sm text-background/60 hover:text-background transition-colors">Press & Media</Link></li>
             </ul>
           </div>

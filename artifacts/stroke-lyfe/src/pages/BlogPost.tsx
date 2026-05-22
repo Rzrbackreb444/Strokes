@@ -1132,6 +1132,639 @@ export const BLOG_POSTS: Post[] = [
       },
     ],
   },
+  {
+    slug: "why-donate-stroke-lyfe",
+    title: "Why I Built a Nonprofit to Fund What Insurance Won't: Nick Kremers on Where Every Stroke Lyfe Dollar Goes",
+    description:
+      "Stroke Lyfe Inc. (EIN: 99-1313589) was founded by stroke survivor Nick Kremers to fund what the medical system doesn't: scholarships, vehicle independence, research, and community. Here's exactly where your donation goes — and why there's no ceiling on what's possible.",
+    tag: "Giving",
+    date: "May 22, 2026",
+    readTime: "12 min read",
+    author: "Nick Kremers",
+    publishedAt: "2026-05-22",
+    sections: [
+      {
+        type: "h2",
+        content: "The Day I Realized Insurance Was Never the Answer",
+      },
+      {
+        type: "p",
+        content:
+          "After 60 days of inpatient rehabilitation — the amount my insurance authorized — I was discharged. Not because I was recovered. Not because the ceiling was in sight. Because the policy said 60 days, and 60 days was done. I was still using a wheelchair. I still couldn't use my left hand reliably. And the medical system's parting message was essentially: good luck. In the years that followed, I learned that the money to fund real stroke recovery absolutely exists. It's simply pointed in every direction except toward the survivors who need it most. That realization is why Stroke Lyfe Inc. exists.",
+      },
+      {
+        type: "h2",
+        content: "What Stroke Lyfe Is — and What It Isn't",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe Inc. (EIN: 99-1313589) is a federally recognized 501(c)(3) nonprofit I founded in Lavaca, Arkansas after building Stroke Recovery Academy from a wheelchair. The nonprofit exists for one reason: to fund the recovery resources the medical system doesn't cover and philanthropy has largely ignored. We're not a hospital. We don't provide clinical care. We fund what comes after the clinical system stops — the coaching, the community, the motivation, the peer connection, the vehicle modifications, the research. The things that actually determine long-term outcomes for stroke survivors.",
+      },
+      {
+        type: "h2",
+        content: "The 87-Cent Promise: Where Your Dollar Actually Goes",
+      },
+      {
+        type: "p",
+        content:
+          "87 cents of every donated dollar goes directly to programs. The remaining 13 cents covers essential administrative and operational costs. We don't compensate board members. We publish financial records annually. When you donate to Stroke Lyfe, here's what your money funds:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Survivor Scholarships — funding access to recovery coaching and community programs for survivors who can't afford them",
+          "Peer Mentor Matches — connecting survivors with other survivors who've lived what they're living, in the same body, with the same fears",
+          "Social Recovery Programs — because isolation after stroke is as neurologically damaging as the injury itself",
+          "Vehicle Independence Program — evaluations and adaptive modifications that let survivors drive again; insurance won't pay for these",
+          "Recovery Research — supporting neuroplasticity research and experimental treatment development",
+          "Caregiver Resources — because the people who hold survivors together are burning out and need support too",
+          "Hospital Book Program — putting The Stroke Recovery Revolution in the hands of survivors at rehab facilities before they go home",
+        ],
+      },
+      {
+        type: "h2",
+        content: "There Is No Cap on What's Possible",
+      },
+      {
+        type: "p",
+        content:
+          "When someone asks 'how much should I give?' the honest answer is: give what genuinely moves the needle for you. $25 funds a week of motivation tools and resources for one survivor. $97 funds a full Survivor Scholarship for a month. $1,000 funds ten survivors for an entire month — and I'll send you their first names. $10,000 moves the needle toward the rehabilitation facility I've been designing since I was in a wheelchair: a real, purpose-built place with experimental recovery technology, a community environment, and a social program for survivors who've lost their social lives along with their motor function. There is no ceiling on this mission — only on what the funding allows us to build.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "The prognosis they give you at discharge is a floor, not a ceiling. That principle applies to stroke recovery — and it applies to what a well-funded nonprofit can build.",
+      },
+      {
+        type: "h2",
+        content: "Donation-Powered Giveaways: What the Community Gets Back",
+      },
+      {
+        type: "p",
+        content:
+          "As Stroke Lyfe grows, so does what we give back. Through my TikTok (@nickkremers) and Facebook (@NicholasKremersSr), I run community giveaways for stroke survivors and caregivers: recovery products, adaptive equipment, books, program access, and more. The bigger the community giving, the bigger and more frequent those giveaways become. This isn't a marketing tactic — it's what happens when a nonprofit is run by a survivor who remembers exactly what it felt like to need resources and not be able to afford them. Follow along. The giveaways are real, and they grow with the mission.",
+      },
+      {
+        type: "h2",
+        content: "Give for Any Reason — Including No Reason at All",
+      },
+      {
+        type: "p",
+        content:
+          "You don't need a personal story to donate. You don't need a specific reason. We don't require one. You can give in honor of a loved one who had a stroke, in memory of someone who didn't make it, in support of a survivor you know, in solidarity with the 800,000 Americans who have a stroke every year — or simply because the mission resonates and you have the means. Every dollar, for any reason, goes directly to the programs.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Is a donation to Stroke Lyfe Inc. tax-deductible?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Stroke Lyfe Inc. (EIN: 99-1313589) is a federally recognized 501(c)(3) public charity. Donations are tax-deductible to the fullest extent allowed by law. You'll receive an email receipt for any donation, which serves as your documentation for tax purposes. For major gifts, we recommend speaking with a tax advisor about strategies including Donor Advised Funds and IRA Qualified Charitable Distributions.",
+      },
+      {
+        type: "h3",
+        content: "Can I donate monthly instead of one-time?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes, and monthly giving is the most impactful option. The Stroke Lyfe donation form has a one-time and monthly toggle. Monthly gifts provide predictable funding that lets us make multi-month scholarship commitments — which is what actually drives long-term recovery for survivors. A $25/month gift funds a Survivor Scholarship every four months. A $100/month gift sustains ongoing coaching access for a survivor as long as you give.",
+      },
+      {
+        type: "h3",
+        content: "Is there a maximum donation amount?",
+      },
+      {
+        type: "p",
+        content:
+          "No. There is no maximum donation. Stroke Lyfe accepts gifts of any size. For major gifts — $10,000 and above — we work directly with donors on naming opportunities, program sponsorships, and other ways to make the gift meaningful and impactful. Email nick@strokelyfe.org directly for those conversations.",
+      },
+      {
+        type: "h3",
+        content: "Can I donate in honor or memory of someone?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. The Stroke Lyfe donation form includes a tribute section. Enter the name of the person you're honoring or remembering, and optionally add a notification email to let them (or their family) know about the tribute gift. Tribute donations go to the same programs as all other gifts and are fully tax-deductible.",
+      },
+      {
+        type: "cta",
+        label: "Donate Now — Any Amount, Any Reason",
+        href: "/donate",
+        sub: "Tax-deductible. EIN 99-1313589. 87 cents of every dollar goes directly to programs. Secure checkout via Stripe.",
+      },
+    ],
+  },
+  {
+    slug: "stroke-lyfe-scholarships-how-they-work",
+    title: "Stroke Lyfe Survivor Scholarships: Who Qualifies, What They Cover, and How to Apply",
+    description:
+      "Stroke Lyfe Inc. funds Survivor Scholarships for stroke survivors who can't afford recovery coaching, community programs, and peer support. No income minimum to apply. Nick reviews every application personally within 72 hours.",
+    tag: "Programs",
+    date: "May 22, 2026",
+    readTime: "10 min read",
+    author: "Nick Kremers",
+    publishedAt: "2026-05-22",
+    sections: [
+      {
+        type: "h2",
+        content: "Why Survivor Scholarships Exist",
+      },
+      {
+        type: "p",
+        content:
+          "The recovery model that worked for me — intensive, neuroplasticity-driven, coaching-based — is not free. Stroke Recovery Academy, the peer community, the accountability systems, the coaching resources: these cost money to build and to sustain. I knew from the beginning that if I built something that worked but only rich survivors could access it, I hadn't solved the problem. I'd just built a better version of what already exists: good things for the people who can already afford good things. Stroke Lyfe Survivor Scholarships exist to close that gap. They're how we make sure that what works isn't gated by what someone's bank account happens to look like after a stroke destroyed their income.",
+      },
+      {
+        type: "h2",
+        content: "Three Scholarship Tiers",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe offers three scholarship levels, each designed to match different stages of need and recovery intensity:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Survivor Scholarship ($97/month value) — Recovery coaching tools, peer community access, motivation content, and social programming. This is the foundation every survivor needs: the daily accountability, the people who understand, and the resources to keep showing up.",
+          "Mentored Scholarship ($297/month value) — Everything in the Survivor Scholarship, plus structured group coaching, accountability partnerships, and identity recovery work. For survivors who need more than a community — they need someone checking on them.",
+          "Elite Scholarship ($997/month value) — Full access to every Stroke Lyfe program, including personalized 1:1 coaching, custom recovery plan design, lifetime program access, and direct contact with Nick. For survivors in critical stages of recovery who need intensive, individualized support.",
+        ],
+      },
+      {
+        type: "h2",
+        content: "What Each Scholarship Covers",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe scholarships fund access to the following programs, depending on the scholarship level:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Stroke Recovery Academy curriculum — the neuroplasticity-based recovery education program Nick built from his own recovery",
+          "Peer mentor matching — connection with a survivor who's lived the same deficits, the same grief, and the same recovery fight",
+          "Group coaching sessions — structured accountability with a cohort of survivors at similar stages",
+          "Social recovery programming — community events, check-ins, and peer support designed to reverse the isolation that strokes create",
+          "Mindset and motivation content — daily tools built around the psychology of long-term recovery",
+          "Caregiver resources — support and guidance for the family members and partners who carry the recovery alongside the survivor",
+        ],
+      },
+      {
+        type: "h2",
+        content: "Who Qualifies",
+      },
+      {
+        type: "p",
+        content:
+          "Any stroke survivor who cannot afford access to recovery programs qualifies to apply. We don't require income documentation. We don't have a minimum or maximum time post-stroke. We don't exclude survivors based on deficit type, geography, or the severity of the stroke. Tell us your situation honestly. We respond honestly about what we can offer. If funding is available, you receive access immediately. If it isn't, you're placed on the waitlist and notified the moment a scholarship opens.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "I've never met a stroke survivor who didn't deserve access to recovery. I've met thousands who couldn't afford it. That's the problem we're solving.",
+      },
+      {
+        type: "h2",
+        content: "How to Apply",
+      },
+      {
+        type: "p",
+        content:
+          "The application is straightforward. You'll be asked for basic contact information, your location, how long ago your stroke occurred, your current therapy access situation, what programs interest you, and — most importantly — your story. What happened, what your current challenges are, and what would change for you if you had access to coaching and community. Nick reviews every application personally, typically within 72 hours. You'll hear back with a clear answer.",
+      },
+      {
+        type: "h2",
+        content: "How to Donate to Fund a Scholarship",
+      },
+      {
+        type: "p",
+        content:
+          "Scholarships are funded entirely by donations. A $97 donation funds one Survivor Scholarship for a month. A $297 donation funds one Mentored Scholarship for a month. A $997 donation funds one Elite Scholarship. Monthly donors are the backbone of the program — a $97/month gift funds a survivor continuously, with no gap. The waitlist shrinks every time a new donation comes in, and the names on that waitlist are real people who applied because they need what we have and couldn't afford it on their own.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Do scholarship recipients pay anything?",
+      },
+      {
+        type: "p",
+        content:
+          "No. Stroke Lyfe scholarships cover the full cost of program access for the scholarship period. Recipients don't pay anything. Scholarships are funded entirely by donors. We do ask that scholarship recipients stay engaged with the program — not as a condition of continuing access, but because engagement is what drives recovery outcomes.",
+      },
+      {
+        type: "h3",
+        content: "How long does a scholarship last?",
+      },
+      {
+        type: "p",
+        content:
+          "Initial scholarships are typically one to three months, depending on the scholarship level and available funding. We review scholarship continuations based on the survivor's progress and ongoing funding availability. Survivors on the Elite Scholarship track may receive lifetime program access if their situation warrants it and funding supports it. We don't cut survivors off without communication — if a scholarship is expiring, we tell you in advance and work with you on options.",
+      },
+      {
+        type: "h3",
+        content: "Can a caregiver apply on behalf of a stroke survivor?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Caregivers can submit an application on behalf of a survivor who can't complete the form independently. Include the survivor's information as the primary applicant and note in the story field that you're completing the form on their behalf. If you have questions, email nick@strokelyfe.org directly.",
+      },
+      {
+        type: "h3",
+        content: "What if funding isn't available when I apply?",
+      },
+      {
+        type: "p",
+        content:
+          "You're placed on the waitlist and notified immediately when a scholarship becomes available. Waitlist position is generally first-applied, first-served, though we give priority to survivors in acute need. The waitlist shrinks every time a new donation funds a scholarship — which is why donor support is directly linked to how quickly survivors get access.",
+      },
+      {
+        type: "cta",
+        label: "Apply for a Survivor Scholarship",
+        href: "/apply",
+        sub: "No income minimum. No documentation required. Nick reviews every application personally within 72 hours.",
+      },
+    ],
+  },
+  {
+    slug: "are-donations-to-stroke-lyfe-tax-deductible",
+    title: "Is a Donation to Stroke Lyfe Tax-Deductible? Your Complete Guide for Arkansas Donors and Beyond",
+    description:
+      "Yes — donations to Stroke Lyfe Inc. (EIN: 99-1313589) are fully tax-deductible. Here's everything Arkansas donors and national supporters need to know about charitable deductions, IRA giving, Donor Advised Funds, and in-kind donations.",
+    tag: "Giving",
+    date: "May 22, 2026",
+    readTime: "9 min read",
+    author: "Nick Kremers",
+    publishedAt: "2026-05-22",
+    sections: [
+      {
+        type: "h2",
+        content: "The Short Answer",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Donations to Stroke Lyfe Inc. are fully tax-deductible. We are a federally recognized 501(c)(3) public charity (EIN: 99-1313589), headquartered in Lavaca, Arkansas. Every dollar you donate — by credit card, check, bank transfer, stock, or Donor Advised Fund — qualifies for a federal charitable deduction and, in most states including Arkansas, a state income tax deduction as well. You'll receive a donation receipt by email for every gift, which is your documentation for tax purposes.",
+      },
+      {
+        type: "h2",
+        content: "The Federal Deduction: How It Works",
+      },
+      {
+        type: "p",
+        content:
+          "If you itemize deductions on your federal income tax return (using Schedule A), you can deduct charitable cash contributions to Stroke Lyfe Inc. up to 60% of your Adjusted Gross Income (AGI) for the tax year. Cash contributions include credit card, check, ACH transfer, and online payments. Donations of appreciated property (such as stock) are generally deductible up to 30% of AGI at fair market value, with the added benefit that you avoid capital gains tax on the appreciation. Unused deductions can be carried forward for up to five years. For donors who take the standard deduction ($14,600 single / $29,200 married filing jointly in 2024), a Donor Advised Fund strategy can bundle multiple years of giving into a single deductible event — talk to your tax advisor about this.",
+      },
+      {
+        type: "h2",
+        content: "Arkansas State Tax Deduction",
+      },
+      {
+        type: "p",
+        content:
+          "Arkansas allows taxpayers who itemize on their state return to deduct charitable contributions following federal rules. If you donate to Stroke Lyfe and itemize on your Arkansas state return (Form AR1), the same donation that qualifies federally qualifies for the Arkansas deduction. Arkansas has a graduated income tax rate, so the state-level benefit depends on your income bracket — consult a local tax professional for the precise number. What matters is that supporting a River Valley Arkansas nonprofit produces tax benefits at both the federal and state level for Arkansas residents.",
+      },
+      {
+        type: "h2",
+        content: "IRA Qualified Charitable Distributions (QCDs)",
+      },
+      {
+        type: "p",
+        content:
+          "If you are 70½ or older, you can make a Qualified Charitable Distribution (QCD) directly from your IRA to Stroke Lyfe Inc. QCDs are excluded from your taxable income entirely — which is better than a standard deduction for many donors at that income level. The annual QCD limit is $105,000 per individual in 2024 ($210,000 per married couple). QCDs also count toward your Required Minimum Distribution (RMD), so they're an especially efficient giving vehicle for retirees who don't need their RMD income. To make a QCD to Stroke Lyfe, instruct your IRA custodian to send a check directly to Stroke Lyfe Inc. at 622 South River Rd., Lavaca, AR 72941, with EIN 99-1313589 noted on the check.",
+      },
+      {
+        type: "h2",
+        content: "Donor Advised Funds",
+      },
+      {
+        type: "p",
+        content:
+          "If you have a Donor Advised Fund (DAF) at Fidelity Charitable, Schwab Charitable, Vanguard Charitable, or any community foundation, you can grant directly to Stroke Lyfe Inc. from your DAF. Search for 'Stroke Lyfe Inc.' or use EIN 99-1313589 to find us. DAF grants are not tax-deductible at the time of the grant (you already took the deduction when you funded the DAF), but they're an excellent way to support Stroke Lyfe if you've already set aside charitable assets.",
+      },
+      {
+        type: "h2",
+        content: "In-Kind Donations: Books, Equipment, and Products",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe also accepts in-kind donations — physical goods that support our programs. If you're donating recovery equipment, adaptive devices, or other tangible items, the fair market value of those items is generally deductible as a charitable contribution. In-kind donations of $500 or more require IRS Form 8283. We're especially looking for recovery equipment, adaptive tools, and copies of The Stroke Recovery Revolution for our hospital donation program. Contact nick@strokelyfe.org to coordinate in-kind donations.",
+      },
+      {
+        type: "h2",
+        content: "Corporate Matching Donations",
+      },
+      {
+        type: "p",
+        content:
+          "Many employers match employee charitable donations through corporate matching programs. If your employer offers matching, check whether Stroke Lyfe Inc. (EIN: 99-1313589) qualifies — most corporate matching programs accept any IRS-recognized 501(c)(3). A $100 personal donation matched 1:1 becomes a $200 donation to Stroke Lyfe at no additional cost to you. Some programs match 2:1 or higher. Check your HR department or benefits portal for details.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Do I need a receipt for every donation?",
+      },
+      {
+        type: "p",
+        content:
+          "For cash donations of $250 or more, the IRS requires a written acknowledgment from the charity. Stroke Lyfe sends an email receipt for every donation, which includes the date, amount, and a statement that no goods or services were provided in exchange (or, for tribute gifts, notes what was provided). For cash donations under $250, a bank statement or credit card record is sufficient, though our emailed receipt provides cleaner documentation. Keep all receipts for at least three years after filing.",
+      },
+      {
+        type: "h3",
+        content: "Can businesses deduct donations to Stroke Lyfe?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Corporate donations to Stroke Lyfe Inc. are deductible as charitable contributions on the business's tax return. The deduction limit is 10% of taxable income for C corporations, and donations flow through to individual returns for S corporations, partnerships, and sole proprietorships (subject to the individual 60% AGI limit). Businesses can also deduct sponsorship expenses as business expenses if there's a clear business benefit — consult your accountant for the right treatment for your specific situation.",
+      },
+      {
+        type: "h3",
+        content: "Is a tribute donation deductible even though it honors someone else?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. A tribute donation — made in honor or memory of another person — is deductible to the person who makes the donation, not the person being honored. The donor receives the full deduction. The honored person receives no tax benefit (and no tax liability). The donation receipt goes to the donor's email address.",
+      },
+      {
+        type: "h3",
+        content: "What if I donated but didn't receive a receipt?",
+      },
+      {
+        type: "p",
+        content:
+          "Email donate@strokelyfe.org with the date, amount, and email address you used to donate. We'll resend your receipt within 24 hours. If you provided an email at checkout, the receipt was sent automatically — check your spam folder first.",
+      },
+      {
+        type: "cta",
+        label: "Make a Tax-Deductible Donation Today",
+        href: "/donate",
+        sub: "Stroke Lyfe Inc. — EIN: 99-1313589 — 501(c)(3) Public Charity. Donations deductible to the fullest extent of the law.",
+      },
+    ],
+  },
+  {
+    slug: "stroke-recovery-academy-strokelyfe-connection",
+    title: "Stroke Recovery Academy and Stroke Lyfe: How Nick Built Both — and Why Every Donation Bridges the Gap",
+    description:
+      "Stroke Recovery Academy is Nick Kremers's for-profit coaching platform for stroke survivors. Stroke Lyfe Inc. is the nonprofit that funds access for survivors who can't afford it. Here's how the two connect — and why that matters for your donation.",
+    tag: "Recovery",
+    date: "May 22, 2026",
+    readTime: "11 min read",
+    author: "Nick Kremers",
+    publishedAt: "2026-05-22",
+    sections: [
+      {
+        type: "h2",
+        content: "I Built It from a Wheelchair — Then Made It Free for the Survivors Who Need It Most",
+      },
+      {
+        type: "p",
+        content:
+          "I built Stroke Recovery Academy in Fort Smith, Arkansas while I was still in a wheelchair. Not because I had funding. Not because someone told me the market was ready for a stroke recovery platform. Because I had spent years figuring out what actually worked — the neuroplasticity principles, the accountability systems, the mirror therapy protocols, the mindset frameworks — and I couldn't find a single platform that combined them into something a real survivor could use every day. So I built it. And then I realized I'd built it for the survivors who could afford it. That wasn't enough.",
+      },
+      {
+        type: "h2",
+        content: "What Stroke Recovery Academy Is",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Recovery Academy (strokerecoveryacademy.com) is a membership platform built entirely around intensive, accountability-driven stroke recovery. It's not information alone — the internet has information. It's the system that wraps around the information: daily check-ins, peer accountability, a community of survivors who are actually doing the work, and the Sasquatch Coach, an AI trained on my voice and recovery philosophy that's available 24/7. The platform includes:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Recovery Academy — a 33-chapter curriculum covering neuroplasticity, mirror therapy, constraint-induced movement, drop foot protocols, speech recovery, cognitive rehab, and the psychology of long-term comeback",
+          "Daily Exercise Library — 34 therapeutic exercises derived from Nick's exact recovery methods, trackable and progressable",
+          "Sasquatch Coach AI — a 24/7 accountability AI trained on the Sasquatch Method, designed to notice when you've gone quiet and bring you back in",
+          "The 66-Day Challenge — a structured program with daily missions across three phases, built around habit formation and momentum",
+          "Survivor Community Wall — film your progress, share your wins, connect with survivors at Day 3 and Day 700",
+          "Accountability Pods — small groups of 3–5 survivors checking in together and holding each other accountable",
+        ],
+      },
+      {
+        type: "h2",
+        content: "The Gap That Created Stroke Lyfe",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Recovery Academy costs money because building, hosting, and maintaining a platform of that quality costs money. That's not an apology — quality costs something. But after building SRA, I kept running into survivors who found the platform, understood what it could do for them, and couldn't afford access. Survivors on fixed incomes. Survivors whose stroke had ended their careers. Survivors who were already financially devastated by medical bills, caregiving costs, and the economic wreckage that a stroke leaves behind. The gap between who needed SRA and who could afford SRA was real and growing. Stroke Lyfe Inc. is the bridge.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "I can't build a recovery platform that only serves survivors who already had money. That's not solving the problem — it's a better version of what already exists.",
+      },
+      {
+        type: "h2",
+        content: "How Your Donation Funds Access",
+      },
+      {
+        type: "p",
+        content:
+          "Donations to Stroke Lyfe Inc. fund Survivor Scholarships that cover the cost of Stroke Recovery Academy membership and associated programming. A $97 donation funds one survivor's Survivor Scholarship for a month — full platform access, peer community, coaching tools, and accountability systems. A $297 donation funds a Mentored Scholarship, which adds structured group coaching and accountability partnership. The survivors on our scholarship waitlist applied because they did the research, they understand what SRA can do for their recovery, and they couldn't afford it. Your donation removes the barrier.",
+      },
+      {
+        type: "h2",
+        content: "The Book: Expanding the Mission Beyond the Platform",
+      },
+      {
+        type: "p",
+        content:
+          "The Stroke Recovery Revolution is a book I've been writing for survivors who don't have platform access — and for the hospitals, rehab facilities, and care teams who work with survivors every day. The book covers the same principles as the academy curriculum: neuroplasticity, the recovery techniques, the mindset frameworks, the science, and Nick's personal story from 0% to 90%+ function. Stroke Lyfe is building a hospital donation program to put this book in the hands of survivors at rehab facilities before they go home. Because the information that changes everything shouldn't require a subscription — it should be there on the bedside table when a survivor is still in the hospital wondering if any of this is going to work.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "What's the difference between Stroke Recovery Academy and Stroke Lyfe?",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Recovery Academy (strokerecoveryacademy.com) is a for-profit membership platform where stroke survivors pay for access to the curriculum, daily exercises, Sasquatch Coach AI, and community. Stroke Lyfe Inc. (strokelyfe.org) is the 501(c)(3) nonprofit that funds scholarships for survivors who can't afford SRA membership. They're run by the same founder — me — but operate independently, with separate financials and separate governance. Donations to Stroke Lyfe fund the scholarship program and broader programs; they don't fund SRA operations.",
+      },
+      {
+        type: "h3",
+        content: "Can I get access to Stroke Recovery Academy without paying?",
+      },
+      {
+        type: "p",
+        content:
+          "If you can't afford SRA access, apply for a Stroke Lyfe Survivor Scholarship at strokelyfe.org/apply. Nick reviews every application personally within 72 hours. If a scholarship is available and you qualify, you receive access immediately at no cost. If no scholarship is available, you're placed on the waitlist and notified when one opens.",
+      },
+      {
+        type: "h3",
+        content: "Is Stroke Recovery Academy evidence-based?",
+      },
+      {
+        type: "p",
+        content:
+          "The principles in SRA are grounded in decades of neuroplasticity research — the same science that underlies constraint-induced movement therapy, mirror therapy, and the neuroplastic mechanisms now recognized in clinical stroke rehabilitation. What makes SRA different is the delivery: instead of clinical sessions that end when insurance runs out, SRA is a daily system designed for sustained, self-directed practice over months and years. Nick's own recovery — from a wheelchair at 30% prognosis to 90%+ function at 7.5 years post-stroke — is the proof-of-concept. The platform applies the science through a system a survivor can use at home, every day, indefinitely.",
+      },
+      {
+        type: "cta",
+        label: "Support Survivor Scholarship Access",
+        href: "/donate",
+        sub: "$97 funds one full Survivor Scholarship. $297 funds a Mentored Scholarship. Every dollar removes a barrier.",
+      },
+    ],
+  },
+  {
+    slug: "arkansas-stroke-nonprofit-river-valley",
+    title: "From the River Valley to Nationwide: How an Arkansas Stroke Survivor Is Changing What's Possible in Recovery",
+    description:
+      "Nick Kremers had a stroke in Fort Smith, Arkansas at age 36 and was told to accept 30% recovery. He reached 90%+. Now he's building Stroke Lyfe Inc. — an Arkansas-rooted nonprofit serving survivors nationwide — from Lavaca in the River Valley.",
+    tag: "Community",
+    date: "May 22, 2026",
+    readTime: "10 min read",
+    author: "Nick Kremers",
+    publishedAt: "2026-05-22",
+    sections: [
+      {
+        type: "h2",
+        content: "This Started in Fort Smith",
+      },
+      {
+        type: "p",
+        content:
+          "December 3, 2018. I was 36 years old, living in Fort Smith, Arkansas, when a massive ischemic stroke took out the left side of my brain and the right side of my body. The River Valley — the stretch of western Arkansas that runs along the Arkansas River from Fort Smith east through Van Buren, Alma, Dyer, and Lavaca — is where my story started. It's where I relearned to walk. It's where I figured out what neuroplasticity actually means in practice. And it's where I decided that what happened to me — and what I figured out on my own — shouldn't be locked behind a paycheck that a stroke already took from most survivors.",
+      },
+      {
+        type: "h2",
+        content: "Arkansas Has a Stroke Problem — and Not Enough Solutions",
+      },
+      {
+        type: "p",
+        content:
+          "Arkansas sits in the heart of the Stroke Belt — the cluster of southeastern and south-central states with stroke rates significantly higher than the national average. Arkansas's stroke mortality rate is among the highest in the country. The state has high rates of the primary stroke risk factors: hypertension, diabetes, obesity, and smoking. The River Valley specifically — Sebastian County, Crawford County, Franklin County — has communities that are medically underserved, where access to specialist care after stroke is limited, follow-up PT is often unavailable after insurance ends, and the gap between hospital discharge and functional recovery is filled by nothing except willpower and whatever a family can manage on their own. This isn't a criticism of the care teams in this region — St. Edward's Mercy, UAMS Fort Smith, Conway Regional all have dedicated professionals working with real resource constraints. The problem isn't the clinicians. It's the system they're operating inside.",
+      },
+      {
+        type: "h2",
+        content: "Why Arkansas-Based Giving Matters",
+      },
+      {
+        type: "p",
+        content:
+          "When an Arkansas resident donates to Stroke Lyfe Inc., they're supporting an organization that was born here, is headquartered here (622 South River Rd., Lavaca, AR 72941), and is directly building programs to serve survivors in this region. For Arkansas donors who itemize deductions, contributions to Stroke Lyfe are deductible on both federal and state returns — so every dollar you give also reduces your Arkansas income tax liability. That's a meaningful incentive to support a homegrown nonprofit over a national one with no roots in the communities you care about.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "I've met survivors in the River Valley who had no idea what neuroplasticity was when I talked to them — not because they weren't smart enough to understand, but because nobody ever explained it. Nobody told them that the brain keeps responding to practice long after the six-month cutoff. That's what we're fixing.",
+      },
+      {
+        type: "h2",
+        content: "The Hospital Book Program: Putting Recovery Knowledge at Bedside",
+      },
+      {
+        type: "p",
+        content:
+          "One of the most immediate programs Stroke Lyfe is building is the hospital book donation initiative. The Stroke Recovery Revolution — the book I've written about the recovery model that took me from 0% to 90%+ — will be donated to stroke units and rehab facilities so that survivors have access to real recovery information before they're discharged into uncertainty. River Valley facilities are our starting point: St. Edward's Mercy Medical Center, UAMS Fort Smith, and the rehabilitation units associated with each. From there, we scale nationally. A $25 donation to Stroke Lyfe funds a book for a hospital unit. A $500 donation puts a case of books in a regional stroke center. Those books change what survivors believe is possible on the day they need to believe something.",
+      },
+      {
+        type: "h2",
+        content: "Speaking Engagements: Shattering Medical Myths in Person",
+      },
+      {
+        type: "p",
+        content:
+          "I'm available to speak at hospitals, rehab facilities, survivor groups, nonprofit events, churches, civic organizations, and corporate wellness programs throughout the River Valley and nationally. The talk covers my story, the neuroscience behind what I did, and the practical recovery principles that any survivor — regardless of deficit type, time post-stroke, or prior medical prognosis — can apply. If you're associated with an Arkansas organization that could benefit from this conversation, reach out at nick@strokelyfe.org. I'm particularly interested in speaking at facilities that work directly with stroke survivors, because those rooms are full of people who need to hear what's actually possible — not what a discharge prognosis told them to expect.",
+      },
+      {
+        type: "h2",
+        content: "Giveaways for the Community: Social Media Meets Recovery",
+      },
+      {
+        type: "p",
+        content:
+          "Through my TikTok (@nickkremers) and Facebook (@NicholasKremersSr), I reach survivors and caregivers nationwide — over 90,000 across the community. As Stroke Lyfe grows, I run community giveaways that put recovery products, adaptive equipment, program access, and books directly in the hands of survivors who need them. The more the community gives, the bigger the giveaways — recovery tools, book donations, product packages, program scholarships. If you're in the River Valley and you're a survivor or caregiver, follow along. The giveaways are real and they're built for people like you.",
+      },
+      {
+        type: "h2",
+        content: "How to Support Stroke Lyfe as an Arkansas Resident",
+      },
+      {
+        type: "ul",
+        items: [
+          "Donate at strokelyfe.org/donate — tax-deductible at both federal and Arkansas state levels (EIN: 99-1313589)",
+          "Apply for a scholarship if you're a stroke survivor who needs program access: strokelyfe.org/apply",
+          "Share the mission — tell your church, your civic group, your doctor's office, or your employer about Stroke Lyfe",
+          "Inquire about a speaking engagement — nick@strokelyfe.org",
+          "Follow @nickkremers on TikTok and Facebook for giveaways, updates, and daily recovery content",
+          "Ask your employer about corporate donation matching — your HR department can check if Stroke Lyfe (EIN: 99-1313589) qualifies",
+        ],
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Is Stroke Lyfe really based in Arkansas?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Stroke Lyfe Inc. is headquartered at 622 South River Rd., Lavaca, AR 72941 — in the River Valley, Sebastian County, Arkansas. Nick Kremers, the founder, lives and works in the River Valley. The organization is incorporated in Arkansas and registered as a federally recognized 501(c)(3) public charity (EIN: 99-1313589).",
+      },
+      {
+        type: "h3",
+        content: "Can Arkansas hospitals participate in the book donation program?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Arkansas hospitals, rehabilitation facilities, outpatient therapy clinics, and stroke support groups can participate in the Stroke Lyfe hospital book donation program. Contact nick@strokelyfe.org with your facility name, contact person, and estimated patient volume. We're prioritizing River Valley facilities first, then expanding statewide and nationally.",
+      },
+      {
+        type: "h3",
+        content: "Is Nick Kremers available for speaking engagements in Arkansas?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Nick is based in the River Valley and is available for in-person speaking engagements throughout western Arkansas and the River Valley area, with travel for appropriate events statewide and nationally. Engagements at hospitals, rehab facilities, survivor groups, and civic organizations are prioritized. Email nick@strokelyfe.org with your event details and audience. Speaking fees are negotiable and may be waived for nonprofits and survivor support organizations.",
+      },
+      {
+        type: "h3",
+        content: "How can local businesses support Stroke Lyfe?",
+      },
+      {
+        type: "p",
+        content:
+          "River Valley businesses can support Stroke Lyfe in several ways: direct charitable donations (tax-deductible as a business expense or charitable contribution), employee donation matching programs, sponsoring a scholarship ($97/month per survivor), or partnering on community events and giveaways. For business partnership inquiries, email nick@strokelyfe.org. We're also happy to speak at corporate wellness events and business association meetings for organizations interested in the mission.",
+      },
+      {
+        type: "cta",
+        label: "Support a River Valley Nonprofit — Donate Now",
+        href: "/donate",
+        sub: "Tax-deductible in Arkansas and federally. EIN: 99-1313589. 87 cents on the dollar goes directly to programs.",
+      },
+    ],
+  },
 ];
 
 const SITE_URL_CLIENT = "https://strokelyfe.org";

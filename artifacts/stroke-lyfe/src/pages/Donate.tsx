@@ -311,6 +311,113 @@ export default function Donate() {
           </div>
         </div>
       </section>
+
+      {/* WHAT DONATIONS UNLOCK */}
+      <section className="py-16 bg-foreground text-background" data-testid="section-outcomes">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-10">
+            <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-2">No ceiling on this mission</p>
+            <h2 className="font-serif text-3xl font-bold text-background">What growing donations unlock</h2>
+            <p className="text-background/60 mt-3 max-w-xl mx-auto">There is no cap on what you can give — and no cap on what it builds. Here's what happens as the community grows.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: "🎓",
+                title: "Survivor Scholarships",
+                desc: "Every $97 in donations funds one survivor's access to coaching, community, and recovery programs — for an entire month. The waitlist shrinks with every gift.",
+              },
+              {
+                icon: "🚗",
+                title: "Vehicle Independence",
+                desc: "Adaptive driving evaluations and vehicle modifications cost $800–$5,000 — and insurance won't pay. Your donations fund the program that gives survivors their independence back.",
+              },
+              {
+                icon: "📖",
+                title: "Hospital Book Program",
+                desc: "A $25 donation puts The Stroke Recovery Revolution on a rehab unit bedside table before a survivor goes home. River Valley Arkansas facilities first — then nationwide.",
+              },
+              {
+                icon: "🧠",
+                title: "Recovery Research",
+                desc: "Neuroplasticity research, experimental treatment access, and the technology that will define what's possible in year five, six, and seven of recovery.",
+              },
+              {
+                icon: "🤝",
+                title: "Peer Mentor Network",
+                desc: "Survivor-to-survivor coaching from people who have lived the same deficits, the same grief, and the same fight. Nothing replaces that.",
+              },
+              {
+                icon: "🏥",
+                title: "Recovery Center",
+                desc: "The long-range vision: a purpose-built facility with experimental recovery technology, community programming, and a social environment for long-term survivors.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-background/5 border border-background/10 rounded-xl p-5 hover:border-primary/40 transition-colors">
+                <p className="text-3xl mb-3">{item.icon}</p>
+                <h3 className="font-serif font-bold text-background mb-2">{item.title}</h3>
+                <p className="text-sm text-background/60 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GIVEAWAY MILESTONES */}
+      <section className="py-16 bg-muted border-t border-border" data-testid="section-giveaways">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-2">Donation-powered giveaways</p>
+              <h2 className="font-serif text-3xl font-bold text-foreground mb-4">The more the community gives, the bigger the giveaways</h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                As Stroke Lyfe grows, so does what we give back. Through <strong>@nickkremers</strong> on TikTok and <strong>@NicholasKremersSr</strong> on Facebook — reaching 90,000+ survivors and caregivers — Nick runs community giveaways that put recovery products, adaptive equipment, program access, books, and more directly in the hands of survivors who need them.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Giveaways scale with donations. Bigger community giving means bigger prizes, more frequent giveaways, and more survivors reached through social media. This isn't a loyalty program — it's what happens when a nonprofit is run by a survivor who remembers exactly what it felt like to need resources and not be able to afford them.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Follow along even if you can't donate — sharing the mission is how survivors who can't give financially still benefit.
+              </p>
+            </div>
+            <div className="space-y-3">
+              {[
+                { threshold: "Community giving: any level", prize: "Monthly digital giveaway — recovery resources, templates, and program content", icon: "🎁" },
+                { threshold: "Community giving: growing", prize: "Product giveaways — recovery equipment and adaptive tools through social media", icon: "📦" },
+                { threshold: "Community giving: milestone", prize: "Major product packages — larger adaptive equipment and recovery technology", icon: "⚡" },
+                { threshold: "Book launch milestone", prize: "Signed copies of The Stroke Recovery Revolution for survivors and caregivers", icon: "📖" },
+                { threshold: "Major milestone", prize: "VIP survivor packages — program access, books, products, and personal coaching sessions", icon: "🏆" },
+              ].map((tier, i) => (
+                <div key={i} className="flex items-start gap-4 bg-background rounded-xl p-4 border border-border">
+                  <span className="text-2xl shrink-0">{tier.icon}</span>
+                  <div>
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-0.5">{tier.threshold}</p>
+                    <p className="text-sm text-foreground leading-relaxed">{tier.prize}</p>
+                  </div>
+                </div>
+              ))}
+              <div className="pt-2">
+                <a
+                  href="https://www.tiktok.com/@nickkremers"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline mr-5"
+                >
+                  Follow @nickkremers on TikTok ↗
+                </a>
+                <a
+                  href="https://www.facebook.com/NicholasKremersSr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                >
+                  Facebook @NicholasKremersSr ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

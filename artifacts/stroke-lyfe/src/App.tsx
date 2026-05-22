@@ -27,6 +27,7 @@ import BlogPost from "@/pages/BlogPost";
 import Vision from "@/pages/Vision";
 import Apply from "@/pages/Apply";
 import Press from "@/pages/Press";
+import Book from "@/pages/Book";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ function Router() {
       <Route path="/vision" component={Vision} />
       <Route path="/apply" component={Apply} />
       <Route path="/press" component={Press} />
+      <Route path="/book" component={Book} />
       <Route component={NotFound} />
     </Switch>
   );
