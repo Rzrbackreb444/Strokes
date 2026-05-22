@@ -164,6 +164,7 @@ export const AdminGetDonationsResponseItem = zod.object({
   recipientName: zod.string().nullish(),
   recipientEmail: zod.string().nullish(),
   giftMessage: zod.string().nullish(),
+  tributeNotifyEmail: zod.string().nullish(),
   receiptSentAt: zod.coerce.date().nullish(),
   tributeNotificationSentAt: zod.coerce.date().nullish(),
   createdAt: zod.coerce.date(),

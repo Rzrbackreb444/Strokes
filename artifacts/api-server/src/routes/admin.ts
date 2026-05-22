@@ -1,5 +1,4 @@
 import { Router, type IRouter, type Request, type Response } from "express";
-import Stripe from "stripe";
 import { db } from "@workspace/db";
 import { stories, siteConfig, donations } from "@workspace/db";
 import { eq, desc, count } from "drizzle-orm";
@@ -8,10 +7,6 @@ import {
   AdminUpdateStatsBody,
 } from "@workspace/api-zod";
 import { sendTributeNotification } from "../lib/emails";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-  apiVersion: "2026-04-22.dahlia",
-});
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
@@ -228,16 +223,7 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
     return;
   }
 
-  let tributeNotifyEmail: string | null = null;
-
-  try {
-    const session = await stripe.checkout.sessions.retrieve(donation.stripeSessionId);
-    tributeNotifyEmail = session.metadata?.["tributeNotifyEmail"]?.trim() ?? null;
-  } catch (err) {
-    console.error("[admin] Failed to retrieve Stripe session for tribute resend:", err);
-    res.status(502).json({ error: "Failed to retrieve tribute recipient email from Stripe" });
-    return;
-  }
+  const tributeNotifyEmail = donation.tributeNotifyEmail?.trim() ?? null;
 
   if (!tributeNotifyEmail) {
     res.status(422).json({ error: "No tribute notification email on record for this donation" });

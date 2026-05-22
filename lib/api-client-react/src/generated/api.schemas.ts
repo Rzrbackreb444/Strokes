@@ -88,6 +88,7 @@ export interface Donation {
   recipientName?: string | null;
   recipientEmail?: string | null;
   giftMessage?: string | null;
+  tributeNotifyEmail?: string | null;
   receiptSentAt?: string | null;
   tributeNotificationSentAt?: string | null;
   createdAt: string;

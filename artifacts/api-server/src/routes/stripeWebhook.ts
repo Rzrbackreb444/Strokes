@@ -99,6 +99,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
       recipientName: meta["recipientName"] ?? null,
       recipientEmail: meta["recipientEmail"] ?? null,
       giftMessage: meta["giftMessage"] ?? null,
+      tributeNotifyEmail: meta["tributeNotifyEmail"]?.trim() ?? null,
     })
     .onConflictDoNothing();
 
