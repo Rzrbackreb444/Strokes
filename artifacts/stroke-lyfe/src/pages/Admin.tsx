@@ -8,6 +8,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   useAdminGetStories,
   useAdminUpdateStory,
   useAdminGetStats,
@@ -32,6 +42,7 @@ export default function Admin() {
   const { toast } = useToast();
   const qc = useQueryClient();
   const [statsForm, setStatsForm] = useState({ survivorsServed: "", scholarshipsFunded: "" });
+  const [tributeConfirm, setTributeConfirm] = useState<{ id: string; email: string } | null>(null);
 
   const storiesParams = { token: token ?? "", limit: 100, offset: 0 };
   const statsParams = { token: token ?? "" };
@@ -277,7 +288,10 @@ export default function Admin() {
                                 className="text-xs h-7 px-2"
                                 disabled={resendTribute.isPending}
                                 onClick={() =>
-                                  resendTribute.mutate({ id: donation.id, params: { token: token! } })
+                                  setTributeConfirm({
+                                    id: donation.id,
+                                    email: donation.tributeNotifyEmail ?? "",
+                                  })
                                 }
                                 data-testid={`button-resend-tribute-${donation.id}`}
                               >
@@ -359,6 +373,35 @@ export default function Admin() {
           </CardContent>
         </Card>
       </div>
+
+      <AlertDialog open={!!tributeConfirm} onOpenChange={(open) => { if (!open) setTributeConfirm(null); }}>
+        <AlertDialogContent data-testid="dialog-resend-tribute-confirm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Resend tribute notification?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will send a tribute notification email to:
+              <br />
+              <span className="font-medium text-foreground" data-testid="dialog-tribute-email">
+                {tributeConfirm?.email || <em className="text-muted-foreground">no email on record</em>}
+              </span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-tribute-confirm-cancel">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              data-testid="button-tribute-confirm-send"
+              onClick={() => {
+                if (tributeConfirm) {
+                  resendTribute.mutate({ id: tributeConfirm.id, params: { token: token! } });
+                  setTributeConfirm(null);
+                }
+              }}
+            >
+              Send
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
