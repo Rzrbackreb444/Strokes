@@ -54,6 +54,10 @@ export interface EmailSignupBody {
   source?: string | null;
 }
 
+export interface AdminResendTributeBody {
+  tributeNotifyEmail?: string | null;
+}
+
 export interface AdminUpdateDonationBody {
   tributeNotifyEmail?: string | null;
 }

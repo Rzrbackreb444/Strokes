@@ -21,6 +21,7 @@ import type {
   AdminGetStatsParams,
   AdminGetStoriesParams,
   AdminResendReceiptParams,
+  AdminResendTributeBody,
   AdminResendTributeParams,
   AdminUpdateDonationBody,
   AdminUpdateDonationParams,
@@ -1273,11 +1274,14 @@ export const getAdminResendTributeUrl = (
 export const adminResendTribute = async (
   id: number,
   params: AdminResendTributeParams,
+  adminResendTributeBody?: AdminResendTributeBody,
   options?: RequestInit,
 ): Promise<Donation> => {
   return customFetch<Donation>(getAdminResendTributeUrl(id, params), {
     ...options,
     method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(adminResendTributeBody ?? {}),
   });
 };
 
@@ -1288,14 +1292,14 @@ export const getAdminResendTributeMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof adminResendTribute>>,
     TError,
-    { id: number; params: AdminResendTributeParams },
+    { id: number; params: AdminResendTributeParams; data?: AdminResendTributeBody },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof adminResendTribute>>,
   TError,
-  { id: number; params: AdminResendTributeParams },
+  { id: number; params: AdminResendTributeParams; data?: AdminResendTributeBody },
   TContext
 > => {
   const mutationKey = ["adminResendTribute"];
@@ -1309,11 +1313,11 @@ export const getAdminResendTributeMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof adminResendTribute>>,
-    { id: number; params: AdminResendTributeParams }
+    { id: number; params: AdminResendTributeParams; data?: AdminResendTributeBody }
   > = (props) => {
-    const { id, params } = props ?? {};
+    const { id, params, data } = props ?? {};
 
-    return adminResendTribute(id, params, requestOptions);
+    return adminResendTribute(id, params, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
@@ -1335,14 +1339,14 @@ export const useAdminResendTribute = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof adminResendTribute>>,
     TError,
-    { id: number; params: AdminResendTributeParams },
+    { id: number; params: AdminResendTributeParams; data?: AdminResendTributeBody },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
   Awaited<ReturnType<typeof adminResendTribute>>,
   TError,
-  { id: number; params: AdminResendTributeParams },
+  { id: number; params: AdminResendTributeParams; data?: AdminResendTributeBody },
   TContext
 > => {
   return useMutation(getAdminResendTributeMutationOptions(options));

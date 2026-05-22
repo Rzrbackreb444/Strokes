@@ -25,7 +25,6 @@ import {
   useAdminGetDonations,
   useAdminResendTribute,
   useAdminResendReceipt,
-  useAdminUpdateDonation,
   getAdminGetStoriesQueryKey,
   getAdminGetStatsQueryKey,
   getAdminGetDonationsQueryKey,
@@ -97,15 +96,6 @@ export default function Admin() {
       onError: (err: unknown) => {
         const message = err instanceof Error ? err.message : "Failed to resend tribute notification";
         toast({ title: "Resend failed", description: message, variant: "destructive" });
-      },
-    },
-  });
-
-  const updateDonation = useAdminUpdateDonation({
-    mutation: {
-      onError: (err: unknown) => {
-        const message = err instanceof Error ? err.message : "Failed to update donation";
-        toast({ title: "Update failed", description: message, variant: "destructive" });
       },
     },
   });
@@ -465,22 +455,16 @@ export default function Admin() {
             <AlertDialogCancel data-testid="button-tribute-confirm-cancel">Cancel</AlertDialogCancel>
             <AlertDialogAction
               data-testid="button-tribute-confirm-send"
-              disabled={updateDonation.isPending || resendTribute.isPending}
-              onClick={async () => {
+              disabled={resendTribute.isPending}
+              onClick={() => {
                 if (!tributeConfirm) return;
                 const trimmedEmail = editedTributeEmail.trim();
-                try {
-                  if (trimmedEmail !== tributeConfirm.originalEmail) {
-                    await updateDonation.mutateAsync({
-                      id: tributeConfirm.id,
-                      data: { tributeNotifyEmail: trimmedEmail || null },
-                      params: { token: token! },
-                    });
-                  }
-                  resendTribute.mutate({ id: tributeConfirm.id, params: { token: token! } });
-                  setTributeConfirm(null);
-                } catch {
-                }
+                resendTribute.mutate({
+                  id: tributeConfirm.id,
+                  params: { token: token! },
+                  data: { tributeNotifyEmail: trimmedEmail || null },
+                });
+                setTributeConfirm(null);
               }}
             >
               Send

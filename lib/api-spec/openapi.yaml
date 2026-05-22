@@ -384,6 +384,12 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminResendTributeBody"
       responses:
         "200":
           description: Tribute notification sent, returns updated donation
@@ -590,6 +596,13 @@ components:
           nullable: true
       required:
         - email
+
+    AdminResendTributeBody:
+      type: object
+      properties:
+        tributeNotifyEmail:
+          type: string
+          nullable: true
 
     AdminUpdateDonationBody:
       type: object

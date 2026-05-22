@@ -349,6 +349,18 @@ router.post("/admin/donations/:id/resend-tribute", async (req: Request, res: Res
     return;
   }
 
+  const overrideEmail = typeof req.body?.tributeNotifyEmail === "string"
+    ? req.body.tributeNotifyEmail.trim() || null
+    : undefined;
+
+  if (overrideEmail !== undefined && overrideEmail !== (donation.tributeNotifyEmail?.trim() ?? null)) {
+    await db
+      .update(donations)
+      .set({ tributeNotifyEmail: overrideEmail })
+      .where(eq(donations.id, id));
+    donation.tributeNotifyEmail = overrideEmail;
+  }
+
   const tributeNotifyEmail = donation.tributeNotifyEmail?.trim() ?? null;
 
   if (!tributeNotifyEmail) {
