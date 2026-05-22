@@ -16,7 +16,8 @@ const STATIC_PAGES = [
   { path: "/gift", priority: "0.8", changefreq: "monthly" },
   { path: "/stories", priority: "0.7", changefreq: "weekly" },
   { path: "/blog", priority: "0.8", changefreq: "weekly" },
-  { path: "/contact", priority: "0.6", changefreq: "monthly" },
+  { path: "/vision", priority: "0.9", changefreq: "monthly" },
+  { path: "/contact", priority: "0.7", changefreq: "monthly" },
   { path: "/transparency", priority: "0.7", changefreq: "monthly" },
   { path: "/faq", priority: "0.8", changefreq: "monthly" },
   { path: "/services", priority: "0.7", changefreq: "monthly" },
@@ -32,7 +33,13 @@ const BLOG_SLUGS = [
   "stroke-lyfe-mission",
   "stroke-recovery-gap",
   "5-ways-donation-helps",
+  "stroke-social-isolation",
   "neuroplasticity-stroke-recovery",
+  "seven-years-after-stroke-nick-kremers",
+  "stroke-lyfe-recovery-center-vision",
+  "driving-after-stroke-vehicle-modifications",
+  "experimental-stroke-recovery-treatments",
+  "what-your-stroke-lyfe-donation-builds",
 ];
 
 const TODAY = new Date().toISOString().split("T")[0];

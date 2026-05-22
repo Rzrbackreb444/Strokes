@@ -110,9 +110,10 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-background mb-3 uppercase tracking-wider">Organization</h4>
             <ul className="space-y-2">
               <li><Link href="/about" className="text-sm text-background/60 hover:text-background transition-colors">About Us</Link></li>
+              <li><Link href="/vision" className="text-sm text-background/60 hover:text-background transition-colors">Our Vision</Link></li>
+              <li><Link href="/stories" className="text-sm text-background/60 hover:text-background transition-colors">Survivor Stories</Link></li>
               <li><Link href="/transparency" className="text-sm text-background/60 hover:text-background transition-colors">Transparency</Link></li>
-              <li><Link href="/transparency" className="text-sm text-background/60 hover:text-background transition-colors">Annual Report</Link></li>
-              <li><Link href="/contact" className="text-sm text-background/60 hover:text-background transition-colors">Contact</Link></li>
+              <li><Link href="/contact" className="text-sm text-background/60 hover:text-background transition-colors">Contact Nick</Link></li>
               <li><Link href="/donate" className="text-sm text-primary hover:text-primary/80 transition-colors font-medium">Donate</Link></li>
             </ul>
           </div>

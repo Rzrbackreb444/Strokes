@@ -523,6 +523,614 @@ export const BLOG_POSTS: Post[] = [
       },
     ],
   },
+  {
+    slug: "seven-years-after-stroke-nick-kremers",
+    title: "Seven and a Half Years After My Stroke: What I Know Now — and What I'm Building",
+    description:
+      "Nick Kremers was predicted 30% recovery after a severe stroke at 36. Seven and a half years later, he's at 90%+. This is what he learned — and why it led him to build Stroke Lyfe.",
+    tag: "Founder's Story",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "9 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "December 3, 2018. That's the date everything changed. I was 36 years old — by every measure at the prime of my life. By the time I reached the hospital, I had sustained one of the most severe ischemic strokes the attending neurologist said he had seen in a patient my age. The prognosis he delivered, carefully and professionally, was 30% recovery. I would likely never walk normally again. The deficits I had at discharge — they told me — represented the new floor of my life.",
+      },
+      {
+        type: "p",
+        content:
+          "I'm writing this seven and a half years later from a standing desk. I walk. I work. I built a company, then a nonprofit. I'm at 90%+ by every functional measure they gave me when I left that hospital in a wheelchair. And I want to tell you exactly how that happened — and exactly what I'm building now, because of it.",
+      },
+      {
+        type: "h2",
+        content: "What the Medical System Gave Me — and What It Didn't",
+      },
+      {
+        type: "p",
+        content:
+          "Insurance authorized 60 days of inpatient rehabilitation. That's it. The standard post-acute stroke protocol in the United States averages roughly 13 minutes of active physical therapy per day during inpatient stays — a figure documented in peer-reviewed research that should be unconscionable, but isn't, because that's simply the system. When I was discharged, I was categorized as 'recovered enough' to no longer qualify for inpatient care. I was still in a wheelchair.",
+      },
+      {
+        type: "p",
+        content:
+          "Outpatient therapy followed, for a few months, until those benefits ran out too. And then I was on my own — at 36, with two kids, a body that wasn't mine anymore, and a stack of discharge papers telling me that what I'd regained was roughly what I was going to keep.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "The prognosis they give you at discharge is a floor, not a ceiling. The medical system is telling you what it can afford to fund — not what your brain is capable of.",
+      },
+      {
+        type: "h2",
+        content: "The Years Nobody Tells You About",
+      },
+      {
+        type: "p",
+        content:
+          "Years one through three were the grinding years. I worked with neuroplasticity research on my own — reading studies, finding practitioners who believed in intensive long-term recovery, finding a community of survivors who were still working on their recovery years after their strokes. I learned what constraint-induced movement therapy was. I learned what dose-dependent practice meant. I stopped asking when I would plateau and started asking how much more I could push.",
+      },
+      {
+        type: "p",
+        content:
+          "I also hit the wall that almost every survivor hits: isolation. The friends who showed up at the hospital were mostly gone by year two. The social architecture of my pre-stroke life — built around someone who could walk into a bar, drive himself to a game, work a full-time job without exhaustion — didn't accommodate the person I was becoming. That social loss was as hard as anything physical. Nobody talks about it enough, and nobody funds programs for it.",
+      },
+      {
+        type: "h2",
+        content: "What Actually Drove the Recovery",
+      },
+      {
+        type: "p",
+        content:
+          "Three things moved the needle in ways that surprised me. First: intensity. Neuroplastic recovery is dose-dependent. The brain reorganizes in response to practice — more practice, more reorganization. Every week I wasn't doing structured, repetitive, intensive work was a week I was leaving recovery on the table. Second: motivation. Recovery is miserable. The only thing that keeps you going through the miserable days is a reason to keep going that you actually believe in. For me that was my kids, and eventually, the realization that I might be able to help others. Third: community. Connecting with other survivors — people who understood not just the clinical symptoms but the psychological ones — was irreplaceable. Not a support group. A real relationship with someone who had been where I was and come out the other side.",
+      },
+      {
+        type: "h2",
+        content: "Why I Built Stroke Lyfe",
+      },
+      {
+        type: "p",
+        content:
+          "I built Stroke Recovery Academy to give survivors access to the recovery model that worked for me — intensive, neuroplasticity-driven, with real coaching and a real community. Then I built Stroke Lyfe Inc. (EIN: 99-1313589) as the 501(c)(3) nonprofit to fund access for every survivor who couldn't afford it. Because the gap isn't knowledge. Most of us can find the information. The gap is money, access, and the specific kind of support — motivation, peer connection, social recovery — that the medical system doesn't fund at all.",
+      },
+      {
+        type: "p",
+        content:
+          "But scholarships are only the beginning. I want to build a rehabilitation facility — a real one, purpose-built for stroke survivors, with experimental recovery technologies, a community environment, and a social program for survivors who've lost their social lives alongside their motor function. I want to fund vehicle modifications so survivors can drive again, because the day you can drive yourself to a doctor's appointment is the day you start feeling human again. I want to do so much that insurance doesn't cover and philanthropy has largely ignored. That's what Stroke Lyfe is for.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Can you fully recover from a severe stroke?",
+      },
+      {
+        type: "p",
+        content:
+          "Full functional recovery from a severe stroke is uncommon by traditional medical definitions, but significant recovery — far beyond initial prognoses — is achievable for many survivors who maintain access to intensive, consistent practice and the right support. I was predicted 30% recovery and have reached 90%+, more than seven years post-stroke. The brain continues to reorganize in response to practice long after stroke — the limiting factor for most survivors isn't neurological potential, it's access to the intensity and duration of practice that drives recovery.",
+      },
+      {
+        type: "h3",
+        content: "How long does stroke recovery take?",
+      },
+      {
+        type: "p",
+        content:
+          "Recovery from stroke is not time-limited. The outdated six-month plateau model has been revised by decades of neuroplasticity research. The brain continues to reorganize and recover in response to structured practice for years — sometimes decades — after a stroke. Most survivors plateau not because their brains stop responding, but because they lose access to the intensity of practice that drives recovery when insurance coverage ends. Continued effort, the right tools, and sustained motivation determine long-term outcomes far more than the calendar does.",
+      },
+      {
+        type: "h3",
+        content: "What is Stroke Lyfe Inc. and how does it help survivors?",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe Inc. (EIN: 99-1313589) is a federally recognized 501(c)(3) nonprofit founded by stroke survivor Nick Kremers. The organization funds survivor scholarships to recovery programs, peer connection services, motivational coaching tools, and caregiver support — and is building toward a dedicated rehabilitation facility and vehicle independence program. Donations are tax-deductible. Financial records are published on the Transparency page.",
+      },
+      {
+        type: "cta",
+        label: "Help Build What Should Have Existed",
+        href: "/donate",
+        sub: "Every dollar funds a program the medical system doesn't. Tax-deductible. EIN 99-1313589.",
+      },
+    ],
+  },
+  {
+    slug: "stroke-lyfe-recovery-center-vision",
+    title: "The Stroke Lyfe Recovery Center: The Facility We're Building — and Why Nothing Like It Exists",
+    description:
+      "Stroke Lyfe is building a dedicated rehabilitation and recovery center for stroke survivors — part intensive clinic, part community retreat, part research site. Here's the vision, the plan, and how donations build it.",
+    tag: "Vision",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "7 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "Every stroke survivor I've spoken with over the past seven years has hit the same wall. They leave the hospital or inpatient facility with a list of outpatient appointments and the unspoken understanding that the healthcare system is finished with them. The appointments trickle down from three days a week to two, then one, then none. And then they're managing the rest of their recovery — potentially years of it — entirely on their own, with whatever they can piece together from YouTube videos, Facebook groups, and the occasional telehealth session.",
+      },
+      {
+        type: "p",
+        content:
+          "The Stroke Lyfe Recovery Center is the answer to that wall. It's a facility I've been designing in my head since about year two of my own recovery, when I understood clearly what I needed and couldn't find anywhere that it existed. I'm describing it here because I want you to see what your donation is building toward — and because I believe we will build it.",
+      },
+      {
+        type: "h2",
+        content: "What the Center Will Do",
+      },
+      {
+        type: "p",
+        content:
+          "The Stroke Lyfe Recovery Center will function simultaneously as an intensive rehabilitation clinic, a community retreat, and a research site. Those three functions are inseparable — and combining them is exactly what makes it different from anything that currently exists.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Intensive neuroplasticity programming: Daily structured practice in a high-repetition, expert-guided environment — the kind of intensity that drives documented brain reorganization, not the watered-down versions covered by insurance",
+          "Experimental recovery technologies: On-site access to transcranial magnetic stimulation (TMS), constraint-induced movement therapy (CIMT), virtual reality rehabilitation, and brain-computer interface training — currently accessible only at major research hospitals or expensive private clinics",
+          "Community and social recovery: A residential retreat component where survivors can spend extended time — days or weeks — recovering in a peer environment, rebuilding social confidence and connection with people who understand",
+          "Caregiver integration: Partners and family members welcomed as full participants, not afterthoughts — because the research is clear that caregiver support dramatically improves survivor outcomes",
+          "Research and outcome tracking: Every participant's recovery data contributes to a growing evidence base. The Center becomes a site that advances what's known about long-term stroke recovery, not just for our participants but for the field",
+        ],
+      },
+      {
+        type: "h2",
+        content: "Why the Environment Matters",
+      },
+      {
+        type: "p",
+        content:
+          "Conventional outpatient rehab happens in clinical spaces designed for efficiency, not recovery. You drive yourself in, park, wait, do your 45 minutes, drive home. The environment communicates that this is a transaction — you are a patient completing a visit, not a person rebuilding a life.",
+      },
+      {
+        type: "p",
+        content:
+          "The Recovery Center is designed around the opposite principle. The social environment is part of the treatment. Eating dinner with other survivors who are in the same process you are — comparing notes, sharing strategies, laughing at the shared absurdity of this experience — is not supplementary to recovery. It is recovery, in dimensions the clinical system can't reach. The social isolation of stroke is one of its most devastating and least-addressed consequences. A dedicated community environment addresses it directly.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "The day a survivor spends a week surrounded by people who know exactly what they're going through — that's a day that changes their relationship to recovery. You stop feeling like you're failing alone. You start feeling like you're part of something.",
+      },
+      {
+        type: "h2",
+        content: "How Donations Build It",
+      },
+      {
+        type: "p",
+        content:
+          "The Recovery Center is a multi-phase capital project. The foundation is being built now — through scholarships, coaching programs, and the organizational infrastructure that demonstrates Stroke Lyfe's capacity to execute at scale. When we can show donors what we've built with early funding, we can make a credible case for the capital raise that funds the facility itself.",
+      },
+      {
+        type: "p",
+        content:
+          "Your donation today is phase one. It funds programs that help survivors right now — and it builds the organizational track record that unlocks the philanthropic capital for phase two. Major donors, foundations, and institutional funders want to see evidence of execution before they write seven-figure checks. Every scholarship funded, every survivor served, every story documented is that evidence.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "What is the Stroke Lyfe Recovery Center?",
+      },
+      {
+        type: "p",
+        content:
+          "The Stroke Lyfe Recovery Center is a planned dedicated rehabilitation facility for stroke survivors — combining intensive neuroplasticity programming, experimental recovery technologies, community retreat, and ongoing research under one roof. Unlike standard outpatient rehab, it is designed for the long-term recovery phase that insurance doesn't cover, and will serve as both a clinical environment and a social community for survivors.",
+      },
+      {
+        type: "h3",
+        content: "When will the Stroke Lyfe Recovery Center open?",
+      },
+      {
+        type: "p",
+        content:
+          "The Recovery Center is a multi-year fundraising goal. Phase one — building organizational infrastructure, funding scholarships, establishing program outcomes — is underway now. Phase two involves facility acquisition and build-out, with a target of 3-5 years from today given adequate donor support. Every donation today accelerates that timeline.",
+      },
+      {
+        type: "h3",
+        content: "What experimental stroke recovery treatments will be available at the Center?",
+      },
+      {
+        type: "p",
+        content:
+          "The planned treatment menu includes transcranial magnetic stimulation (TMS), constraint-induced movement therapy (CIMT), virtual reality rehabilitation, brain-computer interface (BCI) training, and high-intensity neuroplasticity programs that far exceed standard therapy volumes. All approaches are evidence-based with documented safety profiles. The Center will also serve as a research site, generating outcome data that advances the field for all survivors.",
+      },
+      {
+        type: "cta",
+        label: "Help Build the Recovery Center",
+        href: "/donate",
+        sub: "Your donation today builds the foundation for everything we're creating. Tax-deductible. EIN 99-1313589.",
+      },
+    ],
+  },
+  {
+    slug: "driving-after-stroke-vehicle-modifications",
+    title: "Driving After Stroke: The Vehicle Independence Program Stroke Lyfe Is Building",
+    description:
+      "Losing the ability to drive after a stroke is losing independence. Stroke Lyfe is building a Vehicle Independence Program to fund adaptive driving evaluations and vehicle modifications for survivors who can't afford them.",
+    tag: "Independence",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "7 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "The day your neurologist tells you that you can't drive is one of the most underestimated losses in stroke recovery. People nod sympathetically when you mention it, then quickly move on. But losing your driver's license after a stroke isn't just inconvenient. It is losing the ability to get to your own medical appointments without scheduling around someone else's calendar. It's not being able to pick up your kids from school. It's a quiet, daily reminder that you are dependent on other people for things that used to require no thought at all.",
+      },
+      {
+        type: "p",
+        content:
+          "For many survivors — particularly those with right-side weakness, visual field deficits, or processing speed changes — the path back to driving runs through adaptive equipment. Hand controls. Spinner knobs. Left-foot accelerator pedals. Swivel seats. Vehicle lift systems. Technology that exists, that works, and that most insurance plans — including Medicare — refuse to cover.",
+      },
+      {
+        type: "h2",
+        content: "The Cost Barrier Nobody Talks About",
+      },
+      {
+        type: "p",
+        content:
+          "Before a survivor can even begin the process of returning to driving, they typically need a formal evaluation from a certified driving rehabilitation specialist (CDRS) — a specialist trained to assess visual field, reaction time, cognitive processing, and physical control in a vehicle context. These evaluations run $300-$600. They are rarely covered by insurance. For a survivor living on disability income, that's a month of groceries.",
+      },
+      {
+        type: "p",
+        content:
+          "If the evaluation recommends adaptive equipment, costs escalate significantly. Basic hand controls — which allow a survivor with leg weakness to control throttle and brake via a lever mechanism — typically cost $800-$2,000 installed. More complex modifications run much higher: full wheelchair-accessible vehicle conversions can reach $30,000-$60,000. A power swivel seat, $2,000-$5,000. A left-foot accelerator, $500-$1,500.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Driver evaluation by certified driving rehab specialist (CDRS): $300-$600 — rarely covered by insurance",
+          "Hand controls (push-pull or push-right-angle): $800-$2,000 installed",
+          "Steering spinner / knob for one-handed control: $300-$800",
+          "Left-foot accelerator: $500-$1,500",
+          "Power swivel seat for easier entry/exit: $2,000-$5,000",
+          "Full wheelchair-accessible vehicle conversion: $20,000-$60,000",
+        ],
+      },
+      {
+        type: "h2",
+        content: "What the Stroke Lyfe Vehicle Independence Program Will Do",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Lyfe is building a Vehicle Independence Program to fund access to adaptive driving evaluations and equipment for survivors who cannot afford them. This is not a distant vision — it is a defined program that our donation base is actively building toward. In the near term, we plan to fund driving evaluations for qualifying survivors on a grant basis. As the program scales, we will fund equipment grants for adaptive vehicle modifications.",
+      },
+      {
+        type: "p",
+        content:
+          "We're also exploring partnerships with adaptive vehicle modification companies, CDRS professionals who want to provide sliding-scale evaluations, and state vocational rehabilitation offices that can layer funding on top of Stroke Lyfe grants. The program is designed to meet survivors where insurance stops.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "The day you drive yourself to your own doctor's appointment — without calling anyone, without arranging anything, without depending on anyone — is the day you start feeling like yourself again. That's what we're funding.",
+      },
+      {
+        type: "h2",
+        content: "Why Independence Changes Everything",
+      },
+      {
+        type: "p",
+        content:
+          "The research on transportation access and health outcomes is unambiguous: people who cannot reliably get to medical appointments have worse outcomes. Missed follow-up visits. Delayed interventions. Deteriorating physical conditioning from reduced mobility. The isolation that compounds depression. For stroke survivors, whose long-term recovery depends on consistent access to therapy, coaching, and community — transportation access isn't peripheral. It's central.",
+      },
+      {
+        type: "p",
+        content:
+          "Beyond the clinical dimension, driving represents something the clinical literature doesn't always capture: identity. The stroke survivor who can drive herself to the gym, to her daughter's soccer game, to lunch with a friend — that person is reclaiming her life in the most concrete possible way. It signals to herself and everyone around her that stroke doesn't get to define the boundaries of what she can do.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Can stroke survivors drive again?",
+      },
+      {
+        type: "p",
+        content:
+          "Many stroke survivors are able to return to driving, though requirements vary by state and individual. Most states require medical clearance and a formal driving evaluation by a certified driving rehabilitation specialist (CDRS). The evaluation assesses visual field, reaction time, cognitive processing, and physical control. Survivors with right-side weakness, visual field deficits, or processing speed changes often qualify for adaptive equipment that enables safe driving. The Stroke Lyfe Vehicle Independence Program is building toward funding these evaluations and equipment for survivors who cannot afford them.",
+      },
+      {
+        type: "h3",
+        content: "What vehicle modifications help stroke survivors drive?",
+      },
+      {
+        type: "p",
+        content:
+          "Common adaptive vehicle modifications for stroke survivors include: hand controls (push-pull or push-right-angle mechanisms for throttle and brake), spinner knobs for one-handed steering, left-foot accelerator pedals for survivors with right-side weakness, swivel seats for easier vehicle entry and exit, and wheelchair lift systems for those with mobility equipment. The appropriate modifications depend on the specific deficits resulting from the stroke and are determined during a formal CDRS evaluation.",
+      },
+      {
+        type: "h3",
+        content: "Does insurance cover vehicle modifications for stroke survivors?",
+      },
+      {
+        type: "p",
+        content:
+          "In most cases, no. Medicare and standard private insurance plans do not cover adaptive vehicle modifications or the CDRS evaluations that determine what modifications are needed. Some state vocational rehabilitation programs provide partial coverage for modifications that enable employment. The Stroke Lyfe Vehicle Independence Program is specifically designed to fund the gap that insurance leaves — starting with evaluations, scaling to equipment grants.",
+      },
+      {
+        type: "cta",
+        label: "Fund the Vehicle Independence Program",
+        href: "/donate",
+        sub: "Your donation today builds the program that puts stroke survivors back behind the wheel.",
+      },
+    ],
+  },
+  {
+    slug: "experimental-stroke-recovery-treatments",
+    title: "Experimental Stroke Recovery: The Treatments Pushing Past What Medicine Says Is Possible",
+    description:
+      "The standard of care says stroke recovery plateaus at six months. The research — and Nick Kremers's own experience — says otherwise. Here's what experimental stroke recovery looks like, and why a dedicated facility changes everything.",
+    tag: "Science",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "8 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "I was told I'd reached my recovery ceiling about 18 months after my stroke. My insurance coverage had run out. My outpatient therapy schedule had dwindled to nothing. Neurologically speaking, by the prevailing standard of care, I was supposed to be at or near my final outcome — the permanent expression of whatever function the stroke had left me with. I kept going anyway. And what I found — on my own, through my own research, through a community of survivors and clinicians who refused to accept the same ceiling — fundamentally changed what I believe is possible.",
+      },
+      {
+        type: "p",
+        content:
+          "This post is about the treatments pushing the frontier of stroke recovery: what they are, what the evidence says, what I've experienced personally, and why building a dedicated facility to deliver them systematically is one of Stroke Lyfe's core goals.",
+      },
+      {
+        type: "h2",
+        content: "Constraint-Induced Movement Therapy (CIMT)",
+      },
+      {
+        type: "p",
+        content:
+          "CIMT has one of the strongest evidence bases in stroke rehabilitation research. The principle is elegant: restrict the unaffected limb — typically with a mitt or sling — and force the affected limb to perform the work. The result is a massive increase in repetitions with the affected limb, which drives neuroplastic reorganization at a rate that conventional therapy can't approach. A standard CIMT protocol involves 6 hours of intensive therapy per day for 10 consecutive weekdays. Compare that to the 13-minute average in standard inpatient care.",
+      },
+      {
+        type: "p",
+        content:
+          "The research outcomes are significant. A landmark randomized controlled trial published in the Journal of the American Medical Association showed that chronic stroke patients — those more than a year post-stroke — showed clinically meaningful improvement after CIMT, with gains maintained at two-year follow-up. The barrier to CIMT is access: the intensity and duration of the protocol make it impractical in standard outpatient settings.",
+      },
+      {
+        type: "h2",
+        content: "Transcranial Magnetic Stimulation (TMS)",
+      },
+      {
+        type: "p",
+        content:
+          "TMS uses precisely targeted magnetic fields to stimulate or inhibit specific regions of the brain. In stroke rehabilitation, TMS is used to modulate the balance between the affected and unaffected hemispheres — reducing over-activity in the unaffected hemisphere that can suppress recovery signals from damaged regions, or directly stimulating motor cortex areas linked to the affected limb.",
+      },
+      {
+        type: "p",
+        content:
+          "Multiple meta-analyses have shown TMS produces statistically significant improvements in upper limb motor function in chronic stroke patients. It's offered at major academic medical centers, typically as part of research protocols. That means most survivors — particularly those outside major metropolitan areas — cannot access it. The Stroke Lyfe Recovery Center is planned to include TMS as a standard offering, not a research privilege.",
+      },
+      {
+        type: "h2",
+        content: "Virtual Reality Rehabilitation",
+      },
+      {
+        type: "p",
+        content:
+          "VR rehabilitation creates immersive environments where survivors can perform high-repetition movement tasks — reaching, grasping, balance training — in contexts that are engaging enough to sustain the intensity required for neuroplastic change. The research shows two advantages over conventional therapy: survivors complete more repetitions in a given session, and the engaging environment reduces the perception of effort, which improves compliance over time.",
+      },
+      {
+        type: "p",
+        content:
+          "Systems like the MindMaze and XRHealth platforms have FDA clearance and documented clinical outcomes. Consumer VR platforms are increasingly being adapted for rehabilitation use, potentially making high-repetition motor training accessible at home. The Recovery Center will use clinical-grade VR systems for intensive in-facility programming, and we're exploring pathways to fund home-system access for survivors after they leave.",
+      },
+      {
+        type: "h2",
+        content: "Brain-Computer Interface Training",
+      },
+      {
+        type: "p",
+        content:
+          "Brain-computer interface (BCI) technology translates detected neural signals — the brain's attempt to initiate movement — into actual movement of an affected limb, via robotics or electrical stimulation. The critical principle: when the brain's intention to move is immediately paired with actual movement of the target limb, the closed feedback loop accelerates neuroplastic reorganization in ways that voluntary effort alone cannot achieve.",
+      },
+      {
+        type: "p",
+        content:
+          "BCI-based stroke rehabilitation is still largely in the research phase, but early trial data is compelling. Several devices have received FDA breakthrough designation. The technology is moving fast, and a dedicated facility positioned to integrate emerging BCI tools will be able to offer survivors access to the next generation of recovery technology as it becomes clinically available.",
+      },
+      {
+        type: "h2",
+        content: "Why a Dedicated Facility Is the Key",
+      },
+      {
+        type: "p",
+        content:
+          "None of the above treatments are theoretical. They exist. The problem is access. CIMT requires dedicated space, trained practitioners, and 6-hour daily sessions that no standard outpatient clinic can accommodate. TMS requires capital equipment and expertise. VR rehabilitation requires systems. BCI training requires specialty hardware and programming. Each individually is inaccessible for most survivors. A dedicated facility that integrates all of them — where an intensive two-week stay can combine CIMT with daily TMS, VR sessions, and peer support — is the delivery model that makes the science accessible.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "The treatments that can push recovery far beyond the standard ceiling already exist. The missing piece is a place — purpose-built, properly staffed, fully equipped — to deliver them.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "What are the most effective experimental stroke recovery treatments?",
+      },
+      {
+        type: "p",
+        content:
+          "The approaches with the strongest evidence for chronic stroke recovery — those with documented outcomes in peer-reviewed research — include: constraint-induced movement therapy (CIMT), transcranial magnetic stimulation (TMS), virtual reality rehabilitation for motor and balance training, and emerging brain-computer interface (BCI) protocols. High-intensity neuroplasticity programs that exceed standard therapy volumes by 5-10x also show significant outcomes in trials. All of these are evidence-based with documented safety profiles.",
+      },
+      {
+        type: "h3",
+        content: "Can stroke recovery happen years after the stroke?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Neuroplastic recovery has been documented years — and in some cases more than a decade — after stroke. The critical variable is continued practice intensity, not time. Most survivors plateau because they lose access to the intensity of practice that drives recovery — not because their brains stop responding. Research from institutions including the University of Southern California and NINDS has documented meaningful improvements in chronic stroke patients (those 1+ years post-stroke) using high-intensity protocols.",
+      },
+      {
+        type: "h3",
+        content: "Are experimental stroke treatments covered by insurance?",
+      },
+      {
+        type: "p",
+        content:
+          "Most experimental stroke treatments — including CIMT in its intensive form, TMS for stroke motor rehabilitation, clinical VR rehabilitation, and BCI training — are not covered by standard insurance. TMS has limited coverage for depression; stroke motor rehabilitation applications remain largely out-of-pocket. This is precisely why Stroke Lyfe's donor-funded model and planned Recovery Center are essential: to make evidence-based experimental treatments accessible regardless of insurance status.",
+      },
+      {
+        type: "cta",
+        label: "Fund the Future of Stroke Recovery",
+        href: "/donate",
+        sub: "Your donation funds the programs and facility that make experimental recovery accessible. Tax-deductible. EIN 99-1313589.",
+      },
+    ],
+  },
+  {
+    slug: "what-your-stroke-lyfe-donation-builds",
+    title: "What Your Donation to Stroke Lyfe Inc. Actually Builds: The Complete Vision",
+    description:
+      "Most nonprofit donation pages show you a button. We want to show you the full picture — every program, every goal, every dollar accounted for. Here's exactly what Stroke Lyfe is building and why every donation moves it forward.",
+    tag: "Donation",
+    date: "May 22, 2026",
+    publishedAt: "2026-05-22",
+    readTime: "8 min read",
+    author: "Nick Kremers",
+    sections: [
+      {
+        type: "p",
+        content:
+          "Most nonprofit donation pages show you a number and a button. We want to do something different. Stroke Lyfe Inc. (EIN: 99-1313589) is a 501(c)(3) public charity founded by stroke survivor Nick Kremers — and we want every donor to understand exactly what they're funding, why it matters, and how it connects to a vision that is genuinely different from anything that currently exists in the stroke recovery space.",
+      },
+      {
+        type: "p",
+        content:
+          "This post lays out the complete picture: what we're doing today, what we're building tomorrow, and what every dollar between $25 and $100,000 actually enables. Transparency isn't just a policy for us — it's a founding value.",
+      },
+      {
+        type: "h2",
+        content: "What Donations Fund Today",
+      },
+      {
+        type: "ul",
+        items: [
+          "$25 — One week of daily motivation tools, mindset content, and social connection resources for a survivor currently in our programs",
+          "$50 — One month of peer community and social programming access for a survivor who would otherwise be isolated",
+          "$97 — One full Survivor Scholarship into a recovery program: coaching, community, AI tools, and accountability for one month",
+          "$150 — A peer mentor match for a survivor — connecting them to someone who has lived a similar stroke profile and is willing to walk alongside their recovery",
+          "$297 — A Mentored Scholarship: three months of group coaching, accountability check-ins, and structured recovery programming",
+          "$997 — An Elite Scholarship: personalized 1:1 coaching with Nick Kremers, a custom recovery plan, and lifetime program access for one survivor",
+          "$1,000 — Full access to every Stroke Lyfe program for ten survivors for one month — we'll send you their first names",
+        ],
+      },
+      {
+        type: "h2",
+        content: "What Donations Build Tomorrow",
+      },
+      {
+        type: "p",
+        content:
+          "Every dollar above our immediate program costs goes into the capital fund for Stroke Lyfe's long-term vision. Here is what that vision consists of — in full:",
+      },
+      {
+        type: "ul",
+        items: [
+          "The Stroke Lyfe Recovery Center: A dedicated rehabilitation facility combining intensive neuroplasticity programming, experimental treatments (TMS, CIMT, VR therapy, BCI), and a community retreat environment where survivors can spend extended time recovering alongside peers",
+          "The Vehicle Independence Program: Funded driving evaluations by certified rehabilitation specialists, and equipment grants for adaptive vehicle modifications — so survivors can drive themselves to their own appointments and reclaim their independence",
+          "Expanded Peer Connection: Profile-matched survivor pairs across the country, supported by a structured program and regular community events — both virtual and eventually in-person at the Recovery Center",
+          "Social Recovery Programs: Structured programming specifically for the social and identity dimensions of stroke recovery — the losses that insurance doesn't acknowledge and philanthropy has mostly ignored",
+          "Research Partnerships: Outcome data collected across all Stroke Lyfe programs, shared with academic partners to advance what the field knows about long-term stroke recovery",
+        ],
+      },
+      {
+        type: "h2",
+        content: "Why This Organization — and Why Now",
+      },
+      {
+        type: "p",
+        content:
+          "Nick Kremers had his stroke on December 3, 2018, at age 36. He was predicted 30% recovery. He's at 90%+ more than seven years later. He built Stroke Recovery Academy to give survivors access to the intensive, neuroplasticity-driven recovery model that worked for him. He built Stroke Lyfe Inc. to fund access for every survivor who couldn't afford it — and to build the programs and facilities that the medical system has never adequately funded.",
+      },
+      {
+        type: "p",
+        content:
+          "What makes this organization different is not just the programs — it's the founder. Nick isn't a healthcare executive or a nonprofit professional. He is a survivor who refused the ceiling he was given, rebuilt his function through sheer intensity and refusal to give up, and then turned his recovery into a platform for every other survivor who deserves the same chance. The E-E-A-T of Stroke Lyfe is a person who has lived every program we're building.",
+      },
+      {
+        type: "blockquote",
+        content:
+          "I don't want to run a scholarship fund. I want to change what's possible for stroke survivors — physically, socially, and economically. Your donation is the foundation that makes that possible.",
+      },
+      {
+        type: "h2",
+        content: "How We Use Your Money",
+      },
+      {
+        type: "p",
+        content:
+          "87 cents of every dollar donated to Stroke Lyfe goes directly to programs. The remaining 13 cents covers operational costs: payment processing, financial compliance, and the administrative infrastructure required to maintain our 501(c)(3) status. We publish our financial allocation annually. We do not pay board members. Our financials are filed with the IRS and available on our Transparency page.",
+      },
+      {
+        type: "h2",
+        content: "Frequently Asked Questions",
+      },
+      {
+        type: "h3",
+        content: "Is Stroke Lyfe Inc. a legitimate nonprofit?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. Stroke Lyfe Inc. (EIN: 99-1313589) is a federally recognized 501(c)(3) public charity registered in Arkansas. Donations are tax-deductible to the fullest extent of the law. Our financial records are published on our Transparency page and filed annually with the IRS. The organization was founded by Nick Kremers, a stroke survivor, and is governed by an independent board of directors.",
+      },
+      {
+        type: "h3",
+        content: "How does Stroke Lyfe use donations?",
+      },
+      {
+        type: "p",
+        content:
+          "87 cents of every dollar goes directly to programs: survivor scholarships, peer connection, motivation tools, caregiver support, and the capital fund for the Recovery Center and Vehicle Independence Program. 13 cents covers operations including payment processing, compliance, and administrative infrastructure. Program allocation is published in our annual report. No board members receive compensation.",
+      },
+      {
+        type: "h3",
+        content: "What is the difference between Stroke Lyfe and Stroke Recovery Academy?",
+      },
+      {
+        type: "p",
+        content:
+          "Stroke Recovery Academy (SRA) is a platform that provides intensive recovery programming, AI coaching, exercise libraries, and community for stroke survivors. Stroke Lyfe Inc. is the 501(c)(3) nonprofit founded to fund access to SRA and other recovery resources for survivors who cannot afford them — and to build broader programs (Vehicle Independence, Recovery Center, social recovery, research) that operate independently of SRA. Nick Kremers founded both organizations.",
+      },
+      {
+        type: "h3",
+        content: "Can I donate in honor of someone who had a stroke?",
+      },
+      {
+        type: "p",
+        content:
+          "Yes. The Stroke Lyfe donation form includes a tribute option — you can make a gift in honor or memory of someone, and optionally send them (or their family) a notification email. Tribute donations are fully tax-deductible and go to the same programs as all other donations. A receipt is sent to your email address.",
+      },
+      {
+        type: "cta",
+        label: "Donate Now and Help Build This",
+        href: "/donate",
+        sub: "Every dollar is a brick in what we're building. Tax-deductible. EIN 99-1313589. 87 cents on the dollar goes to programs.",
+      },
+    ],
+  },
 ];
 
 function renderSection(section: Section, index: number) {

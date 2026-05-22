@@ -7,7 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useSubmitContact } from "@workspace/api-client-react";
-import { Mail } from "lucide-react";
+import { Link } from "wouter";
+import { Mail, ArrowRight } from "lucide-react";
 
 const topics = [
   { value: "general", label: "General inquiry" },
@@ -53,8 +54,26 @@ export default function Contact() {
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Get in Touch</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold">We answer real emails.</h1>
           <p className="mt-4 text-background/70 max-w-xl text-lg">
-            No ticket system. No bot. Nick or a team member will get back to you within 48 hours.
+            No ticket system. No bot. Nick reads every message personally and gets back to you within 48 hours.
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <a
+              href="mailto:nick@strokelyfe.org"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors text-sm"
+              data-testid="link-hero-nick-email"
+            >
+              <Mail className="h-4 w-4" />
+              Email Nick directly — nick@strokelyfe.org
+            </a>
+            <Link
+              href="/vision"
+              className="inline-flex items-center gap-2 border border-background/40 text-background px-5 py-3 rounded-lg font-medium hover:bg-background/10 transition-colors text-sm"
+              data-testid="link-hero-vision"
+            >
+              See what we're building
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -153,8 +172,23 @@ export default function Contact() {
 
             {/* Sidebar */}
             <div className="space-y-6">
+              <div className="bg-foreground text-background rounded-lg p-5" data-testid="card-contact-nick">
+                <p className="text-xs font-semibold text-background/50 uppercase tracking-wide mb-1">Talk to the founder</p>
+                <h3 className="font-serif font-bold text-background mb-1">Nick Kremers</h3>
+                <p className="text-xs text-background/60 mb-3">7.5-year stroke survivor · Founder, Stroke Lyfe Inc.</p>
+                <a
+                  href="mailto:nick@strokelyfe.org"
+                  className="flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
+                  data-testid="link-email-nick"
+                >
+                  <Mail className="h-4 w-4" />
+                  nick@strokelyfe.org
+                </a>
+                <p className="text-xs text-background/50 mt-2 leading-relaxed">Nick reads every message personally. Survivors, donors, partners, media — all welcome.</p>
+              </div>
+
               <div className="bg-muted rounded-lg p-5">
-                <h3 className="font-serif font-bold text-foreground mb-4">Reach us directly</h3>
+                <h3 className="font-serif font-bold text-foreground mb-4">Team inboxes</h3>
                 <div className="space-y-3">
                   <div>
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-0.5">General</p>

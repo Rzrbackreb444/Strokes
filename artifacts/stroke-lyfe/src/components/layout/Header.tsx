@@ -8,8 +8,8 @@ const logo = `${import.meta.env.BASE_URL}assets/logo.png`;
 const navLinks = [
   { href: "/about", label: "About" },
   { href: "/programs", label: "Programs" },
-  { href: "/stories", label: "Stories" },
-  { href: "/transparency", label: "Transparency" },
+  { href: "/vision", label: "Vision" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {

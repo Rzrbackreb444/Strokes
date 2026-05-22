@@ -24,6 +24,7 @@ import Events from "@/pages/Events";
 import Resources from "@/pages/Resources";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import Vision from "@/pages/Vision";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ function Router() {
       <Route path="/resources" component={Resources} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/vision" component={Vision} />
       <Route component={NotFound} />
     </Switch>
   );
