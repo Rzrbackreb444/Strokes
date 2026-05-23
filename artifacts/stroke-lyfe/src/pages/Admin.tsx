@@ -391,6 +391,24 @@ export default function Admin() {
                                 Resend tribute
                               </Button>
                             )}
+                            {donation.tributeOf && !!donation.tributeNotificationSentAt && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-xs h-7 px-2"
+                                disabled={resendTribute.isPending}
+                                onClick={() => {
+                                  setEditedTributeEmail(donation.tributeNotifyEmail ?? "");
+                                  setTributeConfirm({
+                                    id: donation.id,
+                                    originalEmail: donation.tributeNotifyEmail ?? "",
+                                  });
+                                }}
+                                data-testid={`button-edit-resend-tribute-${donation.id}`}
+                              >
+                                Edit email / Resend
+                              </Button>
+                            )}
                           </div>
                         </td>
                         <td className="py-2 text-muted-foreground text-xs">
