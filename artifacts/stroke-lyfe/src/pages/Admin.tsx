@@ -354,25 +354,23 @@ export default function Admin() {
                         </td>
                         <td className="py-2 pr-4">
                           <div className="flex flex-col gap-1">
-                            {!donation.receiptSentAt && (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="text-xs h-7 px-2"
-                                disabled={resendReceipt.isPending}
-                                onClick={() =>
-                                  setReceiptConfirm({
-                                    id: donation.id,
-                                    donorEmail: donation.donorEmail,
-                                    recipientEmail: donation.recipientEmail ?? undefined,
-                                    kind: donation.kind,
-                                  })
-                                }
-                                data-testid={`button-resend-receipt-${donation.id}`}
-                              >
-                                Resend receipt
-                              </Button>
-                            )}
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-7 px-2"
+                              disabled={resendReceipt.isPending}
+                              onClick={() =>
+                                setReceiptConfirm({
+                                  id: donation.id,
+                                  donorEmail: donation.donorEmail,
+                                  recipientEmail: donation.recipientEmail ?? undefined,
+                                  kind: donation.kind,
+                                })
+                              }
+                              data-testid={`button-resend-receipt-${donation.id}`}
+                            >
+                              Resend receipt
+                            </Button>
                             {donation.tributeOf && !donation.tributeNotificationSentAt && (
                               <Button
                                 size="sm"
